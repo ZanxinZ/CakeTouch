@@ -1,12 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="173dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="HelloWorld" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="136dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="0.1"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/buttonAddTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/button_background"
+            android:text="新增" />
+
+        <Button
+            android:id="@+id/buttonOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:text="点餐" />
+
+        <Button
+            android:id="@+id/buttonServeFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:text="上菜" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="0.8"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/tableScroll">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/tables">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_background"
+                    android:text="上菜" />
+            </LinearLayout>
+
+        </ScrollView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
+    </LinearLayout>
 </LinearLayout>
