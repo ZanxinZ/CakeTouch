@@ -86,8 +86,6 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             return ;
         }
 
-
-
         Log.d("添加桌位", "失败");
         Toast.makeText(getApplicationContext(), "新增桌位失败", Toast.LENGTH_LONG).show();
     }
