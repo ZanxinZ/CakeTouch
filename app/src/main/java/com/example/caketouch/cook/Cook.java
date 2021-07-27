@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Cook {
-    public HashMap<Long, Food> ordered;//id, dish
+    public HashMap<Long, Food> ordered;//id(time), dish
     public HashMap<Long,Food> served;
     public HashMap<Long,Food> preparing;
 

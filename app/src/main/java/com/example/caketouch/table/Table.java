@@ -3,6 +3,9 @@ package com.example.caketouch.table;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * 桌子业务
+ */
 public class Table {
     private Order order;
     private Button button;

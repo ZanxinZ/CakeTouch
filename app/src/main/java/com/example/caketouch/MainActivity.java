@@ -8,32 +8,34 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.example.caketouch.model.ImageDatabaseHandler;
+import com.example.caketouch.model.ImageModel;
 import com.example.caketouch.table.Table;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 
 public class MainActivity extends Activity implements AddTableDialogFragment.NoticeDialogListener{
@@ -47,7 +49,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     File tmpDir = new File(Environment.getExternalStorageDirectory() + "/mealPic" );
 
-
+    private ImageDatabaseHandler imageDatabaseHandler;
 
     private int curTableNo;
     @Override
@@ -69,8 +71,13 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
         });
 
+        imageDatabaseHandler = new ImageDatabaseHandler(this);
+
         if (!tmpDir.exists()){
-            tmpDir.mkdir();
+            Log.d("新建文件",tmpDir.getAbsolutePath());
+            Log.d("文件：",String.valueOf(tmpDir.mkdir()));;
+        }else{
+            Log.d("文件","已存在");
         }
 
         Button button = findViewById(R.id.buttonServeFood);
@@ -85,32 +92,90 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         });
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data == null)return;
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        Log.d("图片","触发");
+        Log.d("图片",String.valueOf(resultCode));
+        if (intent == null)return;
         if(requestCode == 123){
-            Bundle extras = data.getExtras();
-            if (extras != null){
+            Log.d("图片","保存");
 
-                Bitmap bm = extras.getParcelable("data");
-                //将Bitmap转化为uri
-                Uri uri = saveBitmap(bm,"001.jpg");
-                //启动图像裁剪
-                startImageZoom(uri);
+            //Bundle extras = intent.getExtras();
+            Log.d("图片", "extra");
+            //Bitmap bm = extras.getParcelable("data");
+
+            //Uri uri = saveBitmap(bm, "zzx.png");
+//            Uri uri = intent.getData();
+//            resizeImage(uri);
+//            uri = convertUri(uri);
+            Uri uri = intent.getData();
+            try {
+                Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                storeImage(bm);
+            } catch (IOException e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
+            //启动图像裁剪
+//            startImageZoom(uri);
+
         }
         else if(requestCode == 12){
-            Bundle extras = data.getExtras();
+            Log.d("图片","裁剪后");
+            Bundle extras = intent.getExtras();
             if (extras != null) {
                 //获取到裁剪后的图像
+                Log.d("图片","裁剪后有");
                 Bitmap bm = extras.getParcelable("data");
+                Uri uri = saveBitmap(bm, "zzx2.png");
 //                ImageView imageView = findViewById(R.id.)
 //                mImageView.setImageBitmap(bm);
+            }else{
+                Log.d("图片","裁剪后无");
             }
+        }
+        super.onActivityResult(requestCode, resultCode, intent);
+    }
+
+    public void resizeImage(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        //裁剪的大小
+        intent.putExtra("outputX", 150);
+        intent.putExtra("outputY", 150);
+        intent.putExtra("return-data", true);
+        //设置返回码
+        startActivityForResult(intent, 12);
+    }
+
+    public void storeImage(Bitmap image){
+        ImageModel imageModel = new ImageModel("zzx.jpg", image);
+        imageDatabaseHandler.storeImage(imageModel);
+    }
+
+    private Uri convertUri(Uri uri){
+        InputStream is;
+        try {
+            //Uri ----> InputStream
+            is = getContentResolver().openInputStream(uri);
+            //InputStream ----> Bitmap
+            Bitmap bm = BitmapFactory.decodeStream(is);
+            //关闭流
+            is.close();
+            return saveBitmap(bm, "001.png");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
     private Uri saveBitmap(Bitmap bm, String fileName){
         File img = new File(tmpDir.getAbsolutePath() + "/" + fileName);
+
         try {
             //打开文件输出流
             FileOutputStream fos = new FileOutputStream(img);
@@ -146,7 +211,8 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         intent.putExtra("outputY", 150);
         //裁剪之后的数据是通过Intent返回
         intent.putExtra("return-data", true);
-        startActivityForResult(intent, 12);
+        this.startActivityForResult(intent, 12);
+
     }
 
     public static void scrollToBottom(final View scroll, final View innerView) {

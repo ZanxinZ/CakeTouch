@@ -9,7 +9,11 @@ import com.example.caketouch.Menu.Dish;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * 记录点的每一个物品，每个物品有一个ID(time)，相同的菜色有相同的 DishNo
+ */
 public class Order {
+    //记录点的每个物品
     private HashMap<Long, Stuff> ordered = new HashMap();
     private Long orderTime;//点餐时间
 
