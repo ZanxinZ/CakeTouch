@@ -5,4 +5,8 @@ public class Food extends Stuff{
     public boolean serve() {
         return false;
     }
+
+    public Food(String name, float price, float smallPrice, int count, Long time, Long dishNo, int tableNo) {
+        super(name, price, smallPrice, count, time, dishNo, tableNo, false);
+    }
 }
