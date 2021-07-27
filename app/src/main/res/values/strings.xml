@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">CakeTouch</string>
-    <string name="no">桌号</string>
+    <string name="no">桌号：</string>
 </resources>

@@ -5,14 +5,16 @@ package com.example.caketouch.Menu;
  */
 public class Dish {
     private String name;
+    private String unitName;
     private float price;
     private float smallPrice;      //小份价格
     private String picPath;        //图片路径
     private DishType dishType;
     private Long dishNo;
 
-    private Dish(String name, float price, float smallPrice, String picPath, DishType dishType, Long dishNo) {
+    private Dish(String name, float price, String unitName, float smallPrice, String picPath, DishType dishType, Long dishNo) {
         this.name = name;
+        this.unitName = unitName;
         this.price = price;
         this.smallPrice = smallPrice;
         this.picPath = picPath;
@@ -27,6 +29,14 @@ public class Dish {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
     public float getPrice() {

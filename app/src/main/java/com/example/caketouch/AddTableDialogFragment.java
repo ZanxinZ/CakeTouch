@@ -17,7 +17,7 @@ import java.util.Set;
 
 @SuppressLint("ValidFragment")
 public class AddTableDialogFragment extends DialogFragment {
-    public int tableNo = 0;
+    public int tableNo = -1;
     public Set<Integer> tableNos;
     public AddTableDialogFragment(Set<Integer> tableNos){
         this.tableNos = tableNos;
@@ -67,10 +67,9 @@ public class AddTableDialogFragment extends DialogFragment {
                         Toast.makeText(MainActivity.sContextReference.get().getApplicationContext(), tableNo + " 号已有订单，重新选择！", Toast.LENGTH_SHORT).show();
                         tableNo = 0;
                     }
+                    return;
                 }
-
-
-
+                tableNo = -1;
 
             }
 

@@ -6,16 +6,18 @@ import java.util.Date;
  * 物品
  */
 public abstract class Stuff {
-    protected String name;
-    protected float price;//大份价格
-    protected float smallPrice;//小份价格
-    protected int count;
-    protected Long time;
-    protected boolean served;
-    protected Long dishNo;
-    protected int tableNo;
-    public Stuff(String name, float price, float smallPrice, int count, Long time,  Long dishNo, int tableNo, boolean served) {
+    protected String name;      //名称
+    protected String unitName;  //单位名称
+    protected float price;      //正常价格
+    protected float smallPrice; //小份价格
+    protected int count;        //数量
+    protected Long time;        //点菜时间
+    protected boolean served;   //是否已交付
+    protected Long dishNo;      //菜色编号
+    protected int tableNo;      //桌号
+    public Stuff(String name, String unitName, float price, float smallPrice, int count, Long time,  Long dishNo, int tableNo, boolean served) {
         this.name = name;
+        this.unitName = unitName;
         this.price = price;
         this.smallPrice = smallPrice;
         this.count = count;
