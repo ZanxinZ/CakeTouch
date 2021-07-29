@@ -18,6 +18,19 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".SettingActivity">
+            <intent-filter>
+                <action android:name="com.example.caketouch.SettingActivity"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".NewDishActivity">
+            <intent-filter>
+                <action android:name="com.example.caketouch.NewDishActivity"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 

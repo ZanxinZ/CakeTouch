@@ -94,6 +94,13 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             }
 
         });
+
+        Button settingBtn = findViewById(R.id.buttonSetting);
+        settingBtn.setOnClickListener((v)->{
+            Intent intent = new Intent("com.example.caketouch.SettingActivity");
+            startActivity(intent);
+        });
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -151,7 +158,6 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);//save image
         return Uri.parse(path);
     }
-
 
     private Uri convertUri(Uri uri){
         InputStream is;
@@ -214,6 +220,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     }
 
+
     public static void scrollToBottom(final View scroll, final View innerView) {
         Handler handler = new Handler();
         handler.post(new Runnable() {
@@ -270,7 +277,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         button.setOnClickListener((v)->{
             LinearLayout tables = findViewById(R.id.tables);
             try{
-                tables.removeView(button);
+                //tables.removeView(button);
             }catch (Exception e){
 
             }

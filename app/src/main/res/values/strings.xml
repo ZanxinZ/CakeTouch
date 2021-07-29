@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">CakeTouch</string>
     <string name="no">桌号：</string>
+    <string name="setting">设置</string>
+    <string name="add_new_dish">新增菜品</string>
+
+    <string name="check_ordered">查看已点</string>
+    <string name="serve_food">上菜</string>
+    <string name="new_table">新的桌子</string>
+
+    <string name="dish_name">名称</string>
 </resources>

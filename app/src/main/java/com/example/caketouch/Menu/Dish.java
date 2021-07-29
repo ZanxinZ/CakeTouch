@@ -2,13 +2,15 @@ package com.example.caketouch.Menu;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * 菜色
  */
-public class Dish {
+public class Dish implements Serializable {
     private String name;
     private String unitName;       //单位
-    private Bitmap image;
+    private transient Bitmap image;
     private float price;
     private float smallPrice;      //小份价格
     private DishType dishType;
