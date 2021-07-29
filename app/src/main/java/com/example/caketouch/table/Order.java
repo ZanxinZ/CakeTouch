@@ -28,7 +28,7 @@ public class Order {
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void orderFood(int tableNo, Dish dish, int count){
-        Food food = new Food(dish.getName(), dish.getUnitName(), dish.getPrice(), dish.getSmallPrice(), count, new Date().getTime(), dish.getdishNo(), tableNo);
+        Food food = new Food(dish.getName(), dish.getUnitName(), dish.getPrice(), dish.getSmallPrice(), count, new Date().getTime(), dish.getDishNo(), tableNo);
         ordered.put(food.getTime(),food);
     }
 
@@ -38,7 +38,7 @@ public class Order {
      * @param count
      */
     public void takeDrink(int tableNo, Dish dish, int count){
-        Drink drink = new Drink(dish.getName(),dish.getUnitName(), dish.getPrice(),-1, count, new Date().getTime(),dish.getdishNo(), tableNo);
+        Drink drink = new Drink(dish.getName(),dish.getUnitName(), dish.getPrice(),-1, count, new Date().getTime(),dish.getDishNo(), tableNo);
         ordered.put(drink.getTime(),drink);
     }
 

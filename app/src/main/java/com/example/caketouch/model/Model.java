@@ -2,13 +2,17 @@ package com.example.caketouch.model;
 
 import android.graphics.Bitmap;
 
-public class ImageModel {
+import com.example.caketouch.Menu.Dish;
+
+public class Model {
     private String imageName;
     private Bitmap image;
+    private Dish dish;
 
-    public ImageModel(String imageName, Bitmap image) {
+    public Model(String imageName, Bitmap image, Dish dish) {
         this.imageName = imageName;
         this.image = image;
+        this.dish = dish;
     }
 
     public String getImageName() {
@@ -25,5 +29,13 @@ public class ImageModel {
 
     public void setImage(Bitmap image) {
         this.image = image;
+    }
+
+    public Dish getDish() {
+        return dish;
+    }
+
+    public void setDish(Dish dish) {
+        this.dish = dish;
     }
 }

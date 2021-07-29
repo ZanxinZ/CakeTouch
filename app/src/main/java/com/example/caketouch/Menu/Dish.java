@@ -1,23 +1,25 @@
 package com.example.caketouch.Menu;
 
+import android.graphics.Bitmap;
+
 /**
  * 菜色
  */
 public class Dish {
     private String name;
-    private String unitName;
+    private String unitName;       //单位
+    private Bitmap image;
     private float price;
     private float smallPrice;      //小份价格
-    private String picPath;        //图片路径
     private DishType dishType;
     private Long dishNo;
 
-    private Dish(String name, float price, String unitName, float smallPrice, String picPath, DishType dishType, Long dishNo) {
+    public Dish(String name, String unitName, Bitmap image, float price,  float smallPrice, DishType dishType, Long dishNo) {
         this.name = name;
         this.unitName = unitName;
+        this.image = image;
         this.price = price;
         this.smallPrice = smallPrice;
-        this.picPath = picPath;
         this.dishType = dishType;
         this.dishNo = dishNo;
     }
@@ -39,6 +41,14 @@ public class Dish {
         this.unitName = unitName;
     }
 
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
+
     public float getPrice() {
         return price;
     }
@@ -55,14 +65,6 @@ public class Dish {
         this.smallPrice = smallPrice;
     }
 
-    public String getPicPath() {
-        return picPath;
-    }
-
-    public void setPicPath(String picPath) {
-        this.picPath = picPath;
-    }
-
     public DishType getDishType() {
         return dishType;
     }
@@ -71,11 +73,13 @@ public class Dish {
         this.dishType = dishType;
     }
 
-    public Long getdishNo() {
+    public Long getDishNo() {
         return dishNo;
     }
 
-    public void setdishNo(Long dishNo) {
+    public void setDishNo(Long dishNo) {
         this.dishNo = dishNo;
     }
+
+
 }

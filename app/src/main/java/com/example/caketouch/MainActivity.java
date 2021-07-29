@@ -24,16 +24,20 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.example.caketouch.Menu.Dish;
+import com.example.caketouch.Menu.DishType;
 import com.example.caketouch.model.ImageDatabaseHandler;
-import com.example.caketouch.model.ImageModel;
+import com.example.caketouch.model.Model;
 import com.example.caketouch.table.Table;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,17 +90,17 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent, 123);
+                startActivityForResult(intent, RequestCode.PHOTO);
             }
 
         });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        Log.d("图片","触发");
-        Log.d("图片",String.valueOf(resultCode));
-        if (intent == null)return;
-        if(requestCode == 123){
+            Log.d("图片","触发");
+            Log.d("图片",String.valueOf(resultCode));
+            if (intent == null)return;
+        if(requestCode == RequestCode.PHOTO){
             Log.d("图片","保存");
 
             //Bundle extras = intent.getExtras();
@@ -108,29 +112,21 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 //            resizeImage(uri);
 //            uri = convertUri(uri);
             Uri uri = intent.getData();
-            try {
-                Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                storeImage(bm);
-            } catch (IOException e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+            resizeImage(uri);
             //启动图像裁剪
 //            startImageZoom(uri);
 
         }
-        else if(requestCode == 12){
+        else if(requestCode == RequestCode.PHOTO_CROP){
             Log.d("图片","裁剪后");
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                //获取到裁剪后的图像
-                Log.d("图片","裁剪后有");
-                Bitmap bm = extras.getParcelable("data");
-                Uri uri = saveBitmap(bm, "zzx2.png");
-//                ImageView imageView = findViewById(R.id.)
-//                mImageView.setImageBitmap(bm);
-            }else{
-                Log.d("图片","裁剪后无");
+            Bundle bundle = intent.getExtras();
+            if (bundle != null){
+                Bitmap bitmap = bundle.getParcelable("data");
+                //Uri uri = getImageUri(this, bitmap);
+                //                    Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                imageDatabaseHandler.storeDish(new Dish("猪脚", "份", bitmap, 60, 55, DishType.yao, new Date().getTime()));
             }
+
         }
         super.onActivityResult(requestCode, resultCode, intent);
     }
@@ -146,13 +142,16 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         intent.putExtra("outputY", 150);
         intent.putExtra("return-data", true);
         //设置返回码
-        startActivityForResult(intent, 12);
+        this.startActivityForResult(intent, RequestCode.PHOTO_CROP);
     }
 
-    public void storeImage(Bitmap image){
-        ImageModel imageModel = new ImageModel("zzx.jpg", image);
-        imageDatabaseHandler.storeImage(imageModel);
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);//save image
+        return Uri.parse(path);
     }
+
 
     private Uri convertUri(Uri uri){
         InputStream is;
