@@ -4,14 +4,13 @@ package com.example.caketouch.Menu;
  * 菜的类型
  */
 public enum  DishType {
-        yao(1),        //窑
-        soup(2) ,      //汤
-        pot(3),        //煲
+        other(1),
+        yao(2),        //窑
+        soup(3) ,      //汤
         saute(4),      //炒
-        fry(5),        //炸
-        vegetable(6),  //青菜
-        other(7),
-        drink(8)
+        pot(5),        //煲
+        fry(6),        //炸,
+        drink(7)
         ;
         public int code;
         DishType(int code) {

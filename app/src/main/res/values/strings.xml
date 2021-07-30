@@ -8,5 +8,38 @@
     <string name="serve_food">上菜</string>
     <string name="new_table">新的桌子</string>
 
-    <string name="dish_name">名称</string>
+    <string name="dish_name">名称:</string>
+    <string name="input">输入</string>
+    <string name="dish_price">价格:</string>
+    <string name="dish_low_price">小份价格:</string>
+    <string name="dish_unit">单位:</string>
+    <string name="dish_type">类型:</string>
+
+    
+    <string name="yao">窑</string>
+    <string name="soup">汤</string>
+    <string name="pot">煲</string>
+    <string name="saute">炒</string>
+    <string name="fry">炸</string>
+    <string name="vegetable">青菜</string>
+    <string name="drink">饮品</string>
+    <string name="other">其它</string>
+
+    <string-array name="dishUnitArray">
+        <item>份</item>
+        <item>盘</item>
+        <item>罐</item>
+        <item>瓶</item>
+    </string-array>
+
+    <string-array name="dishTypeArray">
+        <item>其它</item>
+        <item>窑</item>
+        <item>汤</item>
+        <item>炒</item>
+        <item>煲</item>
+        <item>炸</item>
+        <item>饮品</item>
+    </string-array>
+
 </resources>
