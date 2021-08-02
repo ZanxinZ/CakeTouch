@@ -27,7 +27,6 @@ import android.widget.Toast;
 import com.example.caketouch.Menu.Dish;
 import com.example.caketouch.Menu.DishType;
 import com.example.caketouch.model.ImageDatabaseHandler;
-import com.example.caketouch.model.Model;
 import com.example.caketouch.table.Table;
 
 import java.io.ByteArrayOutputStream;

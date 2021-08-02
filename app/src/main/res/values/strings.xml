@@ -30,6 +30,8 @@
         <item>盘</item>
         <item>罐</item>
         <item>瓶</item>
+        <item>个</item>
+        <item>斤</item>
     </string-array>
 
     <string-array name="dishTypeArray">
@@ -41,5 +43,8 @@
         <item>炸</item>
         <item>饮品</item>
     </string-array>
+
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
 
 </resources>

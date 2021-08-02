@@ -3,8 +3,10 @@ package com.example.caketouch;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -16,8 +18,7 @@ public class NewDishActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_new_dish);
 
-
-
+        //Keyboard hide when loss focus
         LinearLayout linearLayout = findViewById(R.id.addDishLayout);
         linearLayout.setOnTouchListener((v, event) -> {
             linearLayout.setFocusable(true);
@@ -27,6 +28,13 @@ public class NewDishActivity extends Activity {
             imm.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
             //curEditText.clearFocus();
             return false;
+        });
+
+        Button button = findViewById(R.id.buttonConfirmAddDish);
+        button.setOnClickListener(v->{
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
     }
 
