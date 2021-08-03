@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.example.caketouch.table.Stuff;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

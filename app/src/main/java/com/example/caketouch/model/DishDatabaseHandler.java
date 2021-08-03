@@ -18,14 +18,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class ImageDatabaseHandler extends SQLiteOpenHelper {
+public class DishDatabaseHandler extends SQLiteOpenHelper {
 
     Context context;
     private static String DATABASE_NAME = "my.db";
     private static int DATABASE_VERSION = 1;
     private static String createTableQuery = "create table menus (name TEXT, dish BLOB)";
 
-    public ImageDatabaseHandler(@Nullable Context context) {
+    public DishDatabaseHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }

@@ -24,9 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.example.caketouch.Menu.Dish;
-import com.example.caketouch.Menu.DishType;
-import com.example.caketouch.model.ImageDatabaseHandler;
+import com.example.caketouch.model.DishDatabaseHandler;
 import com.example.caketouch.table.Table;
 
 import java.io.ByteArrayOutputStream;
@@ -36,7 +34,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +49,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     File tmpDir = new File(Environment.getExternalStorageDirectory() + "/mealPic" );
 
-    private ImageDatabaseHandler imageDatabaseHandler;
+    private DishDatabaseHandler dishDatabaseHandler;
 
     private int curTableNo;
     @Override
@@ -74,7 +71,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
         });
 
-        imageDatabaseHandler = new ImageDatabaseHandler(this);
+        dishDatabaseHandler = new DishDatabaseHandler(this);
 
         if (!tmpDir.exists()){
             Log.d("新建文件",tmpDir.getAbsolutePath());
@@ -130,7 +127,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
                 Bitmap bitmap = bundle.getParcelable("data");
                 //Uri uri = getImageUri(this, bitmap);
                 //                    Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                imageDatabaseHandler.storeDish(new Dish("猪脚", "份", bitmap, 60, 55, DishType.yao, new Date().getTime()));
+                //imageDatabaseHandler.storeDish(new Dish("猪脚", "份", bitmap, 60, 55, DishType.yao, new Date().getTime()));
             }
 
         }
