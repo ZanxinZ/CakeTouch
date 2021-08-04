@@ -42,8 +42,8 @@ public class NewDishActivity extends Activity {
 
         Button buttonCancel = findViewById(R.id.buttonCancelAddDish);
         buttonCancel.setOnClickListener(v->{
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent = new Intent(this, SettingActivity.class);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
 
@@ -51,8 +51,8 @@ public class NewDishActivity extends Activity {
         Button buttonConfirm = findViewById(R.id.buttonConfirmAddDish);
         buttonConfirm.setOnClickListener(v -> {
             confirm();
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent = new Intent(this, SettingActivity.class);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
 

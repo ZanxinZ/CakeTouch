@@ -3,6 +3,8 @@
     <string name="no">桌号：</string>
     <string name="setting">设置</string>
     <string name="add_new_dish">新增菜品</string>
+    <string name="show_dish">查看菜品</string>
+    <string name="change_dish">修改菜品</string>
 
     <string name="check_ordered">查看已点</string>
     <string name="serve_food">上菜</string>
