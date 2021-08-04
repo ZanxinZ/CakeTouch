@@ -8,7 +8,7 @@ public class DishShowActivity extends Activity {
     public void onCreate(Bundle savedInstateState){
         super.onCreate(savedInstateState);
 
-        this.setContentView(R.layout.dish);
+        this.setContentView(R.layout.dishes);
 
     }
 }
