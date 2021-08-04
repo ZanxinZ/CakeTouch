@@ -17,15 +17,7 @@
     <string name="dish_unit">单位:</string>
     <string name="dish_type">类型:</string>
 
-    
-    <string name="yao">窑</string>
-    <string name="soup">汤</string>
-    <string name="pot">煲</string>
-    <string name="saute">炒</string>
-    <string name="fry">炸</string>
-    <string name="vegetable">青菜</string>
-    <string name="drink">饮品</string>
-    <string name="other">其它</string>
+
 
     <string-array name="dishUnitArray">
         <item>份</item>
