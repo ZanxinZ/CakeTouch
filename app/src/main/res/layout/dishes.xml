@@ -11,6 +11,9 @@
         android:orientation="horizontal">
         <include layout="@layout/dish"></include>
         <include layout="@layout/dish"></include>
+        <include layout="@layout/dish"></include>
+        <include layout="@layout/dish"></include>
+        <include layout="@layout/dish"></include>
     </LinearLayout>
 
     <LinearLayout

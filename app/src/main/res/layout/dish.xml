@@ -4,30 +4,43 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:background="@color/teal_200"
+    android:layout_margin="10dp"
+    android:padding="20dp"
+    android:background="@drawable/dish_card_background"
     >
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:srcCompat="@drawable/logo"
-        android:layout_gravity="center"/>
-
-
-        <LinearLayout
+    <android.support.v7.widget.CardView
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="10dp"
+       >
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:scaleType="fitXY"
+            android:src="@drawable/chip"
+            />
+    </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/textViewDishName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
-        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/textViewDishName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
+    </LinearLayout>
+
+
+
 </LinearLayout>
