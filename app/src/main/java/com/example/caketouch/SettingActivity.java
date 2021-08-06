@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-public class SettingActivity extends Activity {
+import com.example.caketouch.model.DishDatabaseHandler;
 
+public class SettingActivity extends Activity {
+    DishDatabaseHandler databaseHandler;
     @Override
     public void onCreate(Bundle savedInstanceState){
+        databaseHandler = new DishDatabaseHandler(this);
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_setting);
         Button newDishBtn = findViewById(R.id.buttonAddDish);
@@ -19,6 +22,7 @@ public class SettingActivity extends Activity {
 
         Button showDishBtn = findViewById(R.id.buttonShowDish);
         showDishBtn.setOnClickListener(v->{
+            databaseHandler.loadAllDish();
             Intent intent = new Intent("com.example.caketouch.DishShowActivity");
             startActivity(intent);
         });

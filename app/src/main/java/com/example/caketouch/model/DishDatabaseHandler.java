@@ -10,6 +10,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.caketouch.Menu.Dish;
+import com.example.caketouch.Menu.DishType;
+import com.example.caketouch.Menu.Menu;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -86,7 +88,10 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = sqLiteDatabase.query("menus", new String[]{"name"}, "name=", new String[]{name},null,null, "ID ASC");
 
-        if (cursor.getCount() == 0)return null;
+        if (cursor.getCount() == 0){
+            Toast.makeText(context, "Dish NotFound", Toast.LENGTH_SHORT).show();
+            return null;
+        }
 
 //        int nameColumnIndex = cursor.getColumnIndex("imageName");
 //        String strImageName = cursor.getString(nameColumnIndex);
@@ -95,6 +100,7 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
         //ByteArrayInputStream imageStream = new ByteArrayInputStream();
         //byte[] imageInByte = cursor.getBlob(imageColumnIndex);
         //Bitmap image = BitmapFactory.decodeByteArray(imageInByte, 0 ,imageInByte.length);
+
 
         int dishColumnIndex = cursor.getColumnIndex("dish");
 
@@ -105,15 +111,51 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
 
     public ArrayList<Dish> loadAllDish(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.query("menus", null, "name=", null,null,null, "ID ASC");
-        Log.d("加载所有Dish:", String.valueOf(cursor.getCount()));
+        Cursor cursor = sqLiteDatabase.query("menus", null, null, null,null,null,null);
+        Log.d("加载所有Dish", String.valueOf(cursor.getCount()));
         ArrayList<Dish> dishes = new ArrayList<>();
         while(cursor.moveToNext()){
             int index = cursor.getColumnIndex("dish");
             byte[] dishInByte = cursor.getBlob(index);
-            dishes.add(byteToDish(dishInByte));
+            Dish dish = byteToDish(dishInByte);
+            //dishes.add(dish);
+            addDishToMenu(dish);
         }
         return dishes;
+    }
+
+    private void addDishToMenu(Dish dish){
+        switch (dish.getDishType()){
+            case other:
+                if (!Menu.other.containsKey(dish.getDishNo()))
+                Menu.other.put(dish.getDishNo(), dish);
+                break;
+            case yao:
+                if (!Menu.yao.containsKey(dish.getDishNo()))
+                Menu.yao.put(dish.getDishNo(), dish);
+                break;
+            case soup:
+                if (!Menu.soup.containsKey(dish.getDishNo()))
+                Menu.soup.put(dish.getDishNo(), dish);
+                break;
+            case saute:
+                if (!Menu.saute.containsKey(dish.getDishNo()))
+                Menu.saute.put(dish.getDishNo(), dish);
+                break;
+            case pot:
+                if (!Menu.pot.containsKey(dish.getDishNo()))
+                Menu.pot.put(dish.getDishNo(), dish);
+                break;
+            case fry:
+                if (!Menu.fry.containsKey(dish.getDishNo()))
+                Menu.fry.put(dish.getDishNo(), dish);
+                break;
+            case drink:
+                if (!Menu.drink.containsKey(dish.getDishNo()))
+                Menu.drink.put(dish.getDishNo(), dish);
+                break;
+
+        }
     }
 
     public Dish byteToDish(byte[] data) {
@@ -136,7 +178,6 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 }

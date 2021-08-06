@@ -1,7 +1,9 @@
 package com.example.caketouch.Menu;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 /**
@@ -10,7 +12,7 @@ import java.io.Serializable;
 public class Dish implements Serializable {
     private String name;
     private String unitName;       //单位
-    private transient Bitmap image;
+    private byte[] image;
     private float price;
     private float smallPrice;      //小份价格
     private DishType dishType;
@@ -19,11 +21,21 @@ public class Dish implements Serializable {
     public Dish(String name, String unitName, Bitmap image, float price,  float smallPrice, DishType dishType, Long dishNo) {
         this.name = name;
         this.unitName = unitName;
-        this.image = image;
+        this.setImageByBitmap(image);
         this.price = price;
         this.smallPrice = smallPrice;
         this.dishType = dishType;
         this.dishNo = dishNo;
+    }
+
+
+    public void setImageByBitmap(Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, baos);//压缩位图
+        setImage(baos.toByteArray());
+    }
+    public Bitmap getImageInBitmap(){
+        return BitmapFactory.decodeByteArray(getImage(),0, getImage().length);
     }
 
 
@@ -43,11 +55,11 @@ public class Dish implements Serializable {
         this.unitName = unitName;
     }
 
-    public Bitmap getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

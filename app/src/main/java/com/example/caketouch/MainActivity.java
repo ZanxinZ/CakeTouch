@@ -73,6 +73,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         });
 
         dishDatabaseHandler = new DishDatabaseHandler(this);
+        dishDatabaseHandler.loadAllDish();
 
         if (!tmpDir.exists()){
             Log.d("新建文件",tmpDir.getAbsolutePath());
@@ -85,9 +86,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, RequestCode.PHOTO);
+
             }
 
         });
@@ -99,55 +98,9 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         });
 
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-            Log.d("图片","触发");
-            Log.d("图片",String.valueOf(resultCode));
-            if (intent == null)return;
-        if(requestCode == RequestCode.PHOTO){
-            Log.d("图片","保存");
 
-            //Bundle extras = intent.getExtras();
-            Log.d("图片", "extra");
-            //Bitmap bm = extras.getParcelable("data");
 
-            //Uri uri = saveBitmap(bm, "zzx.png");
-//            Uri uri = intent.getData();
-//            resizeImage(uri);
-//            uri = convertUri(uri);
-            Uri uri = intent.getData();
-            resizeImage(uri);
-            //启动图像裁剪
-//            startImageZoom(uri);
 
-        }
-        else if(requestCode == RequestCode.PHOTO_CROP){
-            Log.d("图片","裁剪后");
-            Bundle bundle = intent.getExtras();
-            if (bundle != null){
-                Bitmap bitmap = bundle.getParcelable("data");
-                //Uri uri = getImageUri(this, bitmap);
-                //                    Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                //imageDatabaseHandler.storeDish(new Dish("猪脚", "份", bitmap, 60, 55, DishType.yao, new Date().getTime()));
-            }
-
-        }
-        super.onActivityResult(requestCode, resultCode, intent);
-    }
-
-    public void resizeImage(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        //裁剪的大小
-        intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);
-        //设置返回码
-        this.startActivityForResult(intent, RequestCode.PHOTO_CROP);
-    }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
