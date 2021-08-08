@@ -10,4 +10,9 @@
     <style name="dish_type_text">
         <item name="android:layout_gravity">center</item>
     </style>
+
+    <style name="dish_detail_list">
+        <item name= "android:layout_margin">20dp</item>
+        <item name="android:layout_width">100dp</item>
+    </style>
 </resources>
