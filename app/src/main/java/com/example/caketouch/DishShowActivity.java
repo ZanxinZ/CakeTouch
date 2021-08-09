@@ -1,6 +1,7 @@
 package com.example.caketouch;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -14,14 +15,16 @@ import android.widget.TextView;
 import com.example.caketouch.Menu.Dish;
 import com.example.caketouch.Menu.Menu;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DishShowActivity extends Activity {
+    public static WeakReference<Context> context;
     @Override
     public void onCreate(Bundle savedInstateState){
         super.onCreate(savedInstateState);
-
+        context = new WeakReference<Context>(this);
         this.setContentView(R.layout.dishes);
         loadOther();
         loadYao();
