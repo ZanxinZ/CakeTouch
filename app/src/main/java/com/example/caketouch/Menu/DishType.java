@@ -28,5 +28,24 @@ public enum  DishType {
                 return other;
 
         }
+        public static String getType(DishType dishType){
+                switch (dishType){
+                        case other:
+                                return"其它";
+                        case yao:
+                                return"窑";
+                        case soup:
+                                return"汤";
+                        case saute:
+                                return"炒";
+                        case pot:
+                                return"煲";
+                        case fry:
+                                return"炸";
+                        case drink:
+                                return"饮料";
+                }
+                return "空";
+        }
 
 }

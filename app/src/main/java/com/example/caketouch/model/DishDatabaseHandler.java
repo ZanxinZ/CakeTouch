@@ -1,5 +1,6 @@
 package com.example.caketouch.model;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -78,7 +79,7 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
 
     public void deleteDish(String name){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        int res = sqLiteDatabase.delete("menus", name, new String[]{"name="});
+        int res = sqLiteDatabase.delete("menus", "name=?", new String[]{name});
         Log.d("删除Dish:", String.valueOf(res));
 
     }
@@ -86,8 +87,8 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
     public Dish loadDish(String name){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.query("menus", new String[]{"name"}, "name=", new String[]{name},null,null, "ID ASC");
-
+        Cursor cursor = sqLiteDatabase.query("menus", new String[]{"dish"}, "name=?", new String[]{name},null,null, null);
+        Log.d("查询",String.valueOf(cursor.getCount()));
         if (cursor.getCount() == 0){
             Toast.makeText(context, "Dish NotFound", Toast.LENGTH_SHORT).show();
             return null;
@@ -102,11 +103,17 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
         //Bitmap image = BitmapFactory.decodeByteArray(imageInByte, 0 ,imageInByte.length);
 
 
-        int dishColumnIndex = cursor.getColumnIndex("dish");
 
-        byte[] dishInByte = cursor.getBlob(dishColumnIndex);
+        Dish dish = null;
+        if (cursor.moveToNext()){
+            int index = cursor.getColumnIndexOrThrow("dish");
+            Log.d("索引",String.valueOf(index));
+            byte[] dishInByte = cursor.getBlob(index);
+            dish = byteToDish(dishInByte);
+        }
 
-        return byteToDish(dishInByte);
+        cursor.close();
+        return dish;
     }
 
     public ArrayList<Dish> loadAllDish(){
@@ -121,6 +128,7 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
             //dishes.add(dish);
             addDishToMenu(dish);
         }
+        cursor.close();
         return dishes;
     }
 
@@ -157,6 +165,8 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
 
         }
     }
+
+
 
     public Dish byteToDish(byte[] data) {
         try {
