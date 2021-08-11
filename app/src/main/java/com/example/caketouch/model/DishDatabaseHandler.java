@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DishDatabaseHandler extends SQLiteOpenHelper {
 
@@ -120,6 +122,8 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.query("menus", null, null, null,null,null,null);
         Log.d("加载所有Dish", String.valueOf(cursor.getCount()));
+
+        clearMenu();
         ArrayList<Dish> dishes = new ArrayList<>();
         while(cursor.moveToNext()){
             int index = cursor.getColumnIndex("dish");
@@ -166,7 +170,14 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-
+    private void clearMenu(){
+        Menu.other.clear();
+        Menu.yao.clear();
+        Menu.saute.clear();
+        Menu.pot.clear();
+        Menu.fry.clear();
+        Menu.drink.clear();
+    }
 
     public Dish byteToDish(byte[] data) {
         try {

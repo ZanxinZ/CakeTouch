@@ -22,7 +22,6 @@ public class SettingActivity extends Activity {
 
         Button showDishBtn = findViewById(R.id.buttonShowDish);
         showDishBtn.setOnClickListener(v->{
-            databaseHandler.loadAllDish();
             Intent intent = new Intent("com.example.caketouch.DishShowActivity");
             startActivity(intent);
         });

@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.caketouch.Menu.Dish;
 import com.example.caketouch.Menu.Menu;
+import com.example.caketouch.model.DishDatabaseHandler;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -25,14 +26,16 @@ import java.util.Map;
 
 public class DishShowActivity extends Activity implements DishDetailFragment.NoticeDialogListener{
     //public static WeakReference<Context> context;
-
+    DishDatabaseHandler databaseHandler;
     Bundle savedInstateState;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstateState){
         super.onCreate(savedInstateState);
         this.savedInstateState = savedInstateState;
+        databaseHandler = new DishDatabaseHandler(this.getBaseContext());
         //context = new WeakReference<Context>(this);
+        databaseHandler.loadAllDish();
         this.setContentView(R.layout.dishes);
         loadOther();
         loadYao();
@@ -143,7 +146,7 @@ public class DishShowActivity extends Activity implements DishDetailFragment.Not
     public void onDialogPositiveClick(DishDetailFragment dialog) {
         Toast.makeText(this, "更新", Toast.LENGTH_SHORT).show();
         //this.recreate();
-        //onCreate(savedInstateState);
+        finish();
 
     }
 
