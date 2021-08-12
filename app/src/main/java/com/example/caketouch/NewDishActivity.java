@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.caketouch.Menu.Dish;
 import com.example.caketouch.Menu.DishType;
+import com.example.caketouch.Menu.DishUnit;
 import com.example.caketouch.model.DishDatabaseHandler;
 
 import java.util.Date;
@@ -54,21 +55,16 @@ public class NewDishActivity extends Activity {
 
         Button buttonCancel = findViewById(R.id.buttonCancelAddDish);
         buttonCancel.setOnClickListener(v->{
-            Intent intent = new Intent(this, SettingActivity.class);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            finish();
         });
 
         //confirm button
         Button buttonConfirm = findViewById(R.id.buttonConfirmAddDish);
         buttonConfirm.setOnClickListener(v -> {
             if(!confirm()){
-                Toast.makeText(this, "信息未填完", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Intent intent = new Intent(this, SettingActivity.class);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            finish();
         });
 
     }
@@ -83,17 +79,22 @@ public class NewDishActivity extends Activity {
 
         if (String.valueOf(editTextDishName.getText()).isEmpty() ||
                 String.valueOf(editTextDishPrice.getText()).isEmpty()){
+            Toast.makeText(this, "信息未填完", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         Dish dish = new Dish(String.valueOf(editTextDishName.getText()),
-                String.valueOf(spinnerUnit.getSelectedItem().toString()),
+                DishUnit.getDishUnit(spinnerUnit.getSelectedItem().toString()),
                 dishBitmap,
                 Float.parseFloat(String.valueOf(editTextDishPrice.getText())),
                 Float.parseFloat(String.valueOf(editTextDishLowPrice.getText())),
                 DishType.getDishType(spinnerType.getSelectedItem().toString()),
                 new Date().getTime()
                 );
+        if (databaseHandler.isExist(dish.getName())){
+            Toast.makeText(this, "菜品名字已存在！", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         this.databaseHandler.storeDish(dish);
         return true;
 

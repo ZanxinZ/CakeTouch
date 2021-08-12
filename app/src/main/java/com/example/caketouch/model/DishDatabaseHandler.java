@@ -28,7 +28,7 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
     Context context;
     private static String DATABASE_NAME = "my.db";
     private static int DATABASE_VERSION = 1;
-    private static String createTableQuery = "create table menus (name TEXT, dish BLOB)";
+    private static String createTableQuery = "create table menus (dishNo TEXT, dishName TEXT, dish BLOB)";
 
     public DishDatabaseHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,6 +51,28 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public boolean isExist(String dishName){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query("menus", new String[]{"dishName"}, "dishName=?", new String[]{dishName},null,null, null);
+        if (cursor.getCount() != 0)
+        {
+            Log.d("查询Name:", String.valueOf(cursor.getCount()));
+            return true;
+        }
+        return false;
+    }
+
+    public Dish findDishByName(String dishName){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query("menus", new String[]{"dish"}, "dishName=?", new String[]{dishName},null,null, null);
+        if (cursor.moveToNext()){
+            Dish dish = byteToDish(cursor.getBlob(cursor.getColumnIndexOrThrow("dish")));
+            cursor.close();
+            return dish;
+        }
+        cursor.close();
+        return null;
+    }
     public void storeDish(Dish dish){
         try{
             SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -62,7 +84,8 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
             byte[] dishInByte = dishToByte(dish);
 
             ContentValues contentValues = new ContentValues();
-            contentValues.put("name", dish.getName());
+            contentValues.put("dishNo", dish.getDishNo());
+            contentValues.put("dishName", dish.getName());
 //            contentValues.put("image", imageInByte);
             contentValues.put("dish", dishInByte);
 
@@ -79,17 +102,17 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    public void deleteDish(String name){
+    public void deleteDish(Long dishNo){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        int res = sqLiteDatabase.delete("menus", "name=?", new String[]{name});
+        int res = sqLiteDatabase.delete("menus", "dishNo=?", new String[]{String.valueOf(dishNo)});
         Log.d("删除Dish:", String.valueOf(res));
 
     }
 
-    public Dish loadDish(String name){
+    public Dish loadDish(Long dishNo){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.query("menus", new String[]{"dish"}, "name=?", new String[]{name},null,null, null);
+        Cursor cursor = sqLiteDatabase.query("menus", new String[]{"dish"}, "dishNo=?", new String[]{String.valueOf(dishNo)},null,null, null);
         Log.d("查询",String.valueOf(cursor.getCount()));
         if (cursor.getCount() == 0){
             Toast.makeText(context, "Dish NotFound", Toast.LENGTH_SHORT).show();
@@ -116,6 +139,20 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
 
         cursor.close();
         return dish;
+    }
+
+    public boolean updateDish(Dish dish){
+        if (isExist(dish.getName())){
+            Dish tempDish = findDishByName(dish.getName());
+            if (!dish.getDishNo().equals(tempDish.getDishNo())){
+                //There is another dish in the database with a same name. Can't update.
+                Toast.makeText(context, "名字已存在！", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        deleteDish(dish.getDishNo());
+        storeDish(dish);
+        return true;
     }
 
     public ArrayList<Dish> loadAllDish(){

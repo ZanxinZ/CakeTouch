@@ -128,7 +128,7 @@ public class DishShowActivity extends Activity implements DishDetailFragment.Not
             linearLayoutCard.addView(textView);
 
             linearLayoutCard.setOnClickListener(v->{
-                DialogFragment dishDetailFragment = new DishDetailFragment(dish.getName(), this.getApplicationContext());
+                DialogFragment dishDetailFragment = new DishDetailFragment(dish.getDishNo(), this.getApplicationContext());
                 dishDetailFragment.show(getFragmentManager(), "DishDetailFragment");
 
             });

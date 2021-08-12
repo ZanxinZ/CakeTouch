@@ -11,16 +11,16 @@ import java.io.Serializable;
  */
 public class Dish implements Serializable {
     private String name;
-    private String unitName;       //单位
+    private DishUnit unit;       //单位
     private byte[] image;
     private float price;
     private float smallPrice;      //小份价格
     private DishType dishType;
     private Long dishNo;
 
-    public Dish(String name, String unitName, Bitmap image, float price,  float smallPrice, DishType dishType, Long dishNo) {
+    public Dish(String name, DishUnit unit, Bitmap image, float price,  float smallPrice, DishType dishType, Long dishNo) {
         this.name = name;
-        this.unitName = unitName;
+        this.unit = unit;
         this.setImageByBitmap(image);
         this.price = price;
         this.smallPrice = smallPrice;
@@ -47,12 +47,12 @@ public class Dish implements Serializable {
         this.name = name;
     }
 
-    public String getUnitName() {
-        return unitName;
+    public DishUnit getUnit() {
+        return unit;
     }
 
-    public void setUnitName(String unitName) {
-        this.unitName = unitName;
+    public void setUnit(DishUnit unit) {
+        this.unit = unit;
     }
 
     public byte[] getImage() {
