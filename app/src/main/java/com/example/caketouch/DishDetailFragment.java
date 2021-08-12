@@ -10,11 +10,15 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +66,8 @@ public class DishDetailFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
 
+        ImageView dishImg = view.findViewById(R.id.imageViewDishBitmap);
+        dishImg.setImageBitmap(dish.getImageInBitmap());
         TextView dishName = view.findViewById(R.id.textView_dish_name);
         dishName.setText(dish.getName());
         TextView dishPrice = view.findViewById(R.id.textView_dish_price);
@@ -74,7 +80,8 @@ public class DishDetailFragment extends DialogFragment {
         // Delete Dish
         Button buttonDeleteDish = view.findViewById(R.id.buttonDeleteDish);
         buttonDeleteDish.setOnClickListener(v -> {
-            ((ViewGroup)(view.getParent())).removeView(view);
+            //((ViewGroup)(view.getParent())).removeView(view);
+            dismiss();
             AlertDialog.Builder deleteDishDialogBuilder = new AlertDialog.Builder(getActivity());
             deleteDishDialogBuilder.setMessage("确认要删除【"+dish.getName() + "】？")
                     .setTitle("提示")
@@ -98,12 +105,34 @@ public class DishDetailFragment extends DialogFragment {
         // Update dish
         Button buttonChangeDish = view.findViewById(R.id.buttonChangeDish);
         buttonChangeDish.setOnClickListener(v -> {
+                    ((ViewGroup) view).removeAllViews();
+                    LayoutInflater dishUpdateInflater = LayoutInflater.from(getActivity());
+                    View dishUpdateView = dishUpdateInflater.inflate(R.layout.dialog_dish_detail_update, null);
+                    ((ViewGroup) (view.getParent())).addView(dishUpdateView);
+
+                    ImageView imageView = dishUpdateView.findViewById(R.id.imageViewDishUpdate);
+                    imageView.setImageBitmap(dish.getImageInBitmap());
+                    EditText dishNameUpdate = dishUpdateView.findViewById(R.id.textView_dish_name_update);
+                    dishNameUpdate.setText(dish.getName());
+                    EditText dishPriceUpdate = dishUpdateView.findViewById(R.id.textView_dish_price_update);
+                    dishPriceUpdate.setText(String.valueOf(dish.getPrice()));
+                    EditText dishLowPriceUpdate = dishUpdateView.findViewById(R.id.textView_dish_low_price_update);
+                    dishLowPriceUpdate.setText(String.valueOf(dish.getSmallPrice()));
+//            Spinner dishUnitUpdate = dishUpdateView.findViewById(R.id.spinnerDishUnitUpdate);
+//            dishUnitUpdate.setDropDownVerticalOffset(dish.get);
+                    Spinner dishTypeUpdate = dishUpdateView.findViewById(R.id.spinnerDishTypeUpdate);
+                    //dishTypeUpdate.setDropDownVerticalOffset(dish.getDishType().code);
+                    dishTypeUpdate.setSelection(dish.getDishType().code);
 
         });
 
-//        builder.setPositiveButton("确认",(dialog,id)->{
-//
-//        });
+
+
+        Button buttonConfirm = view.findViewById(R.id.buttonConfirmDishDetail);
+        buttonConfirm.setOnClickListener(v->{
+            dismiss();
+        });
+
 
         return builder.create();
     }
