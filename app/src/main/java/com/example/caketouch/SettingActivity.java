@@ -26,5 +26,9 @@ public class SettingActivity extends Activity {
             startActivity(intent);
         });
 
+        Button backButton = findViewById(R.id.buttonSettingBack);
+        backButton.setOnClickListener(v->{
+            finish();
+        });
     }
 }

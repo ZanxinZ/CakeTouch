@@ -11,24 +11,24 @@ public abstract class Stuff {
     protected float price;      //正常价格
     protected float smallPrice; //小份价格
     protected int count;        //数量
-    protected Long time;        //点菜时间
+    protected Long ID;        //点菜时间
     protected boolean served;   //是否已交付
     protected Long dishNo;      //菜色编号
     protected int tableNo;      //桌号
-    public Stuff(String name, String unitName, float price, float smallPrice, int count, Long time,  Long dishNo, int tableNo, boolean served) {
+    public Stuff(String name, String unitName, float price, float smallPrice, int count, Long ID,  Long dishNo, int tableNo, boolean served) {
         this.name = name;
         this.unitName = unitName;
         this.price = price;
         this.smallPrice = smallPrice;
         this.count = count;
-        this.time = time;
+        this.ID = ID;
         this.dishNo = dishNo;
         this.tableNo = tableNo;
         this.served = served;
     }
 
     public Stuff(){
-        this.time = new Date().getTime();
+        this.ID = new Date().getTime();
         this.count = 0;
         this.price = -1;
         this.name = "空";
@@ -66,8 +66,8 @@ public abstract class Stuff {
         this.count = count;
     }
 
-    public Long getTime() {
-        return time;
+    public Long getID() {
+        return ID;
     }
 
     public boolean isServed() {

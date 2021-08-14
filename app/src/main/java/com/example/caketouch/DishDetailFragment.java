@@ -7,7 +7,10 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -33,7 +36,6 @@ import com.example.caketouch.model.DishDatabaseHandler;
 public class DishDetailFragment extends DialogFragment {
     public Dish dish;
     private DishDatabaseHandler databaseHandler;
-
     public interface NoticeDialogListener {
         void onDialogPositiveClick(DishDetailFragment dialog);
         void onDialogNegativeClick(DishDetailFragment dialog);
@@ -133,6 +135,8 @@ public class DishDetailFragment extends DialogFragment {
             });
             Button updateConfirm = dishUpdateView.findViewById(R.id.buttonConfirmDishUpdate);
             updateConfirm.setOnClickListener(action -> {
+
+
                 Dish dishForUpdate = new Dish(dishNameUpdate.getText().toString(),
                         DishUnit.getDishUnit(dishUnitUpdate.getSelectedItem().toString()),
                         ((BitmapDrawable)(imageView.getDrawable())).getBitmap(),
@@ -143,10 +147,10 @@ public class DishDetailFragment extends DialogFragment {
                 Log.d("更新",dishForUpdate.getDishNo().toString());
                 if (databaseHandler.updateDish(dishForUpdate)){
                     dismiss();
+                    Toast.makeText(getActivity(), "菜品已更新！", Toast.LENGTH_SHORT).show();
                     getActivity().finish();
                 }
             });
-
         });
 
         
@@ -158,4 +162,5 @@ public class DishDetailFragment extends DialogFragment {
 
         return builder.create();
     }
+
 }

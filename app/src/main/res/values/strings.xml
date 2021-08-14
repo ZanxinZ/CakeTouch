@@ -46,6 +46,7 @@
 
     <string name="cancel">取消</string>
     <string name="confirm">确认</string>
+    <string name="back">返回</string>
 
 
     <string name="update_dish">修改菜品</string>

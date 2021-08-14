@@ -6,7 +6,7 @@ public class Food extends Stuff{
         return false;
     }
 
-    public Food(String name, String unitName, float price, float smallPrice, int count, Long time, Long dishNo, int tableNo) {
-        super(name, unitName, price, smallPrice, count, time, dishNo, tableNo, false);
+    public Food(String name, String unitName, float price, float smallPrice, int count, Long ID, Long dishNo, int tableNo) {
+        super(name, unitName, price, smallPrice, count, ID, dishNo, tableNo, false);
     }
 }

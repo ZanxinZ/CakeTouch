@@ -30,7 +30,7 @@ public class Order {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void orderFood(int tableNo, Dish dish, int count){
         Food food = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()), dish.getPrice(), dish.getSmallPrice(), count, new Date().getTime(), dish.getDishNo(), tableNo);
-        ordered.put(food.getTime(),food);
+        ordered.put(food.getID(),food);
     }
 
     /**
@@ -40,7 +40,7 @@ public class Order {
      */
     public void takeDrink(int tableNo, Dish dish, int count){
         Drink drink = new Drink(dish.getName(),DishUnit.getUnitStr(dish.getUnit()), dish.getPrice(),-1, count, new Date().getTime(),dish.getDishNo(), tableNo);
-        ordered.put(drink.getTime(),drink);
+        ordered.put(drink.getID(),drink);
     }
 
     /**
