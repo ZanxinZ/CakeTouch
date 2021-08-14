@@ -10,7 +10,6 @@ public abstract class Stuff {
     protected String unitName;  //单位名称
     protected float price;      //正常价格
     protected float smallPrice; //小份价格
-    protected int count;        //数量
     protected Long ID;        //点菜时间
     protected boolean served;   //是否已交付
     protected Long dishNo;      //菜色编号
@@ -20,7 +19,6 @@ public abstract class Stuff {
         this.unitName = unitName;
         this.price = price;
         this.smallPrice = smallPrice;
-        this.count = count;
         this.ID = ID;
         this.dishNo = dishNo;
         this.tableNo = tableNo;
@@ -29,7 +27,6 @@ public abstract class Stuff {
 
     public Stuff(){
         this.ID = new Date().getTime();
-        this.count = 0;
         this.price = -1;
         this.name = "空";
     }
@@ -56,14 +53,6 @@ public abstract class Stuff {
 
     public void setSmallPrice(float smallPrice) {
         this.smallPrice = smallPrice;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     public Long getID() {

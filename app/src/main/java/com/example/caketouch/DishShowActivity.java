@@ -27,12 +27,11 @@ import java.util.Map;
 public class DishShowActivity extends Activity implements DishDetailFragment.NoticeDialogListener{
     //public static WeakReference<Context> context;
     DishDatabaseHandler databaseHandler;
-    Bundle savedInstateState;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstateState){
         super.onCreate(savedInstateState);
-        this.savedInstateState = savedInstateState;
         databaseHandler = new DishDatabaseHandler(this.getBaseContext());
         //context = new WeakReference<Context>(this);
         databaseHandler.loadAllDish();

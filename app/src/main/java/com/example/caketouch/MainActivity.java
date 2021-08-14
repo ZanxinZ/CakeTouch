@@ -20,6 +20,7 @@ import android.util.Log;
 
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -59,7 +60,6 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         setContentView(R.layout.activity_main);
         tables_layout = (LinearLayout) findViewById(R.id.tables);
         sContextReference = new WeakReference<>(this);
-
         initData();
     }
     private void initData(){
@@ -226,12 +226,8 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         Button button = tables.get(tableNo).getButton();
         button.setOnClickListener((v)->{
             LinearLayout tables = findViewById(R.id.tables);
-            try{
-                //tables.removeView(button);
-            }catch (Exception e){
-
-            }
-
+            View view = findViewById(R.id.view_dishes_for_order);
+            OrderViewBuilder orderViewBuilder = new OrderViewBuilder(MainActivity.this, (ViewGroup) view);
         });
     }
 

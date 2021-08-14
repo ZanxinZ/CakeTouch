@@ -20,7 +20,7 @@ public class MenuCopy {
                 Log.d("错误：", "MenuCopy物品数量增加错误。");
                 return;
             }
-            target.setCount(stuff.getCount() + target.getCount());
+           //target.setCount(stuff.getCount() + target.getCount());
 
         }else{
             ordered.put(stuff.getDishNo(),stuff);
