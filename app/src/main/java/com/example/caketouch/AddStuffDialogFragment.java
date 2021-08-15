@@ -77,7 +77,12 @@ public class AddStuffDialogFragment extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                count = Integer.parseInt(countEditText.getText().toString());
+                if (countEditText.getText().toString()==null || countEditText.getText().toString().equals("")){
+                    count = -1;
+                }else {
+                    count = Integer.parseInt(countEditText.getText().toString());
+                }
+
             }
         });
         ImageView subStuff = view.findViewById(R.id.imageViewStuffSub);
