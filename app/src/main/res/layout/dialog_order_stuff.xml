@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/textViewStuffTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -14,13 +14,13 @@
         android:text="@string/order_food" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageViewStuffImg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo" />
+        android:src="@drawable/chip" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewStuffName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Name"
@@ -38,15 +38,15 @@
             android:id="@+id/imageViewStuffSub"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/sub" />
+            android:src="@drawable/sub"/>
 
         <EditText
-            android:id="@+id/editTextNumber"
+            android:id="@+id/editTextStuffCount"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            android:text="0"
+            android:text="1"
             android:textAlignment="center"/>
 
         <ImageView
@@ -55,6 +55,35 @@
             android:layout_height="40dp"
             android:src="@drawable/add" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/textViewStuffNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:text="@string/normal"
+            android:background="@drawable/choose_btn"
+            />
+
+        <TextView
+            android:id="@+id/textViewStuffSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:text="@string/small"
+            android:padding="5dp"
+            android:background="@drawable/choose_btn"
+            />
     </LinearLayout>
 
     <LinearLayout

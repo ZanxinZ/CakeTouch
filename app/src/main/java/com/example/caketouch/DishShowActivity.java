@@ -44,12 +44,7 @@ public class DishShowActivity extends Activity implements DishDetailFragment.Not
         loadFry();
         loadDrink();
     }
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onResume(){
-        super.onResume();
-        this.onCreate(null);
-    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void loadOther(){

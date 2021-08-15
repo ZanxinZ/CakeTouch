@@ -55,4 +55,6 @@
     <string name="detail">详细信息</string>
 
     <string name="order_food">点餐</string>
+    <string name="normal">正常</string>
+    <string name="small">小份</string>
 </resources>

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,18 +45,20 @@ import java.util.Map;
 
 public class MainActivity extends Activity implements AddTableDialogFragment.NoticeDialogListener{
     private int tableCount = 0;
-
+    private static String blue = "#47A5EC";
+    private static String light_blue = "#D3ECFA";
     private LinearLayout tables_layout = null;
 
     public static WeakReference<Context> sContextReference;
 
     public Map<Integer, Table> tables = new HashMap<>();
 
+    public Button chooseTableBtn = null;
+
     File tmpDir = new File(Environment.getExternalStorageDirectory() + "/mealPic" );
 
     private DishDatabaseHandler dishDatabaseHandler;
 
-    private int curTableNo;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -193,6 +198,10 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             Button button = new Button(MainActivity.this);
             button.setId(dialog.tableNo);
             button.setText(button.getId() + " 号位");
+
+            button.setGravity(Gravity.CENTER);
+            button.setTextSize(autoDp(8));
+            button.setBackgroundColor(Color.parseColor(light_blue));
             tables_layout.addView(button);
             tableCount++;
 
@@ -201,7 +210,6 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             table.setButton(button);
             tables.put(dialog.tableNo, table);
             bindTableBtn(dialog.tableNo);
-            curTableNo = dialog.tableNo;
             dialog.tableNo = 0;
             ScrollView scrollView = findViewById(R.id.tableScroll);
             scrollToBottom(scrollView, tables_layout);
@@ -223,11 +231,22 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
 
     public void bindTableBtn(int tableNo){
+
         Button button = tables.get(tableNo).getButton();
         button.setOnClickListener((v)->{
-            LinearLayout tables = findViewById(R.id.tables);
+            if (chooseTableBtn != null){
+                chooseTableBtn.setBackgroundColor(Color.parseColor(light_blue));
+                chooseTableBtn.setGravity(Gravity.CENTER);
+                chooseTableBtn.setTextSize(autoDp(8));
+            }
+            button.setBackgroundColor(Color.parseColor(blue));
+            //button.setGravity(Gravity.RIGHT);
+            button.setTextSize(autoDp(12));
+            chooseTableBtn = button;
+
+            //button.setGravity(Gravity.CENTER);
             View view = findViewById(R.id.view_dishes_for_order);
-            OrderViewBuilder orderViewBuilder = new OrderViewBuilder(MainActivity.this, (ViewGroup) view);
+            ChooseDishViewBuilder chooseDishViewBuilder = new ChooseDishViewBuilder(MainActivity.this, (ViewGroup) view, chooseTableBtn);
         });
     }
 
@@ -250,5 +269,9 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private int autoDp(int dp){
+        return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics()));
     }
 }

@@ -59,27 +59,33 @@
 
         <ScrollView
             android:id="@+id/tableScroll"
-            android:layout_width="200dp"
+            android:layout_width="140dp"
             android:layout_height="match_parent"
             >
 
             <LinearLayout
                 android:id="@+id/tables"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
 
             </LinearLayout>
 
         </ScrollView>
 
-        <View
-            android:id="@+id/view_dishes_for_order"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/view_dishes_for_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+        </ScrollView>
 
-        </View>
+
 
     </LinearLayout>
 </LinearLayout>
