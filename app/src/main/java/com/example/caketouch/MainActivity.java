@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.example.caketouch.Menu.Dish;
 import com.example.caketouch.model.DishDatabaseHandler;
 import com.example.caketouch.table.Table;
 
@@ -43,7 +44,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class MainActivity extends Activity implements AddTableDialogFragment.NoticeDialogListener{
+public class MainActivity extends Activity implements AddTableDialogFragment.NoticeDialogListener, AddStuffDialogFragment.NoticeDialogListener{
     private int tableCount = 0;
     private static String blue = "#47A5EC";
     private static String light_blue = "#D3ECFA";
@@ -51,7 +52,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     public static WeakReference<Context> sContextReference;
 
-    public Map<Integer, Table> tables = new HashMap<>();
+    public Map<Integer, Table> tables = new HashMap<>();//tableNo, table
 
     public Button chooseTableBtn = null;
 
@@ -273,5 +274,13 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     private int autoDp(int dp){
         return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics()));
+    }
+
+
+    @Override
+    public void onDialogPositiveClick(Dish dish, boolean isNormal, int count, int tableNo) {
+        Toast.makeText(this, "Add", Toast.LENGTH_SHORT).show();
+        Table table = tables.get(tableNo);
+        table.orderStuff(dish, isNormal, count, tableNo);
     }
 }

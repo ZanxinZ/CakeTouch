@@ -3,11 +3,13 @@ package com.example.caketouch.table;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.caketouch.Menu.Dish;
+
 /**
  * 桌子业务
  */
 public class Table {
-    private Order order;
+    private Order order = new Order();
     private Button button;
 
     public Order getOrder() {
@@ -16,6 +18,10 @@ public class Table {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public void orderStuff(Dish dish, boolean isNormal, int count, int tableNo){
+        order.orderStuff(dish, isNormal, count, tableNo);
     }
 
     public Button getButton() {

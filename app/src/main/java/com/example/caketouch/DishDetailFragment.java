@@ -7,22 +7,20 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
-import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,32 +33,33 @@ import com.example.caketouch.model.DishDatabaseHandler;
 @SuppressLint("ValidFragment")
 public class DishDetailFragment extends DialogFragment {
     public Dish dish;
+    Activity activity;
     private DishDatabaseHandler databaseHandler;
     public interface NoticeDialogListener {
         void onDialogPositiveClick(DishDetailFragment dialog);
         void onDialogNegativeClick(DishDetailFragment dialog);
     }
 
-    DishDetailFragment.NoticeDialogListener noticeDialogListener;
+    NoticeDialogListener noticeDialogListener;
     @Override
     public void onAttach(Activity activity){
         super.onAttach(activity);
         try {
             noticeDialogListener = (DishDetailFragment.NoticeDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement NoticeDialogListener");
+            throw new ClassCastException(activity.toString() + " must implement NoticeDialogListener");
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public DishDetailFragment (Long dishNo, Context context){
+        activity = (Activity)context;
         databaseHandler = new DishDatabaseHandler(context);
         dish = databaseHandler.loadDish(dishNo);
     }
 
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         if (dish == null){
@@ -111,10 +110,14 @@ public class DishDetailFragment extends DialogFragment {
         // Update dish
         Button buttonChangeDish = view.findViewById(R.id.buttonChangeDish);
         buttonChangeDish.setOnClickListener(v -> {
-            ((ViewGroup) view).removeAllViews();
+            dismiss();
+            AlertDialog.Builder updateDishDialogBuilder = new AlertDialog.Builder(getActivity());
+
+            //((ViewGroup) view).removeAllViews();
             LayoutInflater dishUpdateInflater = LayoutInflater.from(getActivity());
             View dishUpdateView = dishUpdateInflater.inflate(R.layout.dialog_dish_detail_update, null);
-            ((ViewGroup) (view.getParent())).addView(dishUpdateView);
+            //((ViewGroup) view).addView(dishUpdateView);
+            updateDishDialogBuilder.setView(dishUpdateView);
 
             ImageView imageView = dishUpdateView.findViewById(R.id.imageViewDishUpdate);
             imageView.setImageBitmap(dish.getImageInBitmap());
@@ -136,7 +139,6 @@ public class DishDetailFragment extends DialogFragment {
             Button updateConfirm = dishUpdateView.findViewById(R.id.buttonConfirmDishUpdate);
             updateConfirm.setOnClickListener(action -> {
 
-
                 Dish dishForUpdate = new Dish(dishNameUpdate.getText().toString(),
                         DishUnit.getDishUnit(dishUnitUpdate.getSelectedItem().toString()),
                         ((BitmapDrawable)(imageView.getDrawable())).getBitmap(),
@@ -144,13 +146,26 @@ public class DishDetailFragment extends DialogFragment {
                         Float.parseFloat(dishLowPriceUpdate.getText().toString()),
                         DishType.getDishType(dishTypeUpdate.getSelectedItem().toString()),
                         dish.getDishNo());
-                Log.d("更新",dishForUpdate.getDishNo().toString());
                 if (databaseHandler.updateDish(dishForUpdate)){
                     dismiss();
-                    Toast.makeText(getActivity(), "菜品已更新！", Toast.LENGTH_SHORT).show();
-                    getActivity().finish();
+                    Toast.makeText(activity, "菜品已更新！", Toast.LENGTH_SHORT).show();
+                    activity.finish();
                 }
             });
+
+            LinearLayout linearLayout = dishUpdateView.findViewById(R.id.linerLayoutUpdateDishPanel);
+            linearLayout.setOnTouchListener((click, event) -> {
+                linearLayout.setFocusable(true);
+                linearLayout.setFocusableInTouchMode(true);
+                linearLayout.requestFocus();
+
+                InputMethodManager imm = (InputMethodManager)(activity.getSystemService(Context.INPUT_METHOD_SERVICE));
+                imm.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
+                //curEditText.clearFocus();
+                return true;
+            });
+
+            updateDishDialogBuilder.show();
         });
 
         

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -122,9 +123,8 @@ public class DishShowActivity extends Activity implements DishDetailFragment.Not
             linearLayoutCard.addView(textView);
 
             linearLayoutCard.setOnClickListener(v->{
-                DialogFragment dishDetailFragment = new DishDetailFragment(dish.getDishNo(), this.getApplicationContext());
-                dishDetailFragment.show(getFragmentManager(), "DishDetailFragment");
-
+                DishDetailFragment dishDetailFragment = new DishDetailFragment(dish.getDishNo(), DishShowActivity.this);
+                dishDetailFragment.show(DishShowActivity.this.getFragmentManager(), "DishDetailFragment");
             });
             linearLayout.addView(linearLayoutCard);
 

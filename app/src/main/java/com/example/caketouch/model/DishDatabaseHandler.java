@@ -211,6 +211,7 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
         Menu.other.clear();
         Menu.yao.clear();
         Menu.saute.clear();
+        Menu.soup.clear();
         Menu.pot.clear();
         Menu.fry.clear();
         Menu.drink.clear();

@@ -1,10 +1,10 @@
 package com.example.caketouch;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,8 +22,23 @@ import com.example.caketouch.Menu.Dish;
 public class AddStuffDialogFragment extends DialogFragment {
     Dish dish;
     Button chooseTableBtn;
-    int count = 0;
+    int count = 1;
     float priceChoose = 0;
+
+    public interface NoticeDialogListener {
+        void onDialogPositiveClick(Dish dish, boolean isNormal, int count, int tableNo);
+    }
+    NoticeDialogListener noticeDialogListener;
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        try{
+            noticeDialogListener = (NoticeDialogListener)activity;
+        }catch (Exception e){
+            throw new ClassCastException(activity.toString() + " must implement NoticeDialogListener");
+        }
+    }
+
     @SuppressLint("ValidFragment")
     public AddStuffDialogFragment(Dish dish, Button chooseTableBtn) {
         this.dish = dish;
@@ -62,7 +77,6 @@ public class AddStuffDialogFragment extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (count > 0)
                 count = Integer.parseInt(countEditText.getText().toString());
             }
         });
@@ -88,20 +102,23 @@ public class AddStuffDialogFragment extends DialogFragment {
         });
         TextView normalChoose = view.findViewById(R.id.textViewStuffNormal);
         TextView smallChoose = view.findViewById(R.id.textViewStuffSmall);
-
+        TextView stuffChoosePrice = view.findViewById(R.id.textViewStuffChosenPrice);
         normalChoose.setBackground(getResources().getDrawable(R.drawable.chosen_btn));
         priceChoose = dish.getPrice();//default
+        stuffChoosePrice.setText(String.valueOf(priceChoose));
 
         normalChoose.setOnClickListener(v -> {
             smallChoose.setBackground(getResources().getDrawable(R.drawable.choose_btn));
             normalChoose.setBackground(getResources().getDrawable(R.drawable.chosen_btn));
             priceChoose = dish.getPrice();
+            stuffChoosePrice.setText(String.valueOf(priceChoose));
         });
 
         smallChoose.setOnClickListener(v->{
             smallChoose.setBackground(getResources().getDrawable(R.drawable.chosen_btn));
             normalChoose.setBackground(getResources().getDrawable(R.drawable.choose_btn));
             priceChoose = dish.getSmallPrice();
+            stuffChoosePrice.setText(String.valueOf(priceChoose));
         });
 
 
@@ -111,7 +128,16 @@ public class AddStuffDialogFragment extends DialogFragment {
         });
         Button confirm = view.findViewById(R.id.buttonOrderStuffConfirm);
         confirm.setOnClickListener(v -> {
-
+            dismiss();
+            if (count > 0 && count < 101){
+                if (priceChoose == dish.getPrice()){
+                    noticeDialogListener.onDialogPositiveClick(dish, true, count, chooseTableBtn.getId());
+                }else if(priceChoose == dish.getSmallPrice()){
+                    noticeDialogListener.onDialogPositiveClick(dish, false, count, chooseTableBtn.getId());
+                }
+            }else{
+                Toast.makeText(getActivity(), "数量不正确，添加失败。", Toast.LENGTH_SHORT).show();
+            }
         });
         return builder.create();
     }

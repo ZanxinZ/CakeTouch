@@ -1,5 +1,7 @@
 package com.example.caketouch.table;
 
+import com.example.caketouch.Menu.Dish;
+
 import java.util.Date;
 
 /**
@@ -8,17 +10,15 @@ import java.util.Date;
 public abstract class Stuff {
     protected String name;      //名称
     protected String unitName;  //单位名称
-    protected float price;      //正常价格
-    protected float smallPrice; //小份价格
+    protected float price;      //价格
     protected Long ID;        //点菜时间
     protected boolean served;   //是否已交付
     protected Long dishNo;      //菜色编号
     protected int tableNo;      //桌号
-    public Stuff(String name, String unitName, float price, float smallPrice, int count, Long ID,  Long dishNo, int tableNo, boolean served) {
+    public Stuff(String name, String unitName, float price, Long ID,  Long dishNo, int tableNo, boolean served) {
         this.name = name;
         this.unitName = unitName;
         this.price = price;
-        this.smallPrice = smallPrice;
         this.ID = ID;
         this.dishNo = dishNo;
         this.tableNo = tableNo;
@@ -47,14 +47,6 @@ public abstract class Stuff {
         this.price = price;
     }
 
-    public float getSmallPrice() {
-        return smallPrice;
-    }
-
-    public void setSmallPrice(float smallPrice) {
-        this.smallPrice = smallPrice;
-    }
-
     public Long getID() {
         return ID;
     }
@@ -75,5 +67,7 @@ public abstract class Stuff {
         this.dishNo = dishNo;
     }
 
-    public abstract boolean serve();
+//    public abstract boolean serve(Stuff stuff);
+//
+//    public abstract boolean order(Dish dish, int count, int tableNo);
 }

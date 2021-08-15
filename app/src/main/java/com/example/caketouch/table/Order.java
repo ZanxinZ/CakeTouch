@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import com.example.caketouch.Menu.Dish;
+import com.example.caketouch.Menu.DishType;
 import com.example.caketouch.Menu.DishUnit;
 
 import java.util.Date;
@@ -15,40 +16,56 @@ import java.util.HashMap;
  */
 public class Order {
     //记录点的每个物品
-    private HashMap<Long, Stuff> ordered = new HashMap();
-    private Long orderTime;//点餐时间
+    public static HashMap<Long, Stuff> ordered = new HashMap<>();   // stuffId, stuff
+    public static HashMap<Long, Stuff> served = new HashMap<>();    // stuffId, stuff
+    public static HashMap<Long, Integer> dishRecord = new HashMap<>(); // dishNo, count
+    private static Long orderTime;//点餐时间
 
     public Order() {
-        this.orderTime = new Date().getTime();
+        Order.orderTime = new Date().getTime();
     }
 
-    /**
-     * 点菜
-     * @param dish
-     * @param count
-     */
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void orderFood(int tableNo, Dish dish, int count){
-        Food food = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()), dish.getPrice(), dish.getSmallPrice(), count, new Date().getTime(), dish.getDishNo(), tableNo);
-        ordered.put(food.getID(),food);
+    public Stuff orderStuff(Dish dish, boolean isNormal, int count, int tableNo){
+        if (count < 1 || count > 101)return null;
+        Stuff stuff = null;
+        if (dish.getDishType() == DishType.drink){
+            for (int i = 0; i < count; i++) {
+                Drink drink;
+                if (isNormal){
+                    drink = new Drink(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getPrice(), new Date().getTime(), dish.getDishNo(), tableNo);
+                }else {
+                    drink = new Drink(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getSmallPrice(), new Date().getTime(), dish.getDishNo(), tableNo);
+                }
+                stuff = drink;
+                ordered.put(drink.getID(), drink);
+            }
+
+        }else{
+            for (int i = 0; i < count; i++) {
+                Food food;
+                if (isNormal){
+                    food = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getPrice(), new Date().getTime(), dish.getDishNo(), tableNo);
+                }else {
+                    food = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getSmallPrice(), new Date().getTime(), dish.getDishNo(), tableNo);
+                }
+                stuff = food;
+                ordered.put(food.getID(), food);
+            }
+        }
+        return stuff;
     }
 
-    /**
-     * 拿饮料
-     * @param dish
-     * @param count
-     */
-    public void takeDrink(int tableNo, Dish dish, int count){
-        Drink drink = new Drink(dish.getName(),DishUnit.getUnitStr(dish.getUnit()), dish.getPrice(),-1, count, new Date().getTime(),dish.getDishNo(), tableNo);
-        ordered.put(drink.getID(),drink);
-    }
 
     /**
      * 上菜或饮料
      * @param stuff
      */
     public void serveStuff(Stuff stuff){
-        stuff.serve();
+
     }
 
     public Long getOrderTime() {
