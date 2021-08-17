@@ -13,8 +13,8 @@
             android:name=".MainActivity"
             android:label="title">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
-                <category android:name="android.intent.category.LAUNCHER"></category>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -35,6 +35,13 @@
         <activity android:name=".DishShowActivity">
             <intent-filter>
                 <action android:name="com.example.caketouch.DishShowActivity"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".OrderedShowActivity">
+            <intent-filter>
+                <action android:name="com.example.caketouch.OrderedShowActivity"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

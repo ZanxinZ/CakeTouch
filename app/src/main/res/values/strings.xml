@@ -9,6 +9,9 @@
     <string name="check_ordered">查看已点</string>
     <string name="serve_food">上菜</string>
     <string name="new_table">新的桌子</string>
+    <string name="table_num">桌位</string>
+    <string name="stuff_for_serve">待上的菜</string>
+    <string name="num">号</string>
 
     <string name="dish_name">名称:</string>
     <string name="input">输入</string>
