@@ -73,6 +73,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         Button addTableBtn = findViewById(R.id.buttonAddTable);
 
         addTableBtn.setOnClickListener(v -> {
+            tableLossFocus();
             DialogFragment dialogFragment = new AddTableDialogFragment(tables.keySet());
             dialogFragment.show(getFragmentManager(),"AddTableDialogFragment");
 
@@ -88,17 +89,19 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             Log.d("文件","已存在");
         }
 
-        Button button = findViewById(R.id.buttonServeFood);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Button checkFoodBtn = findViewById(R.id.buttonCheckOrder);
+        checkFoodBtn.setOnClickListener(v -> {
+            tableLossFocus();
+        });
 
-            }
-
+        Button serveFoodBtn = findViewById(R.id.buttonServeFood);
+        serveFoodBtn.setOnClickListener(v -> {
+            tableLossFocus();
         });
 
         Button settingBtn = findViewById(R.id.buttonSetting);
         settingBtn.setOnClickListener((v)->{
+            tableLossFocus();
             Intent intent = new Intent("com.example.caketouch.SettingActivity");
             startActivity(intent);
         });
@@ -247,6 +250,8 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
             //button.setGravity(Gravity.CENTER);
             View view = findViewById(R.id.view_dishes_for_order);
+            ScrollView scrollView = (ScrollView)findViewById(R.id.scrollViewDishForOrder);
+            scrollView.smoothScrollTo(0,0);
             ChooseDishViewBuilder chooseDishViewBuilder = new ChooseDishViewBuilder(MainActivity.this, (ViewGroup) view, chooseTableBtn);
         });
     }
@@ -283,4 +288,16 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         Table table = tables.get(tableNo);
         table.orderStuff(dish, isNormal, count, tableNo);
     }
+
+    public void tableLossFocus(){
+        if (chooseTableBtn != null){
+            chooseTableBtn.setBackgroundColor(Color.parseColor(light_blue));
+            chooseTableBtn.setGravity(Gravity.CENTER);
+            chooseTableBtn.setTextSize(autoDp(8));
+            chooseTableBtn = null;
+        }
+        LinearLayout linearLayout = findViewById(R.id.view_dishes_for_order);
+        linearLayout.removeAllViews();
+    }
+
 }
