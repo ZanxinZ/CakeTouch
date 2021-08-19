@@ -20,7 +20,7 @@ public class Order {
     public static HashMap<Long, Stuff> served = new HashMap<>();    // stuffId, stuff
     public static HashMap<Long, Integer> dishRecord = new HashMap<>(); // dishNo, count
     private static Long orderTime;//点餐时间
-
+    private static float total;     //总价
     public Order() {
         Order.orderTime = new Date().getTime();
     }

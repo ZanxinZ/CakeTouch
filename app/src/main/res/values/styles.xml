@@ -15,4 +15,14 @@
         <item name= "android:layout_margin">20dp</item>
         <item name="android:layout_width">100dp</item>
     </style>
+
+    <style name="table_block_text">
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="table_block_text_content">
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_width">60dp</item>
+    </style>
+
 </resources>

@@ -99,6 +99,8 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         Button serveFoodBtn = findViewById(R.id.buttonServeFood);
         serveFoodBtn.setOnClickListener(v -> {
             tableLossFocus();
+            Intent intent = new Intent("com.example.caketouch.StuffServeActivity");
+            startActivity(intent);
         });
 
         Button settingBtn = findViewById(R.id.buttonSetting);

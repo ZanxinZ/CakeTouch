@@ -11,7 +11,7 @@ import com.example.caketouch.Menu.Dish;
 public class Table {
     private Order order = new Order();
     private Button button;
-
+    private int people = 0;
     public Order getOrder() {
         return order;
     }

@@ -12,10 +12,10 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.support.annotation.RequiresApi;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +34,7 @@ import com.example.caketouch.model.DishDatabaseHandler;
 public class DishDetailFragment extends DialogFragment {
     public Dish dish;
     Activity activity;
+    DishDetailFragment dishDetailFragment;
     private DishDatabaseHandler databaseHandler;
     public interface NoticeDialogListener {
         void onDialogPositiveClick(DishDetailFragment dialog);
@@ -54,6 +55,7 @@ public class DishDetailFragment extends DialogFragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public DishDetailFragment (Long dishNo, Context context){
         activity = (Activity)context;
+        dishDetailFragment = this;
         databaseHandler = new DishDatabaseHandler(context);
         dish = databaseHandler.loadDish(dishNo);
     }
@@ -63,12 +65,12 @@ public class DishDetailFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         if (dish == null){
-            Toast.makeText(getActivity(), "菜色不存在", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "菜色不存在", Toast.LENGTH_SHORT).show();
             return null;
         }
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        LayoutInflater inflater = LayoutInflater.from(activity);
         View view = inflater.inflate(R.layout.dialog_dish_detail,null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view);
 
         ImageView dishImg = view.findViewById(R.id.imageViewDishBitmap);
@@ -87,7 +89,7 @@ public class DishDetailFragment extends DialogFragment {
         buttonDeleteDish.setOnClickListener(v -> {
             //((ViewGroup)(view.getParent())).removeView(view);
             dismiss();
-            AlertDialog.Builder deleteDishDialogBuilder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder deleteDishDialogBuilder = new AlertDialog.Builder(activity);
             deleteDishDialogBuilder.setMessage("确认要删除【"+dish.getName() + "】？")
                     .setTitle("提示")
                     .setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -111,10 +113,11 @@ public class DishDetailFragment extends DialogFragment {
         Button buttonChangeDish = view.findViewById(R.id.buttonChangeDish);
         buttonChangeDish.setOnClickListener(v -> {
             dismiss();
-            AlertDialog.Builder updateDishDialogBuilder = new AlertDialog.Builder(getActivity());
+
+            AlertDialog.Builder updateDishDialogBuilder = new AlertDialog.Builder(activity);
 
             //((ViewGroup) view).removeAllViews();
-            LayoutInflater dishUpdateInflater = LayoutInflater.from(getActivity());
+            LayoutInflater dishUpdateInflater = LayoutInflater.from(activity);
             View dishUpdateView = dishUpdateInflater.inflate(R.layout.dialog_dish_detail_update, null);
             //((ViewGroup) view).addView(dishUpdateView);
             updateDishDialogBuilder.setView(dishUpdateView);
@@ -132,9 +135,11 @@ public class DishDetailFragment extends DialogFragment {
             Spinner dishTypeUpdate = dishUpdateView.findViewById(R.id.spinnerDishTypeUpdate);
             dishTypeUpdate.setSelection(dish.getDishType().code);
 
+            AlertDialog updateDialog = updateDishDialogBuilder.show();
+
             Button updateCancel = dishUpdateView.findViewById(R.id.buttonDishCancelDishUpdate);
-            updateCancel.setOnClickListener(action->{
-                dismiss();
+            updateCancel.setOnClickListener(cancelAction->{
+               updateDialog.dismiss();
             });
             Button updateConfirm = dishUpdateView.findViewById(R.id.buttonConfirmDishUpdate);
             updateConfirm.setOnClickListener(action -> {
@@ -147,7 +152,7 @@ public class DishDetailFragment extends DialogFragment {
                         DishType.getDishType(dishTypeUpdate.getSelectedItem().toString()),
                         dish.getDishNo());
                 if (databaseHandler.updateDish(dishForUpdate)){
-                    dismiss();
+                    updateDialog.dismiss();
                     Toast.makeText(activity, "菜品已更新！", Toast.LENGTH_SHORT).show();
                     activity.finish();
                 }
@@ -165,7 +170,7 @@ public class DishDetailFragment extends DialogFragment {
                 return true;
             });
 
-            updateDishDialogBuilder.show();
+
         });
 
         

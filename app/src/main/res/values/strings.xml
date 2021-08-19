@@ -11,6 +11,7 @@
     <string name="new_table">新的桌子</string>
     <string name="table_num">桌位</string>
     <string name="stuff_for_serve">待上的菜</string>
+    <string name="add_stuff">确认添加</string>
     <string name="num">号</string>
 
     <string name="dish_name">名称:</string>
@@ -60,4 +61,11 @@
     <string name="order_food">点餐</string>
     <string name="normal">正常</string>
     <string name="small">小份</string>
+
+    <string name="people_count">人数</string>
+    <string name="ordered">已点</string>
+    <string name="served">已上</string>
+
+    <string name="belongTo">属于：</string>
+    <string name="table">桌</string>
 </resources>
