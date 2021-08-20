@@ -50,8 +50,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="88" />
+
         </LinearLayout>
 
+        <Button
+            android:id="@+id/buttonServeOneFood"
+            android:layout_width="55dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:text="@string/serve_food"
+            android:background="@drawable/button_background"
+            android:layout_gravity="center"/>
 
 
     </LinearLayout>
