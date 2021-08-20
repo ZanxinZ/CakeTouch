@@ -66,6 +66,6 @@
     <string name="ordered">已点</string>
     <string name="served">已上</string>
 
-    <string name="belongTo">属于：</string>
+    <string name="belongTo">属于</string>
     <string name="table">桌</string>
 </resources>
