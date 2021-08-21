@@ -2,7 +2,7 @@ package com.example.caketouch.model;
 
 import android.graphics.Bitmap;
 
-import com.example.caketouch.Menu.Dish;
+import com.example.caketouch.menu.Dish;
 
 public class Model {
     private String imageName;

@@ -1,4 +1,4 @@
-package com.example.caketouch.Menu;
+package com.example.caketouch.menu;
 
 /**
  * 菜的类型

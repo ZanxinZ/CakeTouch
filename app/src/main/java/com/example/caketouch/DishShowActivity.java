@@ -1,30 +1,23 @@
 package com.example.caketouch;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.DialogFragment;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.caketouch.Menu.Dish;
-import com.example.caketouch.Menu.Menu;
+import com.example.caketouch.menu.Dish;
+import com.example.caketouch.menu.Menu;
 import com.example.caketouch.model.DishDatabaseHandler;
 
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,7 +1,5 @@
 package com.example.caketouch.table;
 
-import com.example.caketouch.Menu.Dish;
-
 import java.util.Date;
 
 /**

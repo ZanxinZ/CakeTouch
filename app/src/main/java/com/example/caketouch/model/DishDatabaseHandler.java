@@ -1,6 +1,5 @@
 package com.example.caketouch.model;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,9 +9,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.caketouch.Menu.Dish;
-import com.example.caketouch.Menu.DishType;
-import com.example.caketouch.Menu.Menu;
+import com.example.caketouch.menu.Dish;
+import com.example.caketouch.menu.Menu;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,8 +18,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DishDatabaseHandler extends SQLiteOpenHelper {
 

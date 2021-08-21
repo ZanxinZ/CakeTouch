@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.caketouch.Menu.Dish;
+import com.example.caketouch.menu.Dish;
 
 @SuppressLint("ValidFragment")
 public class AddStuffDialogFragment extends DialogFragment {

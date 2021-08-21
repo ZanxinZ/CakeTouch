@@ -13,10 +13,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.caketouch.Menu.Dish;
-import com.example.caketouch.Menu.Menu;
+import com.example.caketouch.menu.Dish;
+import com.example.caketouch.menu.Menu;
 import com.example.caketouch.model.DishDatabaseHandler;
 
 import java.util.HashMap;

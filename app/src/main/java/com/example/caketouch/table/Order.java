@@ -1,12 +1,10 @@
 package com.example.caketouch.table;
 
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-
-import com.example.caketouch.Menu.Dish;
-import com.example.caketouch.Menu.DishType;
-import com.example.caketouch.Menu.DishUnit;
+import com.example.caketouch.food_for_serve.AllOrdered;
+import com.example.caketouch.menu.Dish;
+import com.example.caketouch.menu.DishType;
+import com.example.caketouch.menu.DishUnit;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -18,7 +16,7 @@ public class Order {
     //记录点的每个物品
     public static HashMap<Long, Stuff> ordered = new HashMap<>();   // stuffId, stuff
     public static HashMap<Long, Stuff> served = new HashMap<>();    // stuffId, stuff
-    public static HashMap<Long, Integer> dishRecord = new HashMap<>(); // dishNo, count
+
     private static Long orderTime;//点餐时间
     private static float total;     //总价
     public Order() {
@@ -42,6 +40,7 @@ public class Order {
                 ordered.put(drink.getID(), drink);
             }
 
+
         }else{
             for (int i = 0; i < count; i++) {
                 Food food;
@@ -56,6 +55,7 @@ public class Order {
                 ordered.put(food.getID(), food);
             }
         }
+        addToDishRecord(stuff.getDishNo(), count);
         return stuff;
     }
 
@@ -71,4 +71,13 @@ public class Order {
     public Long getOrderTime() {
         return orderTime;
     }
+
+    public void addToDishRecord(Long dishNo, int count){
+        if (AllOrdered.dishRecord.containsKey(dishNo)){
+            AllOrdered.dishRecord.put(dishNo, AllOrdered.dishRecord.get(dishNo) + count);
+        }else{
+            AllOrdered.dishRecord.put(dishNo, count);
+        }
+    }
+
 }

@@ -1,10 +1,5 @@
 package com.example.caketouch.table;
 
-import com.example.caketouch.Menu.Dish;
-import com.example.caketouch.Menu.DishUnit;
-
-import java.util.Date;
-
 public class Drink extends Stuff{
 
 

@@ -17,9 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.caketouch.Menu.Dish;
-import com.example.caketouch.Menu.DishType;
-import com.example.caketouch.Menu.DishUnit;
+import com.example.caketouch.menu.Dish;
+import com.example.caketouch.menu.DishType;
+import com.example.caketouch.menu.DishUnit;
 import com.example.caketouch.model.DishDatabaseHandler;
 
 import java.util.Date;

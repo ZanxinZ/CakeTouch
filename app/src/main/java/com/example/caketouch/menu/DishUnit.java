@@ -1,4 +1,4 @@
-package com.example.caketouch.Menu;
+package com.example.caketouch.menu;
 
 public enum DishUnit {
     fen(0),
