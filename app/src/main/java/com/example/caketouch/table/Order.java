@@ -2,6 +2,7 @@ package com.example.caketouch.table;
 
 
 import com.example.caketouch.food_for_serve.AllOrdered;
+import com.example.caketouch.food_for_serve.FoodOrdered;
 import com.example.caketouch.menu.Dish;
 import com.example.caketouch.menu.DishType;
 import com.example.caketouch.menu.DishUnit;
@@ -37,7 +38,9 @@ public class Order {
                             dish.getSmallPrice(), new Date().getTime(), dish.getDishNo(), tableNo);
                 }
                 stuff = drink;
-                ordered.put(drink.getID(), drink);
+                //ordered.put(drink.getID(), drink);
+                served.put(drink.getID(),drink);
+                //ordered.remove(drink.getID());
             }
 
 
@@ -55,7 +58,7 @@ public class Order {
                 ordered.put(food.getID(), food);
             }
         }
-        addToDishRecord(stuff.getDishNo(), count);
+//        addToDishRecord(stuff.getDishNo(), count);
         return stuff;
     }
 
@@ -72,12 +75,14 @@ public class Order {
         return orderTime;
     }
 
-    public void addToDishRecord(Long dishNo, int count){
-        if (AllOrdered.dishRecord.containsKey(dishNo)){
-            AllOrdered.dishRecord.put(dishNo, AllOrdered.dishRecord.get(dishNo) + count);
-        }else{
-            AllOrdered.dishRecord.put(dishNo, count);
-        }
-    }
+//    public void addToDishRecord(Long dishNo, int count){
+//        if (AllOrdered.dishRecord.containsKey(dishNo)){
+//            AllOrdered.dishRecord.put(dishNo, AllOrdered.dishRecord.get(dishNo) + count);
+//        }else{
+//            AllOrdered.dishRecord.put(dishNo, count);
+//        }
+//    }
+
+
 
 }

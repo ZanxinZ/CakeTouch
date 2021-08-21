@@ -1,14 +1,13 @@
 package com.example.caketouch.food_for_serve;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class FoodOrdered {
     private String foodName = null;
     private int count = 0;
-    private Set<Integer> tablesOrdered = new HashSet<>();               // who has ordered current food
+    private ArrayList<Integer> tablesOrdered = new ArrayList<>();               // who has ordered current food
 
-    public FoodOrdered(String foodName, int count, Set<Integer> tablesOrdered) {
+    public FoodOrdered(String foodName, int count, ArrayList<Integer> tablesOrdered) {
         this.foodName = foodName;
         this.count = count;
         this.tablesOrdered = tablesOrdered;
@@ -16,13 +15,17 @@ public class FoodOrdered {
 
     /**
      *
-     * @param no tableNo which has this food
+     * @param tableNo tableNo which has this food
      */
-    public void addFoodToTable(int no){
-        tablesOrdered.add(no);
+    public void attachTableToFood(int tableNo){
+        tablesOrdered.add(tableNo);
     }
-    public void removeFoodFromTable(int no){
-        tablesOrdered.remove(no);
+    public void removeTableFromFood(int tableNo){
+        tablesOrdered.remove(tableNo);
+    }
+
+    public void addCount(int count){
+        this.count = this.count + count;
     }
 
     public String getFoodName() {
@@ -41,11 +44,11 @@ public class FoodOrdered {
         this.count = count;
     }
 
-    public Set<Integer> getTablesOrdered() {
+    public ArrayList<Integer> getTablesOrdered() {
         return tablesOrdered;
     }
 
-    public void setTablesOrdered(Set<Integer> tablesOrdered) {
+    public void setTablesOrdered(ArrayList<Integer> tablesOrdered) {
         this.tablesOrdered = tablesOrdered;
     }
 }

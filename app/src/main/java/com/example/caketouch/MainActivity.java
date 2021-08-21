@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     public static WeakReference<Context> sContextReference;
 
-    public Map<Integer, Table> tables = new HashMap<>();//tableNo, table
+    public static Map<Integer, Table> tables = new HashMap<>();//tableNo, table
 
     public Button chooseTableBtn = null;
 

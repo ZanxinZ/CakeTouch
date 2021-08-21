@@ -1,20 +1,20 @@
 package com.example.caketouch.food_for_serve;
 
+
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+
 
 public class AllOrdered {
-    public static HashMap<Long, Integer> dishRecord = new HashMap<>(); // dishNo, count
+    // public static HashMap<Long, Integer> dishRecord = new HashMap<>(); // dishNo, count
+    public static HashMap<Long, FoodOrdered> foodOrderedMap = new HashMap<>();//dishNo, foodOrdered
 
 
-    public static HashMap<Long, Integer> getDishRecord() {
-        return dishRecord;
+
+    public static HashMap<Long, FoodOrdered> getFoodOrderedMap() {
+        return foodOrderedMap;
     }
 
-    public static void setDishRecord(HashMap<Long, Integer> dishRecord) {
-        AllOrdered.dishRecord = dishRecord;
+    public static void setFoodOrderedMap(HashMap<Long, FoodOrdered> foodOrderedMap) {
+        AllOrdered.foodOrderedMap = foodOrderedMap;
     }
-
-
 }

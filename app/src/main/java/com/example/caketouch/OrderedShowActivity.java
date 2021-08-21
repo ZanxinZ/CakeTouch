@@ -17,11 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.caketouch.food_for_serve.AllOrdered;
+import com.example.caketouch.food_for_serve.FoodOrdered;
 import com.example.caketouch.table.Food;
 import com.example.caketouch.table.Stuff;
 import com.example.caketouch.table.Table;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 public class OrderedShowActivity extends Activity {
@@ -90,6 +93,23 @@ public class OrderedShowActivity extends Activity {
         foodCount++;
     }
 
+
+    public void addToFoodOrderedMap(Food food, int count, int tableNo){
+        if (AllOrdered.foodOrderedMap.containsKey(food.getDishNo())){
+            //food card has been created
+            FoodOrdered foodOrdered = AllOrdered.foodOrderedMap.get(food.getDishNo());
+            assert foodOrdered != null;
+            foodOrdered.addCount(count);
+            foodOrdered.attachTableToFood(tableNo);
+            //AllOrdered.foodOrderedMap.put(food.getDishNo(), foodOrdered);
+        }else{
+            FoodOrdered foodOrdered = new FoodOrdered(food.getName(), count, new ArrayList<>());
+            foodOrdered.attachTableToFood(tableNo);
+            AllOrdered.foodOrderedMap.put(food.getDishNo(),foodOrdered);
+        }
+
+
+    }
 
     private int autoDp(int dp){
         return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics()));
