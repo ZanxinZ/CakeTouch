@@ -4,13 +4,10 @@ import java.util.ArrayList;
 
 public class FoodOrdered {
     private String foodName = null;
-    private int count = 0;
     private ArrayList<Integer> tablesOrdered = new ArrayList<>();               // who has ordered current food
 
-    public FoodOrdered(String foodName, int count, ArrayList<Integer> tablesOrdered) {
+    public FoodOrdered(String foodName) {
         this.foodName = foodName;
-        this.count = count;
-        this.tablesOrdered = tablesOrdered;
     }
 
     /**
@@ -24,9 +21,6 @@ public class FoodOrdered {
         tablesOrdered.remove(tableNo);
     }
 
-    public void addCount(int count){
-        this.count = this.count + count;
-    }
 
     public String getFoodName() {
         return foodName;
@@ -36,13 +30,6 @@ public class FoodOrdered {
         this.foodName = foodName;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 
     public ArrayList<Integer> getTablesOrdered() {
         return tablesOrdered;

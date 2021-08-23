@@ -12,14 +12,14 @@ public abstract class Stuff {
     protected Long ID;        //点菜时间
     protected boolean served;   //是否已交付
     protected Long dishNo;      //菜色编号
-    protected int tableNo;      //桌号
-    public Stuff(String name, String unitName, float price, Long ID,  Long dishNo, int tableNo, boolean served) {
+    //protected int tableNo;      //桌号
+    public Stuff(String name, String unitName, float price, Long ID,  Long dishNo, boolean served) {
         this.name = name;
         this.unitName = unitName;
         this.price = price;
         this.ID = ID;
         this.dishNo = dishNo;
-        this.tableNo = tableNo;
+        //this.tableNo = tableNo;
         this.served = served;
     }
 

@@ -15,8 +15,8 @@ import java.util.HashMap;
  */
 public class Order {
     //记录点的每个物品
-    public static HashMap<Long, Stuff> ordered = new HashMap<>();   // stuffId, stuff
-    public static HashMap<Long, Stuff> served = new HashMap<>();    // stuffId, stuff
+    public HashMap<Long, Stuff> ordered = new HashMap<>();   // stuffId, stuff
+    //public HashMap<Long, Stuff> served = new HashMap<>();    // stuffId, stuff
 
     private static Long orderTime;//点餐时间
     private static float total;     //总价
@@ -24,40 +24,35 @@ public class Order {
         Order.orderTime = new Date().getTime();
     }
 
-    public Stuff orderStuff(Dish dish, boolean isNormal, int count, int tableNo){
+    public Stuff orderStuff(Dish dish, boolean isNormal, int count){
         if (count < 1 || count > 101)return null;
         Stuff stuff = null;
+
+
+        //exist BUG
         if (dish.getDishType() == DishType.drink){
             for (int i = 0; i < count; i++) {
-                Drink drink;
                 if (isNormal){
-                    drink = new Drink(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getPrice(), new Date().getTime(), dish.getDishNo(), tableNo);
+                    stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getPrice(), new Date().getTime(), dish.getDishNo());
                 }else {
-                    drink = new Drink(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getSmallPrice(), new Date().getTime(), dish.getDishNo(), tableNo);
+                    stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getSmallPrice(), new Date().getTime(), dish.getDishNo());
                 }
-                stuff = drink;
-                //ordered.put(drink.getID(), drink);
-                served.put(drink.getID(),drink);
-                //ordered.remove(drink.getID());
-            }
-
-
-        }else{
-            for (int i = 0; i < count; i++) {
-                Food food;
-                if (isNormal){
-                    food = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getPrice(), new Date().getTime(), dish.getDishNo(), tableNo);
-                }else {
-                    food = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getSmallPrice(), new Date().getTime(), dish.getDishNo(), tableNo);
-                }
-                stuff = food;
-                ordered.put(food.getID(), food);
+                ordered.put(stuff.getID(), stuff);
             }
         }
+        for (int i = 0; i < count; i++) {
+            if (isNormal){
+                stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                        dish.getPrice(), new Date().getTime(), dish.getDishNo());
+            }else {
+                stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                        dish.getSmallPrice(), new Date().getTime(), dish.getDishNo());
+            }
+            ordered.put(stuff.getID(), stuff);
+        }
+
 //        addToDishRecord(stuff.getDishNo(), count);
         return stuff;
     }
@@ -65,10 +60,13 @@ public class Order {
 
     /**
      * 上菜或饮料
-     * @param stuff
+     * @param stuffId
      */
-    public void serveStuff(Stuff stuff){
-
+    public boolean serveStuff(Long stuffId){
+        Stuff stuff = ordered.get(stuffId);
+        if (stuff == null)return false;
+        stuff.setServed(true);
+        return true;
     }
 
     public Long getOrderTime() {

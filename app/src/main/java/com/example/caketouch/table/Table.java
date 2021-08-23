@@ -19,8 +19,16 @@ public class Table {
         this.order = order;
     }
 
-    public void orderStuff(Dish dish, boolean isNormal, int count, int tableNo){
-        order.orderStuff(dish, isNormal, count, tableNo);
+    public int getPeople() {
+        return people;
+    }
+
+    public void setPeople(int people) {
+        this.people = people;
+    }
+
+    public void orderStuff(Dish dish, boolean isNormal, int count){
+        order.orderStuff(dish, isNormal, count);
     }
 
     public Button getButton() {

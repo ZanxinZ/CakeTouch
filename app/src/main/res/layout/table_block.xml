@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/num"
             android:textAlignment="center"
-            android:textSize="25sp" />
+            android:textSize="18sp" />
 
         <!--people_count-->
         <LinearLayout
@@ -61,7 +61,7 @@
                 android:text="@string/ordered" />
 
             <TextView
-                android:id="@+id/textViewTableOrdered"
+                android:id="@+id/textViewTableStuffOrdered"
                 style="@style/table_block_text_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                 android:text="@string/served" />
 
             <TextView
-                android:id="@+id/textViewTableServed"
+                android:id="@+id/textViewTableStuffServed"
                 style="@style/table_block_text_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
