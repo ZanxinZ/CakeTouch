@@ -128,13 +128,10 @@ public class OrderedShowActivity extends Activity {
     public void addToTableOrderedMap(Stuff stuff, Table table){
         int tableNo = table.getButton().getId();
         TableOrdered tableOrdered = null;
-        if (AllOrdered.tableOrderedMap.containsKey(tableNo)){
-            tableOrdered = AllOrdered.tableOrderedMap.get(tableNo);
+        if (AllOrdered.tableOrderedMap.containsKey((long) tableNo)){
+            tableOrdered = AllOrdered.tableOrderedMap.get((long)tableNo);
             assert tableOrdered != null;
             tableOrdered.attachStuffToTable(stuff);
-            tableOrdered.setPeople(table.getPeople());
-
-
         }else {
             tableOrdered = new TableOrdered(table.getPeople());
             tableOrdered.attachStuffToTable(stuff);
@@ -149,6 +146,9 @@ public class OrderedShowActivity extends Activity {
 
     }
 
+    /**
+     * load Data from tables, and set data to "AllOrdered".
+     */
     public void loadData(){
         Set<Map.Entry<Integer, Table>> entrySet = MainActivity.tables.entrySet();
 
@@ -159,15 +159,18 @@ public class OrderedShowActivity extends Activity {
              entrySet) {
             Order order = entry.getValue().getOrder();
             Log.d("数量Map", String.valueOf(order.ordered.size()));
-            for (Map.Entry<Long, Stuff> foodEntry:
+            for (Map.Entry<Long, Stuff> stuffEntry:
                  order.ordered.entrySet()) {
-                Stuff stuff = foodEntry.getValue();
+                Stuff stuff = stuffEntry.getValue();
                 if (!stuff.isServed()){
                     addToFoodOrderedMap(new Food(stuff, null) , entry.getKey());
                 }
                 addToTableOrderedMap(stuff, entry.getValue());
+
             }
         }
+
+        Log.d("数量Map", String.valueOf(AllOrdered.tableOrderedMap.size()));
 
     }
 
