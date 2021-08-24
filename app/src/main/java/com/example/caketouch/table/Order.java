@@ -1,11 +1,14 @@
 package com.example.caketouch.table;
 
 
+import android.util.Log;
+
 import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.FoodOrdered;
 import com.example.caketouch.menu.Dish;
 import com.example.caketouch.menu.DishType;
 import com.example.caketouch.menu.DishUnit;
+import com.example.caketouch.util.DateGet;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -28,29 +31,41 @@ public class Order {
         if (count < 1 || count > 101)return null;
         Stuff stuff = null;
 
-
-        //exist BUG
         if (dish.getDishType() == DishType.drink){
             for (int i = 0; i < count; i++) {
                 if (isNormal){
-                    stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getPrice(), new Date().getTime(), dish.getDishNo());
+                    stuff = new Drink(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getPrice(), DateGet.Time(), dish.getDishNo());
                 }else {
-                    stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getSmallPrice(), new Date().getTime(), dish.getDishNo());
+                    stuff = new Drink(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getSmallPrice(), DateGet.Time(), dish.getDishNo());
                 }
                 ordered.put(stuff.getID(), stuff);
+                // Because use the mills as the ID, it can't be duplicate.
+                // if continuously put to hashmap, it's so fast that the mills time number will be the same, so wait for 1 millisecond
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        for (int i = 0; i < count; i++) {
-            if (isNormal){
-                stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                        dish.getPrice(), new Date().getTime(), dish.getDishNo());
-            }else {
-                stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                        dish.getSmallPrice(), new Date().getTime(), dish.getDishNo());
+        else{
+            for (int i = 0; i < count; i++) {
+                if (isNormal){
+                    stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getPrice(), DateGet.Time(), dish.getDishNo());
+                }else {
+                    stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getSmallPrice(), DateGet.Time(), dish.getDishNo());
+                }
+                ordered.put(stuff.getID(), stuff);
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            ordered.put(stuff.getID(), stuff);
         }
 
 //        addToDishRecord(stuff.getDishNo(), count);

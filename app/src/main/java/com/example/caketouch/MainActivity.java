@@ -288,10 +288,10 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     @Override
     public void onDialogPositiveClick(Dish dish, boolean isNormal, int count, int tableNo) {
-        Toast.makeText(this, "Add", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, String.valueOf(count), Toast.LENGTH_SHORT).show();
         Table table = tables.get(tableNo);
         table.orderStuff(dish, isNormal, count);
-        tables.put(tableNo,table);
+        //tables.put(tableNo,table);
 
     }
 

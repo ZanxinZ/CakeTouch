@@ -23,9 +23,6 @@ import com.example.caketouch.table.Order;
 import com.example.caketouch.table.Stuff;
 import com.example.caketouch.table.Table;
 
-import org.w3c.dom.Text;
-
-import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
@@ -161,6 +158,7 @@ public class OrderedShowActivity extends Activity {
         for (Map.Entry<Integer,Table> entry:
              entrySet) {
             Order order = entry.getValue().getOrder();
+            Log.d("数量Map", String.valueOf(order.ordered.size()));
             for (Map.Entry<Long, Stuff> foodEntry:
                  order.ordered.entrySet()) {
                 Stuff stuff = foodEntry.getValue();
@@ -177,9 +175,10 @@ public class OrderedShowActivity extends Activity {
         Set<Map.Entry<Long, TableOrdered>> tableOrderedEntrySet = AllOrdered.tableOrderedMap.entrySet();
         for (Map.Entry<Long, TableOrdered> entry:
              tableOrderedEntrySet) {
-            Log.d(" 点餐",String.valueOf(entry.getValue().getStuffs().size()));
+            //Log.d(" 点餐",String.valueOf(entry.getValue().getStuffs().size()));
             addTableBlock(linearLayoutTableBlocks, entry.getValue(), entry.getKey().intValue());
         }
+
     }
     private void constructStuffBlocks(){
         Set<Map.Entry<Long, FoodOrdered>> foodOrderedEntrySet = AllOrdered.foodOrderedMap.entrySet();
