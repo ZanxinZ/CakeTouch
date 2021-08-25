@@ -6,14 +6,18 @@
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/dish_card_background.xml" value="0.17222222222222222" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/food_block_background.xml" value="0.17222222222222222" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/panel_background.xml" value="0.24666666666666667" />
+        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/stuff_small_block_background.xml" value="0.24666666666666667" />
+        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/stuff_small_block_not_served.xml" value="0.24666666666666667" />
+        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/stuff_small_block_served.xml" value="0.24666666666666667" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/table_block_background.xml" value="0.17222222222222222" />
+        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/table_check_stuffs_background.xml" value="0.24666666666666667" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/activity_ordered_show.xml" value="0.2" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/dialog_dish_detail.xml" value="0.1" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/dialog_dish_detail_update.xml" value="0.2" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/dialog_order_stuff.xml" value="0.4" />
-        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/dialog_table_check.xml" value="0.4" />
-        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/food_block.xml" value="0.536" />
-        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/stuff_small_block.xml" value="0.4" />
+        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/dialog_table_check.xml" value="0.264" />
+        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/food_block.xml" value="0.8" />
+        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/stuff_small_block.xml" value="0.536" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/table_block.xml" value="0.6" />
       </map>
     </option>

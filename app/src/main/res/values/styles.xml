@@ -17,11 +17,17 @@
     </style>
 
     <style name="table_block_text">
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
     </style>
 
     <style name="table_block_text_content">
-        <item name="android:layout_margin">5dp</item>
+
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
         <item name="android:layout_width">60dp</item>
     </style>
 

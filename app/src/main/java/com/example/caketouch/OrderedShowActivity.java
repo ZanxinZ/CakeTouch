@@ -18,11 +18,14 @@ import android.widget.Toast;
 import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.FoodOrdered;
 import com.example.caketouch.food_for_serve.TableOrdered;
+import com.example.caketouch.menu.Dish;
+import com.example.caketouch.menu.Menu;
 import com.example.caketouch.table.Food;
 import com.example.caketouch.table.Order;
 import com.example.caketouch.table.Stuff;
 import com.example.caketouch.table.Table;
 
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
@@ -65,7 +68,7 @@ public class OrderedShowActivity extends Activity {
 
         loadData();
         constructTableBlocks();
-
+        constructStuffBlocks();
     }
     @SuppressLint("SetTextI18n")
     private void addTableBlock(LinearLayout table_blocks, TableOrdered tableOrdered, int tableNo){
@@ -107,6 +110,24 @@ public class OrderedShowActivity extends Activity {
         }
         LayoutInflater inflater = LayoutInflater.from(this);
         View table_block = inflater.inflate(R.layout.food_block, null);
+        Bitmap bitmap = null;
+        Dish dish = Menu.findDish(foodOrdered.getDishNo());
+        if (dish == null){
+            Resources r = OrderedShowActivity.this.getResources();
+            @SuppressLint("ResourceType") InputStream is = r.openRawResource(R.drawable.logo);
+            BitmapDrawable bmpDraw = new BitmapDrawable(is);
+            bitmap = bmpDraw.getBitmap();
+        }
+        else{
+            bitmap = dish.getImageInBitmap();
+        }
+        ImageView image = table_block.findViewById(R.id.imageViewFoodBlock);
+        image.setImageBitmap(bitmap);
+        TextView name = table_block.findViewById(R.id.textViewFoodBlockName);
+        name.setText(foodOrdered.getFoodName());
+        TextView tableCount = table_block.findViewById(R.id.textViewFoodBlockTableCount);
+        tableCount.setText(foodOrdered.getTablesOrdered().size() + " " + tableCount.getText() );
+
         curFoodRow.addView(table_block);
         foodCount++;
     }
@@ -119,7 +140,7 @@ public class OrderedShowActivity extends Activity {
             assert foodOrdered != null;
             foodOrdered.attachTableToFood(tableNo);
         }else{
-            FoodOrdered foodOrdered = new FoodOrdered(food.getName());
+            FoodOrdered foodOrdered = new FoodOrdered(food.getName(), food.getID(), food.getDishNo());
             foodOrdered.attachTableToFood(tableNo);
             AllOrdered.foodOrderedMap.put(food.getDishNo(),foodOrdered);
         }
@@ -181,7 +202,6 @@ public class OrderedShowActivity extends Activity {
             //Log.d(" 点餐",String.valueOf(entry.getValue().getStuffs().size()));
             addTableBlock(linearLayoutTableBlocks, entry.getValue(), entry.getKey().intValue());
         }
-
     }
     private void constructStuffBlocks(){
         Set<Map.Entry<Long, FoodOrdered>> foodOrderedEntrySet = AllOrdered.foodOrderedMap.entrySet();

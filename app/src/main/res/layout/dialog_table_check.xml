@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="400dp"
+    android:layout_height="300dp"
+    android:background="@color/gray">
 
     <TextView
         android:id="@+id/textView29"
@@ -12,29 +13,18 @@
         android:layout_gravity="center"
         />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:background="@drawable/table_check_stuffs_background"
+        android:layout_margin="5dp">
 
         <LinearLayout
+            android:id="@+id/table_check_stuffs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </ScrollView>
-        </LinearLayout>
-
-    </LinearLayout>
+            android:orientation="vertical" />
+    </ScrollView>
 
 
 </LinearLayout>
