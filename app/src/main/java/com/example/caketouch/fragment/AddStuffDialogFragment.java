@@ -1,4 +1,4 @@
-package com.example.caketouch;
+package com.example.caketouch.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.caketouch.R;
 import com.example.caketouch.menu.Dish;
 
 @SuppressLint("ValidFragment")

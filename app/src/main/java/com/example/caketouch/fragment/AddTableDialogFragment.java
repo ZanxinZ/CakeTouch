@@ -1,4 +1,4 @@
-package com.example.caketouch;
+package com.example.caketouch.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -12,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.caketouch.MainActivity;
+import com.example.caketouch.R;
 
 import java.util.Set;
 

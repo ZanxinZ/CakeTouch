@@ -1,4 +1,4 @@
-package com.example.caketouch;
+package com.example.caketouch.util;
 
 public class RequestCode {
     public static int PHOTO = 1;

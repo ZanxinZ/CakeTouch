@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.caketouch.fragment.AddStuffDialogFragment;
 import com.example.caketouch.menu.Dish;
 import com.example.caketouch.menu.Menu;
 import com.example.caketouch.model.DishDatabaseHandler;

@@ -2,6 +2,7 @@ package com.example.caketouch;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,6 +19,9 @@ import android.widget.Toast;
 import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.FoodOrdered;
 import com.example.caketouch.food_for_serve.TableOrdered;
+import com.example.caketouch.fragment.AddTableDialogFragment;
+import com.example.caketouch.fragment.DishDetailFragment;
+import com.example.caketouch.fragment.TableDetailDialogFragment;
 import com.example.caketouch.menu.Dish;
 import com.example.caketouch.menu.Menu;
 import com.example.caketouch.table.Food;
@@ -29,7 +33,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
-public class OrderedShowActivity extends Activity {
+public class OrderedShowActivity extends Activity implements TableDetailDialogFragment.NoticeDialogListener {
     int tableCount = 0;
     LinearLayout curTableBlockRow;
 
@@ -79,6 +83,10 @@ public class OrderedShowActivity extends Activity {
         }
         LayoutInflater inflater = LayoutInflater.from(this);
         View table_block = inflater.inflate(R.layout.table_block, null);
+        table_block.setOnClickListener(v->{
+            DialogFragment dialogFragment = new TableDetailDialogFragment(tableOrdered);
+            dialogFragment.show(getFragmentManager(),"TableDetailDialogFragment");
+        });
         //table_block.setPaddingRelative(autoDp(10), autoDp(10), autoDp(10), autoDp(10));
         //LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) table_block.findViewById(R.id.).getLayoutParams();
         //params.setMargins(autoDp(10),autoDp(10),autoDp(10),autoDp(10));
@@ -97,6 +105,7 @@ public class OrderedShowActivity extends Activity {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private void addFoodBlock(LinearLayout food_blocks, FoodOrdered foodOrdered){
         if (foodCount % 5 == 0){
             //ScrollView scrollView = new ScrollView(this);
@@ -215,4 +224,14 @@ public class OrderedShowActivity extends Activity {
         return ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics()));
     }
 
+
+    @Override
+    public void onTableDialogPositiveClick(DishDetailFragment dialog) {
+        Toast.makeText(OrderedShowActivity.this, "Yes", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTableDialogNegativeClick(DishDetailFragment dialog) {
+        Toast.makeText(OrderedShowActivity.this, "No", Toast.LENGTH_SHORT).show();
+    }
 }

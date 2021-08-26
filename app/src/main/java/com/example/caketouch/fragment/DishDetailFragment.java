@@ -1,4 +1,4 @@
-package com.example.caketouch;
+package com.example.caketouch.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -25,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.caketouch.R;
 import com.example.caketouch.menu.Dish;
 import com.example.caketouch.menu.DishType;
 import com.example.caketouch.menu.DishUnit;
@@ -34,7 +35,7 @@ import com.example.caketouch.model.DishDatabaseHandler;
 public class DishDetailFragment extends DialogFragment {
     public Dish dish;
     Activity activity;
-    DishDetailFragment dishDetailFragment;
+    //DishDetailFragment dishDetailFragment;
     private DishDatabaseHandler databaseHandler;
     public interface NoticeDialogListener {
         void onDialogPositiveClick(DishDetailFragment dialog);
@@ -55,7 +56,7 @@ public class DishDetailFragment extends DialogFragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public DishDetailFragment (Long dishNo, Context context){
         activity = (Activity)context;
-        dishDetailFragment = this;
+        //dishDetailFragment = this;
         databaseHandler = new DishDatabaseHandler(context);
         dish = databaseHandler.loadDish(dishNo);
     }

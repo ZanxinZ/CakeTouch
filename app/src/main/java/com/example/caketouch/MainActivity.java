@@ -29,6 +29,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.example.caketouch.fragment.AddStuffDialogFragment;
+import com.example.caketouch.fragment.AddTableDialogFragment;
 import com.example.caketouch.menu.Dish;
 import com.example.caketouch.model.DishDatabaseHandler;
 import com.example.caketouch.table.Table;
