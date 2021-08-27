@@ -104,7 +104,7 @@ public class TableDetailDialogFragment extends DialogFragment {
                                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        dismiss();
+                                        //constructSmallStuffs(linearLayout, linearLayoutServed);
                                     }
                                 });
                         serveFoodDialog.show();
