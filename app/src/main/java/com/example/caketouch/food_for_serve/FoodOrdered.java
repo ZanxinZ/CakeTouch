@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class FoodOrdered {
     private String foodName = null;
-    private ArrayList<Long> tablesOrdered = new ArrayList<>();               // who has ordered current food
+    private ArrayList<Integer> tablesOrdered = new ArrayList<>();               // who has ordered current food
     private Long stuffID;
     private Long dishNo;
     public FoodOrdered(String foodName, Long stuffID, Long dishNo) {
@@ -17,11 +17,15 @@ public class FoodOrdered {
      *
      * @param tableNo tableNo which has this food
      */
-    public void attachTableToFood(long tableNo){
+    public void attachTableToFood(int tableNo){
         tablesOrdered.add(tableNo);
     }
     public void removeTableFromFood(int tableNo){
-        tablesOrdered.remove(tableNo);
+        for(int i =0; i < tablesOrdered.size();i++){
+            if (tablesOrdered.get(i) == tableNo){
+                tablesOrdered.remove(i);
+            }
+        }
     }
 
 
@@ -33,11 +37,11 @@ public class FoodOrdered {
         this.foodName = foodName;
     }
 
-    public ArrayList<Long> getTablesOrdered() {
+    public ArrayList<Integer> getTablesOrdered() {
         return tablesOrdered;
     }
 
-    public void setTablesOrdered(ArrayList<Long> tablesOrdered) {
+    public void setTablesOrdered(ArrayList<Integer> tablesOrdered) {
         this.tablesOrdered = tablesOrdered;
     }
 

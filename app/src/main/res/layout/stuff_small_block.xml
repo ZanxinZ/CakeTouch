@@ -4,30 +4,32 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/stuff_small_block_not_served"
-    android:layout_margin="5dp">
+    >
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:background="@drawable/stuff_small_block_not_served"
+        android:layout_margin="5dp">
 
         <TextView
-            android:id="@+id/textView21"
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewStuffSmallName"
+            android:layout_width="85dp"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:layout_gravity="center"
             android:layout_margin="5dp"/>
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/imageViewStuffSmall"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/back"
+            android:src="@drawable/check"
             android:layout_gravity="center"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="5dp"
+            android:visibility="invisible"/>
 
     </LinearLayout>
 

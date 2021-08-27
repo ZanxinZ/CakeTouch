@@ -9,8 +9,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -84,7 +86,7 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
         LayoutInflater inflater = LayoutInflater.from(this);
         View table_block = inflater.inflate(R.layout.table_block, null);
         table_block.setOnClickListener(v->{
-            DialogFragment dialogFragment = new TableDetailDialogFragment(tableOrdered);
+            DialogFragment dialogFragment = new TableDetailDialogFragment(tableNo, tableOrdered);
             dialogFragment.show(getFragmentManager(),"TableDetailDialogFragment");
         });
         //table_block.setPaddingRelative(autoDp(10), autoDp(10), autoDp(10), autoDp(10));
@@ -113,6 +115,7 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
 //            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //            curFoodRow.setLayoutParams(params);
             curFoodRow.setOrientation(LinearLayout.HORIZONTAL);
+//            curFoodRow.setGravity(Gravity.CENTER);
 //            scrollView.addView(curFoodRow);
 //            scrollView.arrowScroll(View.FOCUS_RIGHT);
             food_blocks.addView(curFoodRow);
