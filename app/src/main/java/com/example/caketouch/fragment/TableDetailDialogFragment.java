@@ -21,6 +21,8 @@ import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.TableOrdered;
 import com.example.caketouch.table.Stuff;
 
+import java.util.Map;
+
 @SuppressLint("ValidFragment")
 public class TableDetailDialogFragment extends DialogFragment {
     private TableOrdered tableOrdered;
@@ -73,13 +75,13 @@ public class TableDetailDialogFragment extends DialogFragment {
     public void constructSmallStuffs(LinearLayout linearLayout, LinearLayout linearLayoutServed){
         linearLayout.removeAllViews();
         linearLayoutServed.removeAllViews();
-        for (Stuff stuff:
-                tableOrdered.getStuffs()) {
+        for (Map.Entry<Long, Stuff> stuffEntry:
+                tableOrdered.getStuffs().entrySet()) {
             LayoutInflater inflater = LayoutInflater.from(activity);
             View stuffView = inflater.inflate(R.layout.stuff_small_block, null);
             TextView textView = stuffView.findViewById(R.id.textViewStuffSmallName);
-            textView.setText(stuff.getName());
-            if (stuff.isServed()){
+            textView.setText(stuffEntry.getValue().getName());
+            if (stuffEntry.getValue().isServed()){
                 ImageView imageView = stuffView.findViewById(R.id.imageViewStuffSmall);
                 imageView.setVisibility(ViewGroup.VISIBLE);
                 linearLayoutServed.addView(stuffView);
@@ -91,13 +93,13 @@ public class TableDetailDialogFragment extends DialogFragment {
                         AlertDialog.Builder serveFoodDialog = new AlertDialog.Builder(activity);
                         //dismiss();
                         serveFoodDialog.setTitle("提示")
-                                .setMessage("确认要上菜【" + stuff.getName() + "】吗？")
+                                .setMessage("确认要上菜【" + stuffEntry.getValue().getName() + "】吗？")
                                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        MainActivity.tables.get(tableNo).getOrder().ordered.get(stuff.getID()).setServed(true);
-                                        AllOrdered.foodOrderedMap.get(stuff.getDishNo()).removeTableFromFood(tableNo);
-                                        stuff.setServed(true);
+                                        MainActivity.tables.get(tableNo).getOrder().ordered.get(stuffEntry.getValue().getID()).setServed(true);
+                                        AllOrdered.foodOrderedMap.get(stuffEntry.getValue().getDishNo()).removeTableFromFood(tableNo);
+                                        stuffEntry.getValue().setServed(true);
                                         constructSmallStuffs(linearLayout, linearLayoutServed);
                                     }
                                 })
