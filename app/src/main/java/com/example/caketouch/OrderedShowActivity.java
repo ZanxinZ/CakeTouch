@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.example.caketouch.food_for_serve.FoodOrdered;
 import com.example.caketouch.food_for_serve.TableOrdered;
 import com.example.caketouch.fragment.AddTableDialogFragment;
 import com.example.caketouch.fragment.DishDetailFragment;
+import com.example.caketouch.fragment.ServeFoodDialogFragment;
 import com.example.caketouch.fragment.TableDetailDialogFragment;
 import com.example.caketouch.menu.Dish;
 import com.example.caketouch.menu.Menu;
@@ -139,6 +141,11 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
         name.setText(foodOrdered.getFoodName());
         TextView tableCount = table_block.findViewById(R.id.textViewFoodBlockTableCount);
         tableCount.setText(foodOrdered.getTablesOrdered().size() + " " + tableCount.getText() );
+        Button serveFoodButton = table_block.findViewById(R.id.buttonServeOneFood);
+        serveFoodButton.setOnClickListener(v -> {
+            DialogFragment dialog = new ServeFoodDialogFragment(foodOrdered,OrderedShowActivity.this);
+            dialog.show(getFragmentManager(), "ServeFoodDialogFragment");
+        });
 
         curFoodRow.addView(table_block);
         foodCount++;
