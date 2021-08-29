@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
-            android:id="@+id/imageViewServeFoodBack"
+            android:id="@+id/imageViewCheckDrinkBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="15dp"
@@ -19,13 +19,25 @@
             android:src="@drawable/back" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textViewCheckDrink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="35dp"
             android:layout_marginTop="15dp"
-            android:text="@string/serve_food"
+            android:text="@string/check_drink"
             android:textSize="35sp" />
+
     </LinearLayout>
-    <include android:id="@+id/food_for_serve" layout="@layout/dishes"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/checkDrinkContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
 </LinearLayout>

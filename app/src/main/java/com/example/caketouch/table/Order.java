@@ -23,7 +23,7 @@ public class Order {
     public HashMap<Long, DrinkOrdered> drinkOrderedMap = new HashMap<>(); // DishNo, drinkOrdered
 
     private static Long orderTime;//点餐时间
-    private static float total;     //总价
+    private static float total;   //总价
     public Order() {
         Order.orderTime = new Date().getTime();
     }
@@ -34,33 +34,24 @@ public class Order {
 
         if (dish.getDishType() == DishType.drink){
 
-            Drink drink;
-            if (drinkOrdered.containsKey(dish.getDishNo())){
-                drink = drinkOrdered.get(dish.getDishNo());
+            DrinkOrdered drinkOrdered;
+            if (drinkOrderedMap.containsKey(dish.getDishNo())){
+                drinkOrdered = drinkOrderedMap.get(dish.getDishNo());
             }else{
                 if (isNormal){
-                    drink = new Drink(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getPrice(), DateGet.Time(), dish.getDishNo());
+                    drinkOrdered = new DrinkOrdered(dish.getDishNo(), 0, dish.getName(),DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getPrice());
 
                 }else {
-                    drink = new Drink(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getSmallPrice(), DateGet.Time(), dish.getDishNo());
+                    drinkOrdered = new DrinkOrdered(dish.getDishNo(), 0, dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
+                            dish.getSmallPrice());
                 }
             }
+            assert drinkOrdered != null;
+            drinkOrdered.setCount(drinkOrdered.getCount() + count);
+            drinkOrderedMap.put(drinkOrdered.getDishNo(), drinkOrdered);
 
-            assert drink != null;
-            drink.setCount(drink.getCount() + count);
-            drinkOrdered.put(drink.getDishNo(), drink);
-            // Because use the mills as the ID, it can't be duplicate.
-            // if continuously put to hashmap, it's so fast that the mills time number will be the same, so wait for 1 millisecond
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            stuff = drink;
-
-
+            //drink type will return a null stuff.
         }
         else{
             for (int i = 0; i < count; i++) {
@@ -72,6 +63,8 @@ public class Order {
                             dish.getSmallPrice(), DateGet.Time(), dish.getDishNo());
                 }
                 ordered.put(stuff.getID(), stuff);
+                // Because use the mills as the ID, it can't be duplicate.
+                // if continuously put to hashmap, it's so fast that the mills time number will be the same, so wait for 1 millisecond
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {

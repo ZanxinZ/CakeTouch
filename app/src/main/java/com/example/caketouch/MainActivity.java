@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -66,7 +68,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tables_layout = (LinearLayout) findViewById(R.id.tables);
+        tables_layout = findViewById(R.id.tables);
         sContextReference = new WeakReference<>(this);
         initData();
     }
@@ -111,7 +113,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             Intent intent = new Intent("com.example.caketouch.SettingActivity");
             startActivity(intent);
         });
-
+        loadData();
     }
 
 
@@ -202,13 +204,12 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
     @Override
     public void onDialogPositiveClick(AddTableDialogFragment dialog) {
 
-        if (dialog.tableNo == -1)return;
+        if (dialog.tableNo == -1)return;//has done nothing
         if (dialog.tableNo != 0){
             // User clicked OK button
             Button button = new Button(MainActivity.this);
             button.setId(dialog.tableNo);
             button.setText(button.getId() + " 号位");
-
             button.setGravity(Gravity.CENTER);
             button.setTextSize(autoDp(8));
             button.setBackgroundColor(Color.parseColor(light_blue));
@@ -239,6 +240,34 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     }
 
+    private void loadData(){
+        tables_layout.removeAllViews();
+        try {
+            Thread.sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        for (Map.Entry<Integer, Table> tableEntry:
+             tables.entrySet()) {
+            addOneTableBtnToView(tableEntry.getKey());
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private Button addOneTableBtnToView(int tableNo){
+        Button button = tables.get(tableNo).getButton();
+        ((ViewGroup)button.getParent()).removeView(button);
+        button.setId(tableNo);
+        button.setText(button.getId() + " 号位");
+        button.setGravity(Gravity.CENTER);
+        button.setTextSize(autoDp(8));
+        button.setBackgroundColor(Color.parseColor(light_blue));
+        tables_layout.addView(button);
+        bindTableBtn(tableNo);
+        return button;
+    }
+
+
 
     public void bindTableBtn(int tableNo){
 
@@ -260,8 +289,30 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             scrollView.smoothScrollTo(0,0);
             ChooseDishViewBuilder chooseDishViewBuilder = new ChooseDishViewBuilder(MainActivity.this, (ViewGroup) view, chooseTableBtn);
         });
-    }
 
+        button.setOnLongClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("警告！" )
+                    .setMessage("确认删除这个桌子吗？")
+                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            tables_layout.removeView(button);
+                            tables.remove(tableNo);
+                            View view = findViewById(R.id.view_dishes_for_order);
+                            ((ViewGroup)view).removeAllViews();
+                            tableCount--;
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.show();
+            return true;
+        });
+    }
 
 
     private long mExitTime;

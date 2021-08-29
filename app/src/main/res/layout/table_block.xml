@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/num"
             android:textAlignment="center"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
         <!--people_count-->
         <LinearLayout

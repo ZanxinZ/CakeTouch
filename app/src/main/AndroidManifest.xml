@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".StuffServeActivity">
+        <activity android:name=".DrinkCheckActivity">
             <intent-filter>
                 <action android:name="com.example.caketouch.StuffServeActivity"/>
                 <category android:name="android.intent.category.DEFAULT" />
