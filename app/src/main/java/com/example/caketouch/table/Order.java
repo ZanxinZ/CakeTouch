@@ -13,14 +13,15 @@ import com.example.caketouch.util.DateGet;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * 记录点的每一个物品，每个物品有一个ID(time)，相同的菜色有相同的 DishNo
  */
 public class Order {
     //记录点的每个物品
-    public HashMap<Long, Stuff> ordered = new HashMap<>();   // stuffId, stuff
-    public HashMap<Long, DrinkOrdered> drinkOrderedMap = new HashMap<>(); // DishNo, drinkOrdered
+    public TreeMap<Long, Stuff> ordered = new TreeMap<>();   // stuffId, stuff
+    public TreeMap<Long, DrinkOrdered> drinkOrderedMap = new TreeMap<>(); // DishNo, drinkOrdered
 
     private static Long orderTime;//点餐时间
     private static float total;   //总价

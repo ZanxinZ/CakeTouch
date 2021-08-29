@@ -19,6 +19,7 @@ import java.util.Set;
 public class DrinkCheckActivity extends Activity {
     int drinkBlockCount = 0;
     LinearLayout curRow;
+    int rowCount;
     LinearLayout linearLayoutDrinkSmall;
     LinearLayout linearLayoutDrinkBlock;
     @Override
@@ -67,8 +68,8 @@ public class DrinkCheckActivity extends Activity {
         View drinkBlock = inflater.inflate(R.layout.drink_block,null);
         TextView textViewTableNo = drinkBlock.findViewById(R.id.textViewDrinkBlockTableNo);
         textViewTableNo.setText(tableNo + " " + textViewTableNo.getText());
-        LinearLayout linearLayoutDrinkBlocks = drinkBlock.findViewById(R.id.drink_blocks);
-        
+        LinearLayout linearLayoutDrinkBlocks = drinkBlock.findViewById(R.id.drink_blocks);//drinkSmallBlocks
+
         curRow.addView(drinkBlock);
         drinkBlockCount++;
     }

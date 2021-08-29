@@ -46,6 +46,7 @@ import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 
 public class MainActivity extends Activity implements AddTableDialogFragment.NoticeDialogListener, AddStuffDialogFragment.NoticeDialogListener{
@@ -56,7 +57,8 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     public static WeakReference<Context> sContextReference;
 
-    public static Map<Integer, Table> tables = new HashMap<>();//tableNo, table
+    public static Map<Integer, Table> tables = new TreeMap<>();//tableNo, table
+
 
     public Button chooseTableBtn = null;
 
