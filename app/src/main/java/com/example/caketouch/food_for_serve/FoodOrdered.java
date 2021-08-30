@@ -1,5 +1,7 @@
 package com.example.caketouch.food_for_serve;
 
+import com.example.caketouch.MainActivity;
+
 import java.util.ArrayList;
 
 public class FoodOrdered {
@@ -18,6 +20,23 @@ public class FoodOrdered {
      * @param tableNo tableNo which has this food
      */
     public void attachTableToFood(int tableNo){
+        Long orderTime = MainActivity.tables.get(tableNo).getOrder().getOrderTime();
+
+        int left = 0;
+        int right = tablesOrdered.size()-1;
+        int middle = (left + right)/2;
+        for (int i = 0; i < size/2 ;i++){
+            if (orderTime > MainActivity.tables.get(tablesOrdered.get(middle)).getOrder().getOrderTime()){
+                left = middle;
+                middle = (left + right)/2;
+            }else if (orderTime < MainActivity.tables.get(tablesOrdered.get(middle)).getOrder().getOrderTime()) {
+                right = middle;
+                middle = (left + right)/2;
+            }else{
+
+            }
+        }
+
         tablesOrdered.add(tableNo);
     }
     public void removeTableFromFood(int tableNo){

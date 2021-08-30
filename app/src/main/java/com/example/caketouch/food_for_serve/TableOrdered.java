@@ -4,13 +4,14 @@ import com.example.caketouch.table.Stuff;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class TableOrdered {
     int people = 0;
     int notServedCount = 0;
     int servedCount = 0;
     //ArrayList<Stuff> stuffs = new ArrayList<>();
-    HashMap<Long, Stuff> stuffs = new HashMap<>();//stuffNo, Stuff
+    TreeMap<Long, Stuff> stuffs = new TreeMap<>();//stuffNo, Stuff
 
     public TableOrdered(int people){
         this.people = people;
@@ -32,11 +33,11 @@ public class TableOrdered {
         this.people = people;
     }
 
-    public HashMap<Long, Stuff> getStuffs() {
+    public TreeMap<Long, Stuff> getStuffs() {
         return stuffs;
     }
 
-    public void setStuffs(HashMap<Long, Stuff> stuffs) {
+    public void setStuffs(TreeMap<Long, Stuff> stuffs) {
         this.stuffs = stuffs;
     }
 
