@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_background"
             android:text="@string/add_new_dish"
-            android:textSize="30dp" />
+            android:textSize="25sp" />
         <Button
             android:id="@+id/buttonShowDish"
             android:layout_width="220dp"
@@ -34,7 +34,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_background"
             android:text="@string/show_dish"
-            android:textSize="30dp" />
+            android:textSize="25sp" />
         <Button
             android:id="@+id/buttonSettingBack"
             android:layout_width="220dp"
@@ -43,7 +43,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_background"
             android:text="@string/back"
-            android:textSize="25dp" />
+            android:textSize="25sp" />
 
     </LinearLayout>
 

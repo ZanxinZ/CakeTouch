@@ -1,18 +1,14 @@
 package com.example.caketouch.table;
 
 
-import android.util.Log;
 
-import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.DrinkOrdered;
-import com.example.caketouch.food_for_serve.FoodOrdered;
 import com.example.caketouch.menu.Dish;
 import com.example.caketouch.menu.DishType;
 import com.example.caketouch.menu.DishUnit;
 import com.example.caketouch.util.DateGet;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 /**
@@ -22,7 +18,6 @@ public class Order {
     //记录点的每个物品
     public TreeMap<Long, Stuff> ordered = new TreeMap<>();   // stuffId, stuff
     public TreeMap<Long, DrinkOrdered> drinkOrderedMap = new TreeMap<>(); // DishNo, drinkOrdered
-
     private static Long orderTime;//点餐时间
     private static float total;   //总价
     public Order() {

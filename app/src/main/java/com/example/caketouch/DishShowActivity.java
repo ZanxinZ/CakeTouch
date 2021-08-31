@@ -21,6 +21,7 @@ import com.example.caketouch.model.DishDatabaseHandler;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class DishShowActivity extends Activity implements DishDetailFragment.NoticeDialogListener{
     //public static WeakReference<Context> context;
@@ -82,7 +83,7 @@ public class DishShowActivity extends Activity implements DishDetailFragment.Not
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void constructView(HashMap<Long,Dish> dishMap, LinearLayout linearLayout){
+    private void constructView(TreeMap<Long,Dish> dishMap, LinearLayout linearLayout){
         int size = dishMap.size();
         Log.d("加载" + String.valueOf(linearLayout.getId()),String.valueOf(size));
 

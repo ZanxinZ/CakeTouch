@@ -99,7 +99,6 @@ public class ServeFoodDialogFragment extends DialogFragment {
         TextView textView = table_small_block.findViewById(R.id.textViewTableSmallBlockTableNo);
         textView.setText(String.valueOf(tableNo)+ " "+ textView.getText());
         textView.setOnClickListener(v->{
-            Toast.makeText(activity, String.valueOf(tableNo), Toast.LENGTH_SHORT).show();
             if (chosenTableNo == -1){
                 // the first one be click
                 chosenTableNo = tableNo;

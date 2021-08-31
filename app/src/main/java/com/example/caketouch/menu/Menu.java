@@ -1,16 +1,15 @@
 package com.example.caketouch.menu;
 
-
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class Menu {
-    public static HashMap<Long,Dish> other = new HashMap<>();
-    public static HashMap<Long,Dish> yao = new HashMap<>();
-    public static HashMap<Long,Dish> soup = new HashMap<>();
-    public static HashMap<Long,Dish> saute = new HashMap<>();
-    public static HashMap<Long,Dish> pot = new HashMap<>();
-    public static HashMap<Long,Dish> fry = new HashMap<>();
-    public static HashMap<Long,Dish> drink = new HashMap<>();
+    public static TreeMap<Long,Dish> other = new TreeMap<>();
+    public static TreeMap<Long,Dish> yao = new TreeMap<>();
+    public static TreeMap<Long,Dish> soup = new TreeMap<>();
+    public static TreeMap<Long,Dish> saute = new TreeMap<>();
+    public static TreeMap<Long,Dish> pot = new TreeMap<>();
+    public static TreeMap<Long,Dish> fry = new TreeMap<>();
+    public static TreeMap<Long,Dish> drink = new TreeMap<>();
 
     public static Dish findDish(Long dishNo){
         if (other.containsKey(dishNo))return other.get(dishNo);
@@ -22,4 +21,5 @@ public class Menu {
         if (drink.containsKey(dishNo))return  drink.get(dishNo);
         return null;
     }
+
 }

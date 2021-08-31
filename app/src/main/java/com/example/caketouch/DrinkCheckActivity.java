@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,36 +31,33 @@ public class DrinkCheckActivity extends Activity {
             finish();
         });
 
-        loadData();
-
         LinearLayout container = findViewById(R.id.checkDrinkContainer);
+        loadData(container);
 
-        TextView textView = findViewById(R.id.textViewCheckDrink);
-        textView.setOnClickListener(v->{
-            addDrinkBlock(container,5);
-        });
+
+//        TextView textView = findViewById(R.id.textViewCheckDrink);
+//        textView.setOnClickListener(v->{
+//            addDrinkBlock(container,5);
+//        });
 
         //constructView();
 
     }
-    private void loadData(){
+    private void loadData(LinearLayout container){
         for (Map.Entry<Integer, Table> tableEntry:
              MainActivity.tables.entrySet()) {
             Set<Map.Entry<Long, DrinkOrdered>> drinkOrderedMaps = tableEntry.getValue().getOrder().drinkOrderedMap.entrySet();
-            for (Map.Entry<Long, DrinkOrdered> drinkOrderEntry:
-                 drinkOrderedMaps) {
-
-            }
+            addDrinkBlock(container, drinkOrderedMaps, tableEntry.getKey());
+            
         }
     }
     private void addDrinkSmallBlock(){
 
     }
     @SuppressLint("SetTextI18n")
-    private void addDrinkBlock(LinearLayout container, int tableNo){
+    private void addDrinkBlock(LinearLayout container, Set<Map.Entry<Long, DrinkOrdered>> drinkOrderedMaps, int tableNo){
         if (drinkBlockCount % 5 == 0){
             curRow = new LinearLayout(this);
-
             container.addView(curRow);
         }
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -69,8 +65,22 @@ public class DrinkCheckActivity extends Activity {
         TextView textViewTableNo = drinkBlock.findViewById(R.id.textViewDrinkBlockTableNo);
         textViewTableNo.setText(tableNo + " " + textViewTableNo.getText());
         LinearLayout linearLayoutDrinkBlocks = drinkBlock.findViewById(R.id.drink_blocks);//drinkSmallBlocks
+        linearLayoutDrinkBlocks.removeAllViews();
+        for (Map.Entry<Long, DrinkOrdered> drinkOrderedEntry:
+             drinkOrderedMaps) {
+            DrinkOrdered drinkOrdered = drinkOrderedEntry.getValue();
+            View drinkBlockSmall = inflater.inflate(R.layout.drink_block_small, null);
+            TextView drinkName = drinkBlockSmall.findViewById(R.id.textViewDrinkBlockSmallName);
+            drinkName.setText(drinkOrdered.getName());
+            TextView drinkPrice = drinkBlockSmall.findViewById(R.id.textViewDrinkBlockSmallPrice);
+            drinkPrice.setText(drinkOrdered.getMoney() + "元");
+            TextView drinkCount = drinkBlockSmall.findViewById(R.id.textViewDrinkBlockSmallCount);
+            drinkCount.setText("X " + drinkOrdered.getCount() + drinkOrdered.getDishUnit());
+            linearLayoutDrinkBlocks.addView(drinkBlockSmall);
+        }
 
         curRow.addView(drinkBlock);
         drinkBlockCount++;
     }
+
 }

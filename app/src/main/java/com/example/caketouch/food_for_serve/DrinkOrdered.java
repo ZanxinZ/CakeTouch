@@ -7,7 +7,6 @@ public class DrinkOrdered {
     private String name;
     private String dishUnit;
     private float money;
-
     public DrinkOrdered(Long dishNo, int count, String name, String dishUnit, float money) {
         this.dishNo = dishNo;
         this.count = count;

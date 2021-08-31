@@ -21,6 +21,7 @@ import com.example.caketouch.model.DishDatabaseHandler;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 
 public class ChooseDishViewBuilder {
@@ -75,7 +76,7 @@ public class ChooseDishViewBuilder {
         constructView(Menu.drink, linearLayout);
     }
 
-    private void constructView(HashMap<Long, Dish> dishMap, LinearLayout linearLayout){
+    private void constructView(TreeMap<Long, Dish> dishMap, LinearLayout linearLayout){
         int size = dishMap.size();
         Log.d("加载" + String.valueOf(linearLayout.getId()),String.valueOf(size));
 

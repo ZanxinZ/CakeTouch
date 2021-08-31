@@ -148,16 +148,16 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
     }
 
 
-    public void addToFoodOrderedMap(Food food, int tableNo){
-        if (AllOrdered.foodOrderedMap.containsKey(food.getDishNo())){
+    public void addToFoodOrderedMap(Stuff stuff, int tableNo){
+        if (AllOrdered.foodOrderedMap.containsKey(stuff.getDishNo())){
             //food card has been created
-            FoodOrdered foodOrdered = AllOrdered.foodOrderedMap.get(food.getDishNo());
+            FoodOrdered foodOrdered = AllOrdered.foodOrderedMap.get(stuff.getDishNo());
             assert foodOrdered != null;
-            foodOrdered.attachTableToFood(tableNo, food.getID());
+            foodOrdered.attachTableToFood(tableNo, stuff.getID());
         }else{
-            FoodOrdered foodOrdered = new FoodOrdered(food.getName(), food.getDishNo());
-            foodOrdered.attachTableToFood(tableNo,food.getID());
-            AllOrdered.foodOrderedMap.put(food.getDishNo(),foodOrdered);
+            FoodOrdered foodOrdered = new FoodOrdered(stuff.getName(), stuff.getDishNo());
+            foodOrdered.attachTableToFood(tableNo,stuff.getID());
+            AllOrdered.foodOrderedMap.put(stuff.getDishNo(),foodOrdered);
         }
     }
 
@@ -199,7 +199,7 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
                  order.ordered.entrySet()) {
                 Stuff stuff = stuffEntry.getValue();
                 if (!stuff.isServed()){
-                    addToFoodOrderedMap(new Food(stuff, null) , entry.getKey());
+                    addToFoodOrderedMap(stuff , entry.getKey());
                 }
                 addToTableOrderedMap(stuff, entry.getValue());
 
