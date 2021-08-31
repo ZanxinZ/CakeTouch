@@ -30,8 +30,7 @@ public class TableDetailDialogFragment extends DialogFragment {
     Activity activity;
     Bundle bundle;
     public interface NoticeDialogListener {
-        void onTableDialogPositiveClick(DishDetailFragment dialog);
-        void onTableDialogNegativeClick(DishDetailFragment dialog);
+        void onFoodServed();
     }
     NoticeDialogListener noticeDialogListener;
     @Override
@@ -62,6 +61,7 @@ public class TableDetailDialogFragment extends DialogFragment {
         ImageView close = view.findViewById(R.id.imageViewTableCheckClose);
         close.setOnClickListener(v->{
             dismiss();
+            noticeDialogListener.onFoodServed();
         });
         LinearLayout linearLayout = view.findViewById(R.id.table_check_stuffs);
         LinearLayout linearLayoutServed = view.findViewById(R.id.table_check_stuffs_served);
@@ -99,7 +99,7 @@ public class TableDetailDialogFragment extends DialogFragment {
                                     public void onClick(DialogInterface dialog, int which) {
                                         MainActivity.tables.get(tableNo).getOrder().ordered.get(stuffEntry.getValue().getID()).setServed(true);
                                         AllOrdered.foodOrderedMap.get(stuffEntry.getValue().getDishNo()).removeTableFromFood(tableNo);
-                                        stuffEntry.getValue().setServed(true);
+                                        stuffEntry.getValue().setServed(true);//remove food from table.
                                         constructSmallStuffs(linearLayout, linearLayoutServed);
                                     }
                                 })

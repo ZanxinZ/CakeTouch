@@ -11,6 +11,6 @@ import java.util.TreeMap;
 public class AllOrdered {
     // public static HashMap<Long, Integer> dishRecord = new HashMap<>(); // dishNo, count
     public static TreeMap<Long, FoodOrdered> foodOrderedMap = new TreeMap<>();//dishNo, foodOrdered
-    public static HashMap<Long, TableOrdered> tableOrderedMap = new HashMap<>();//tableNo, tableOrdered
+    public static HashMap<Integer, TableOrdered> tableOrderedMap = new HashMap<>();//tableNo, tableOrdered
 
 }

@@ -1,5 +1,7 @@
 package com.example.caketouch.food_for_serve;
 
+import android.util.Log;
+
 import com.example.caketouch.table.Stuff;
 
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ public class TableOrdered {
     int notServedCount = 0;
     int servedCount = 0;
     //ArrayList<Stuff> stuffs = new ArrayList<>();
-    TreeMap<Long, Stuff> stuffs = new TreeMap<>();//stuffNo, Stuff
+    TreeMap<Long, Stuff> stuffs = new TreeMap<>();//stuffId, Stuff
 
     public TableOrdered(int people){
         this.people = people;

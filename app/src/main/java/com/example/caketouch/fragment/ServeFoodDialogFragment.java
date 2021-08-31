@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,9 @@ import com.example.caketouch.R;
 import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.FoodOrdered;
 
+import java.util.Map;
+import java.util.Objects;
+
 @SuppressLint("ValidFragment")
 public class ServeFoodDialogFragment extends DialogFragment {
     private FoodOrdered foodOrdered;
@@ -28,10 +30,25 @@ public class ServeFoodDialogFragment extends DialogFragment {
     private int chosenTableNo = -1;
     private View chosenTableTextView = null;
     private int smallTableCount = 0;
-    @SuppressLint("ValidFragment")
-    public ServeFoodDialogFragment(FoodOrdered foodOrdered, Activity activity){
-        this.foodOrdered = foodOrdered;
+
+    public interface NoticeDialogListener{
+        void onFoodServed();
+    }
+    ServeFoodDialogFragment.NoticeDialogListener noticeDialogListener;
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
         this.activity = activity;
+        try{
+            noticeDialogListener = (ServeFoodDialogFragment.NoticeDialogListener)activity;
+        }catch (Exception e){
+            throw new ClassCastException(activity.toString() + " must implement NoticeDialogListener");
+        }
+    }
+
+    @SuppressLint("ValidFragment")
+    public ServeFoodDialogFragment(FoodOrdered foodOrdered){
+        this.foodOrdered = foodOrdered;
     }
     @SuppressLint("SetTextI18n")
     @Override
@@ -41,26 +58,29 @@ public class ServeFoodDialogFragment extends DialogFragment {
         ImageView close = view.findViewById(R.id.imageViewServeFoodClose);
         close.setOnClickListener(v->{
             dismiss();
+            noticeDialogListener.onFoodServed();
         });
         TextView title = view.findViewById(R.id.textViewTableCheckTitle);
         title.setText(title.getText() + foodOrdered.getFoodName() + "】");
         
         LinearLayout linearLayout = view.findViewById(R.id.table_small_blocks);
 
-        for (Integer tableNo:
-             foodOrdered.getTablesOrdered()) {
-            addSmallTable(linearLayout,tableNo);
+        for (Map.Entry<Long, Integer> tableFoodMap:
+             foodOrdered.getTablesOrdered().entrySet()) {
+            addSmallTable(linearLayout,tableFoodMap.getValue());
         }
         Button confirm = view.findViewById(R.id.buttonServeFoodConfirm);
         confirm.setOnClickListener(v->{
             if (chosenTableNo != -1){
-                MainActivity.tables.get(chosenTableNo).getOrder().serveStuff(foodOrdered.getStuffID());
-                AllOrdered.foodOrderedMap.get(foodOrdered.getDishNo()).removeTableFromFood(chosenTableNo);
-                AllOrdered.tableOrderedMap.get((long)chosenTableNo).getStuffs().remove(foodOrdered.getStuffID());
+                Long stuffID = foodOrdered.getStuffID(chosenTableNo);// TreeMap 访问有异步性质
+                MainActivity.tables.get(chosenTableNo).getOrder().serveStuff(stuffID);
+                Objects.requireNonNull(AllOrdered.foodOrderedMap.get(foodOrdered.getDishNo())).removeTableFromFood(chosenTableNo);
+                Objects.requireNonNull(AllOrdered.tableOrderedMap.get(chosenTableNo)).removeStuffFromTable(stuffID);
                 //刷新activity
-                Toast.makeText(activity, "Served", Toast.LENGTH_SHORT).show();
+
             }
             dismiss();
+            noticeDialogListener.onFoodServed();
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);

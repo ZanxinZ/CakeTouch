@@ -1,17 +1,17 @@
 package com.example.caketouch.food_for_serve;
 
-import com.example.caketouch.MainActivity;
+import android.util.Log;
 
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class FoodOrdered {
     private String foodName = null;
-    private ArrayList<Integer> tablesOrdered = new ArrayList<>();               // who has ordered current food
-    private Long stuffID;
+    private TreeMap<Long, Integer> tablesOrdered = new TreeMap<>(); // who has ordered current food
+    //private Long stuffID;
     private Long dishNo;
-    public FoodOrdered(String foodName, Long stuffID, Long dishNo) {
+    public FoodOrdered(String foodName, Long dishNo) {
         this.foodName = foodName;
-        this.stuffID = stuffID;
         this.dishNo = dishNo;
     }
 
@@ -19,34 +19,14 @@ public class FoodOrdered {
      *
      * @param tableNo tableNo which has this food
      */
-    public void attachTableToFood(int tableNo){
-        Long orderTime = MainActivity.tables.get(tableNo).getOrder().getOrderTime();
+    public void attachTableToFood(int tableNo, Long stuffId){
 
-        int left = 0;
-        int right = tablesOrdered.size()-1;
-        int middle = (left + right)/2;
-        for (int i = 0; i < size/2 ;i++){
-            if (orderTime > MainActivity.tables.get(tablesOrdered.get(middle)).getOrder().getOrderTime()){
-                left = middle;
-                middle = (left + right)/2;
-            }else if (orderTime < MainActivity.tables.get(tablesOrdered.get(middle)).getOrder().getOrderTime()) {
-                right = middle;
-                middle = (left + right)/2;
-            }else{
-
-            }
-        }
-
-        tablesOrdered.add(tableNo);
+        if (tablesOrdered.containsKey(stuffId))return;
+        tablesOrdered.put(stuffId, tableNo);
     }
     public void removeTableFromFood(int tableNo){
-        for(int i =0; i < tablesOrdered.size();i++){
-            if (tablesOrdered.get(i) == tableNo){
-                tablesOrdered.remove(i);
-            }
-        }
+        tablesOrdered.remove(getStuffID(tableNo));
     }
-
 
     public String getFoodName() {
         return foodName;
@@ -56,21 +36,6 @@ public class FoodOrdered {
         this.foodName = foodName;
     }
 
-    public ArrayList<Integer> getTablesOrdered() {
-        return tablesOrdered;
-    }
-
-    public void setTablesOrdered(ArrayList<Integer> tablesOrdered) {
-        this.tablesOrdered = tablesOrdered;
-    }
-
-    public Long getStuffID() {
-        return stuffID;
-    }
-
-    public void setStuffID(Long stuffID) {
-        this.stuffID = stuffID;
-    }
 
     public Long getDishNo() {
         return dishNo;
@@ -78,5 +43,24 @@ public class FoodOrdered {
 
     public void setDishNo(Long dishNo) {
         this.dishNo = dishNo;
+    }
+
+    public TreeMap<Long, Integer> getTablesOrdered() {
+        return tablesOrdered;
+    }
+
+    public void setTablesOrdered(TreeMap<Long, Integer> tablesOrdered) {
+        this.tablesOrdered = tablesOrdered;
+    }
+
+    public Long getStuffID(int tableNo){
+        for (Map.Entry<Long, Integer> foodTables:
+             tablesOrdered.entrySet()) {
+            if (foodTables.getValue().equals(tableNo)){
+                Long key = foodTables.getKey();
+                return key;
+            }
+        }
+        return null;
     }
 }

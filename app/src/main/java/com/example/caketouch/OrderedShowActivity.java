@@ -34,7 +34,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
-public class OrderedShowActivity extends Activity implements TableDetailDialogFragment.NoticeDialogListener {
+public class OrderedShowActivity extends Activity implements TableDetailDialogFragment.NoticeDialogListener, ServeFoodDialogFragment.NoticeDialogListener {
     int tableCount = 0;
     LinearLayout curTableBlockRow;
 
@@ -140,7 +140,7 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
         tableCount.setText(foodOrdered.getTablesOrdered().size() + " " + tableCount.getText() );
         Button serveFoodButton = table_block.findViewById(R.id.buttonServeOneFood);
         serveFoodButton.setOnClickListener(v -> {
-            DialogFragment dialog = new ServeFoodDialogFragment(foodOrdered,OrderedShowActivity.this);
+            DialogFragment dialog = new ServeFoodDialogFragment(foodOrdered);
             dialog.show(getFragmentManager(), "ServeFoodDialogFragment");
         });
 
@@ -154,10 +154,10 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
             //food card has been created
             FoodOrdered foodOrdered = AllOrdered.foodOrderedMap.get(food.getDishNo());
             assert foodOrdered != null;
-            foodOrdered.attachTableToFood(tableNo);
+            foodOrdered.attachTableToFood(tableNo, food.getID());
         }else{
-            FoodOrdered foodOrdered = new FoodOrdered(food.getName(), food.getID(), food.getDishNo());
-            foodOrdered.attachTableToFood(tableNo);
+            FoodOrdered foodOrdered = new FoodOrdered(food.getName(), food.getDishNo());
+            foodOrdered.attachTableToFood(tableNo,food.getID());
             AllOrdered.foodOrderedMap.put(food.getDishNo(),foodOrdered);
         }
     }
@@ -165,14 +165,14 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
     public void addToTableOrderedMap(Stuff stuff, Table table){
         int tableNo = table.getButton().getId();
         TableOrdered tableOrdered = null;
-        if (AllOrdered.tableOrderedMap.containsKey((long) tableNo)){
-            tableOrdered = AllOrdered.tableOrderedMap.get((long)tableNo);
+        if (AllOrdered.tableOrderedMap.containsKey(tableNo)){
+            tableOrdered = AllOrdered.tableOrderedMap.get(tableNo);
             assert tableOrdered != null;
             tableOrdered.attachStuffToTable(stuff);
         }else {
             tableOrdered = new TableOrdered(table.getPeople());
             tableOrdered.attachStuffToTable(stuff);
-            AllOrdered.tableOrderedMap.put((long) tableNo, tableOrdered);
+            AllOrdered.tableOrderedMap.put(tableNo, tableOrdered);
         }
 
         if(stuff.isServed()){
@@ -212,11 +212,11 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
     }
 
     private void constructTableBlocks(){
-        Set<Map.Entry<Long, TableOrdered>> tableOrderedEntrySet = AllOrdered.tableOrderedMap.entrySet();
-        for (Map.Entry<Long, TableOrdered> entry:
+        Set<Map.Entry<Integer, TableOrdered>> tableOrderedEntrySet = AllOrdered.tableOrderedMap.entrySet();
+        for (Map.Entry<Integer, TableOrdered> entry:
              tableOrderedEntrySet) {
             //Log.d(" 点餐",String.valueOf(entry.getValue().getStuffs().size()));
-            addTableBlock(linearLayoutTableBlocks, entry.getValue(), entry.getKey().intValue());
+            addTableBlock(linearLayoutTableBlocks, entry.getValue(), entry.getKey());
         }
     }
     private void constructStuffBlocks(){
@@ -233,12 +233,16 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
 
 
     @Override
-    public void onTableDialogPositiveClick(DishDetailFragment dialog) {
-        Toast.makeText(OrderedShowActivity.this, "Yes", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onTableDialogNegativeClick(DishDetailFragment dialog) {
-        Toast.makeText(OrderedShowActivity.this, "No", Toast.LENGTH_SHORT).show();
+    public void onFoodServed() {
+        tableCount = 0;
+        curTableBlockRow = null;
+        foodCount = 0;
+        curFoodRow = null;
+        linearLayoutTableBlocks.removeAllViews();
+        linearLayoutFoodBlocks.removeAllViews();
+        loadData();
+        constructTableBlocks();
+        constructStuffBlocks();
+        Toast.makeText(this, "change", Toast.LENGTH_SHORT).show();
     }
 }
