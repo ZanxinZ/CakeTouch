@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.caketouch.MainActivity;
 import com.example.caketouch.R;
@@ -101,6 +102,7 @@ public class TableDetailDialogFragment extends DialogFragment {
                                         AllOrdered.foodOrderedMap.get(stuffEntry.getValue().getDishNo()).removeTableFromFood(tableNo);
                                         stuffEntry.getValue().setServed(true);//remove food from table.
                                         constructSmallStuffs(linearLayout, linearLayoutServed);
+                                        Toast.makeText(activity, "已上菜", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -114,9 +116,11 @@ public class TableDetailDialogFragment extends DialogFragment {
                     }
                 });
             }
-
-
-
         }
+    }
+
+    @Override
+    public void onDismiss( DialogInterface dialog){
+        noticeDialogListener.onFoodServed();
     }
 }

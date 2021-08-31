@@ -20,7 +20,6 @@ import android.widget.Toast;
 import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.FoodOrdered;
 import com.example.caketouch.food_for_serve.TableOrdered;
-import com.example.caketouch.fragment.DishDetailFragment;
 import com.example.caketouch.fragment.ServeFoodDialogFragment;
 import com.example.caketouch.fragment.TableDetailDialogFragment;
 import com.example.caketouch.menu.Dish;
@@ -140,7 +139,7 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
         tableCount.setText(foodOrdered.getTablesOrdered().size() + " " + tableCount.getText() );
         Button serveFoodButton = table_block.findViewById(R.id.buttonServeOneFood);
         serveFoodButton.setOnClickListener(v -> {
-            DialogFragment dialog = new ServeFoodDialogFragment(foodOrdered);
+            ServeFoodDialogFragment dialog = new ServeFoodDialogFragment(foodOrdered);
             dialog.show(getFragmentManager(), "ServeFoodDialogFragment");
         });
 
@@ -243,6 +242,5 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
         loadData();
         constructTableBlocks();
         constructStuffBlocks();
-        Toast.makeText(this, "change", Toast.LENGTH_SHORT).show();
     }
 }

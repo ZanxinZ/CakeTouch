@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,7 +78,7 @@ public class ServeFoodDialogFragment extends DialogFragment {
                 Objects.requireNonNull(AllOrdered.foodOrderedMap.get(foodOrdered.getDishNo())).removeTableFromFood(chosenTableNo);
                 Objects.requireNonNull(AllOrdered.tableOrderedMap.get(chosenTableNo)).removeStuffFromTable(stuffID);
                 //刷新activity
-
+                Toast.makeText(activity, "已上菜", Toast.LENGTH_SHORT).show();
             }
             dismiss();
             noticeDialogListener.onFoodServed();
@@ -116,6 +117,10 @@ public class ServeFoodDialogFragment extends DialogFragment {
 
         curRow.addView(table_small_block);
         smallTableCount++;
+    }
+    @Override
+    public void onDismiss( DialogInterface dialog){
+        noticeDialogListener.onFoodServed();
     }
 
 }
