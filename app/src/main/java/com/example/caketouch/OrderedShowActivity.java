@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.FoodOrdered;
@@ -24,7 +23,6 @@ import com.example.caketouch.fragment.ServeFoodDialogFragment;
 import com.example.caketouch.fragment.TableDetailDialogFragment;
 import com.example.caketouch.menu.Dish;
 import com.example.caketouch.menu.Menu;
-import com.example.caketouch.table.Food;
 import com.example.caketouch.table.Order;
 import com.example.caketouch.table.Stuff;
 import com.example.caketouch.table.Table;
@@ -54,10 +52,7 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
             finish();
         });
         linearLayoutTableBlocks = findViewById(R.id.table_blocks);
-//        TextView textView = findViewById(R.id.textViewTableSite);
-//        textView.setOnClickListener(v -> {
-//            addTableBlock(linearLayout, new Table());
-//        });
+
 
         linearLayoutFoodBlocks = findViewById(R.id.food_blocks);
 //        TextView waitForServe = findViewById(R.id.textViewFoodWaitForServe);

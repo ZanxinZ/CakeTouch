@@ -35,13 +35,6 @@ public class DrinkCheckActivity extends Activity {
         loadData(container);
 
 
-//        TextView textView = findViewById(R.id.textViewCheckDrink);
-//        textView.setOnClickListener(v->{
-//            addDrinkBlock(container,5);
-//        });
-
-        //constructView();
-
     }
     private void loadData(LinearLayout container){
         for (Map.Entry<Integer, Table> tableEntry:
@@ -50,9 +43,6 @@ public class DrinkCheckActivity extends Activity {
             addDrinkBlock(container, drinkOrderedMaps, tableEntry.getKey());
             
         }
-    }
-    private void addDrinkSmallBlock(){
-
     }
     @SuppressLint("SetTextI18n")
     private void addDrinkBlock(LinearLayout container, Set<Map.Entry<Long, DrinkOrdered>> drinkOrderedMaps, int tableNo){

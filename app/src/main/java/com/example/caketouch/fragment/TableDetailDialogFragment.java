@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -73,6 +72,7 @@ public class TableDetailDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    @SuppressLint("SetTextI18n")
     public void constructSmallStuffs(LinearLayout linearLayout, LinearLayout linearLayoutServed){
         linearLayout.removeAllViews();
         linearLayoutServed.removeAllViews();
@@ -82,6 +82,8 @@ public class TableDetailDialogFragment extends DialogFragment {
             View stuffView = inflater.inflate(R.layout.stuff_small_block, null);
             TextView textView = stuffView.findViewById(R.id.textViewStuffSmallName);
             textView.setText(stuffEntry.getValue().getName());
+            TextView stuffSmallBlockPrice = stuffView.findViewById(R.id.textViewStuffSmallPrice);
+            stuffSmallBlockPrice.setText(stuffEntry.getValue().getPrice() + "元");
             if (stuffEntry.getValue().isServed()){
                 ImageView imageView = stuffView.findViewById(R.id.imageViewStuffSmall);
                 imageView.setVisibility(ViewGroup.VISIBLE);
