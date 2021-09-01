@@ -83,6 +83,10 @@ public class ServeFoodDialogFragment extends DialogFragment {
             dismiss();
             noticeDialogListener.onFoodServed();
         });
+        Button cancel = view.findViewById(R.id.buttonServeFoodCancel);
+        cancel.setOnClickListener(v->{
+            dismiss();
+        });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view);

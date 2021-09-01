@@ -23,4 +23,14 @@
         android:hint="@string/no"
         android:inputType="number" />
 
+    <EditText
+        android:id="@+id/editTextNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="3"
+        android:inputType="number"
+        android:hint="@string/people_count"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
+
 </LinearLayout>

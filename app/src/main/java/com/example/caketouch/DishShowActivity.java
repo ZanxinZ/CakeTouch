@@ -34,7 +34,8 @@ public class DishShowActivity extends Activity implements DishDetailFragment.Not
         databaseHandler = new DishDatabaseHandler(this.getBaseContext());
         //context = new WeakReference<Context>(this);
         databaseHandler.loadAllDish();
-        this.setContentView(R.layout.dishes);
+        this.setContentView(R.layout.activity_dish_show);
+
         loadOther();
         loadYao();
         loadSoup();
@@ -42,6 +43,10 @@ public class DishShowActivity extends Activity implements DishDetailFragment.Not
         loadPot();
         loadFry();
         loadDrink();
+        ImageView imageView = findViewById(R.id.imageViewDishShowBack);
+        imageView.setOnClickListener(v->{
+            finish();
+        });
     }
 
 

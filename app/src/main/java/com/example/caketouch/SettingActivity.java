@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.caketouch.model.DishDatabaseHandler;
 
@@ -26,8 +27,8 @@ public class SettingActivity extends Activity {
             startActivity(intent);
         });
 
-        Button backButton = findViewById(R.id.buttonSettingBack);
-        backButton.setOnClickListener(v->{
+        ImageView back = findViewById(R.id.imageViewSettingBack);
+        back.setOnClickListener(v->{
             finish();
         });
     }
