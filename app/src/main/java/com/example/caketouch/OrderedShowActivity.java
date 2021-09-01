@@ -157,7 +157,7 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
     }
 
     public void addToTableOrderedMap(Stuff stuff, Table table){
-        int tableNo = table.getButton().getId();
+        int tableNo = table.getTableNo();
         TableOrdered tableOrdered = null;
         if (AllOrdered.tableOrderedMap.containsKey(tableNo)){
             tableOrdered = AllOrdered.tableOrderedMap.get(tableNo);

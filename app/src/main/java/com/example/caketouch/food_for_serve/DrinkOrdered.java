@@ -1,7 +1,9 @@
 package com.example.caketouch.food_for_serve;
 
 
-public class DrinkOrdered {
+import java.io.Serializable;
+
+public class DrinkOrdered implements Serializable {
     private Long dishNo;
     private int count;
     private String name;

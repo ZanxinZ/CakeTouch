@@ -1,15 +1,15 @@
 package com.example.caketouch.table;
 
-import android.widget.Button;
-
 import com.example.caketouch.menu.Dish;
+
+import java.io.Serializable;
 
 /**
  * 桌子业务
  */
-public class Table {
+public class Table implements Serializable {
     private Order order = new Order();
-    private Button button;
+    private int tableNo;
     private int people = 0;
     public Order getOrder() {
         return order;
@@ -31,11 +31,11 @@ public class Table {
         order.orderStuff(dish, isNormal, count);
     }
 
-    public Button getButton() {
-        return button;
+    public int getTableNo() {
+        return tableNo;
     }
 
-    public void setButton(Button button) {
-        this.button = button;
+    public void setTableNo(int tableNo) {
+        this.tableNo = tableNo;
     }
 }

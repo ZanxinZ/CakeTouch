@@ -59,24 +59,42 @@
         android:orientation="horizontal"
 
         android:layout_weight="1"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="20dp">
 
-        <ScrollView
-            android:id="@+id/tableScroll"
+        <LinearLayout
             android:layout_width="140dp"
             android:layout_height="match_parent"
+            android:orientation="vertical"
+
             >
 
-            <LinearLayout
-                android:id="@+id/tables"
+            <ScrollView
+                android:id="@+id/tableScroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/tables"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <Button
+                android:id="@+id/buttonSaveOrder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="保存订单" />
+
+        </LinearLayout>
 
 
-            </LinearLayout>
-
-        </ScrollView>
 
         <ScrollView
             android:id="@+id/scrollViewDishForOrder"

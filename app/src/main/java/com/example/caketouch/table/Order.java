@@ -8,13 +8,14 @@ import com.example.caketouch.menu.DishType;
 import com.example.caketouch.menu.DishUnit;
 import com.example.caketouch.util.DateGet;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.TreeMap;
 
 /**
  * 记录点的每一个物品，每个物品有一个ID(time)，相同的菜色有相同的 DishNo
  */
-public class Order {
+public class Order implements Serializable {
     //记录点的每个物品
     public TreeMap<Long, Stuff> ordered = new TreeMap<>();   // stuffId, stuff
     public TreeMap<Long, DrinkOrdered> drinkOrderedMap = new TreeMap<>(); // DishNo, drinkOrdered

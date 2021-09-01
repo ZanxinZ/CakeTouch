@@ -35,6 +35,7 @@ import com.example.caketouch.fragment.AddStuffDialogFragment;
 import com.example.caketouch.fragment.AddTableDialogFragment;
 import com.example.caketouch.menu.Dish;
 import com.example.caketouch.model.DishDatabaseHandler;
+import com.example.caketouch.model.OrderDataBaseHandler;
 import com.example.caketouch.table.Table;
 
 import java.io.ByteArrayOutputStream;
@@ -64,6 +65,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
     File tmpDir = new File(Environment.getExternalStorageDirectory() + "/mealPic" );
 
     private DishDatabaseHandler dishDatabaseHandler;
+    private OrderDataBaseHandler orderDataBaseHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -85,6 +87,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         });
 
         dishDatabaseHandler = new DishDatabaseHandler(this);
+        orderDataBaseHandler= new OrderDataBaseHandler(this);
         dishDatabaseHandler.loadAllDish();
 
         if (!tmpDir.exists()){
@@ -113,6 +116,17 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             tableLossFocus();
             Intent intent = new Intent("com.example.caketouch.SettingActivity");
             startActivity(intent);
+        });
+        Button saveOrderBtn = findViewById(R.id.buttonSaveOrder);
+        saveOrderBtn.setOnClickListener(v->{
+
+            if (chooseTableBtn == null){
+                Toast.makeText(MainActivity.this, "选择桌子之后再保存。", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            int tableNo = chooseTableBtn.getId();
+            Table table = tables.get(tableNo);
+            orderDataBaseHandler.updateTable(table, tableNo);
         });
         loadData();
     }
@@ -207,11 +221,11 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
         if (dialog.tableNo == 0){
             Log.d("添加桌位", "失败");
-            Toast.makeText(getApplicationContext(), "桌位号不能是0", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "桌位号不能是0", Toast.LENGTH_LONG).show();
             return;
         }
         if (dialog.tableNo != -1 && dialog.peopleCount == -1){
-            Toast.makeText(getApplicationContext(), "人数未填。", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "人数未填。", Toast.LENGTH_SHORT).show();
             return;
         }
         if (dialog.tableNo == -1)return;//has done nothing
@@ -230,15 +244,15 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
         //新增桌子
         Table table = new Table();
-        table.setButton(button);
+        table.setTableNo(dialog.tableNo);
         table.setPeople(dialog.peopleCount);
         tables.put(dialog.tableNo, table);
-        bindTableBtn(dialog.tableNo);
+        bindTableBtn(button, dialog.tableNo);
         dialog.tableNo = 0;
         ScrollView scrollView = findViewById(R.id.tableScroll);
         scrollToBottom(scrollView, tables_layout);
         Log.d("添加桌位", "成功!");
-        Toast.makeText(getApplicationContext(), "添加桌位：成功！< " + button.getText() + " >" , Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "添加桌位：成功！< " + button.getText() + " >" , Toast.LENGTH_LONG).show();
         return ;
 
     }
@@ -257,31 +271,37 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        if (tables.size() == 0){
+            Toast.makeText(this, "当前桌子为空", Toast.LENGTH_SHORT).show();
+            orderDataBaseHandler.loadAllTable();
+        }
+
         for (Map.Entry<Integer, Table> tableEntry:
              tables.entrySet()) {
             addOneTableBtnToView(tableEntry.getKey());
         }
+
+
     }
 
     @SuppressLint("SetTextI18n")
     private Button addOneTableBtnToView(int tableNo){
-        Button button = tables.get(tableNo).getButton();
-        ((ViewGroup)button.getParent()).removeView(button);
+        Button button = new Button(this);
+        //((ViewGroup)button.getParent()).removeView(button);
         button.setId(tableNo);
         button.setText(button.getId() + " 号位");
         button.setGravity(Gravity.CENTER);
         button.setTextSize(autoDp(8));
         button.setBackgroundColor(Color.parseColor(light_blue));
         tables_layout.addView(button);
-        bindTableBtn(tableNo);
+        bindTableBtn(button, tableNo);
         return button;
     }
 
 
 
-    public void bindTableBtn(int tableNo){
+    public void bindTableBtn(Button button, int tableNo){
 
-        Button button = tables.get(tableNo).getButton();
         button.setOnClickListener((v)->{
             if (chooseTableBtn != null){
                 chooseTableBtn.setBackgroundColor(Color.parseColor(light_blue));
@@ -311,6 +331,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
                             tables.remove(tableNo);
                             View view = findViewById(R.id.view_dishes_for_order);
                             ((ViewGroup)view).removeAllViews();
+                            orderDataBaseHandler.deleteTable(tableNo);
                             tableCount--;
                         }
                     }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -367,5 +388,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         LinearLayout linearLayout = findViewById(R.id.view_dishes_for_order);
         linearLayout.removeAllViews();
     }
+
+
 
 }

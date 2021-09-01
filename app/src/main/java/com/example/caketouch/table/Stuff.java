@@ -1,11 +1,12 @@
 package com.example.caketouch.table;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 物品
  */
-public abstract class Stuff {
+public abstract class Stuff implements Serializable {
     protected String name;      //名称
     protected String unitName;  //单位名称
     protected float price;      //价格
