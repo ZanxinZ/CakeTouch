@@ -272,7 +272,6 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             e.printStackTrace();
         }
         if (tables.size() == 0){
-            Toast.makeText(this, "当前桌子为空", Toast.LENGTH_SHORT).show();
             orderDataBaseHandler.loadAllTable();
         }
 

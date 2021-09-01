@@ -19,6 +19,7 @@ import com.example.caketouch.MainActivity;
 import com.example.caketouch.R;
 import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.FoodOrdered;
+import com.example.caketouch.model.OrderDataBaseHandler;
 
 import java.util.Map;
 import java.util.Objects;
@@ -77,7 +78,8 @@ public class ServeFoodDialogFragment extends DialogFragment {
                 MainActivity.tables.get(chosenTableNo).getOrder().serveStuff(stuffID);
                 Objects.requireNonNull(AllOrdered.foodOrderedMap.get(foodOrdered.getDishNo())).removeTableFromFood(chosenTableNo);
                 Objects.requireNonNull(AllOrdered.tableOrderedMap.get(chosenTableNo)).removeStuffFromTable(stuffID);
-                //刷新activity
+                OrderDataBaseHandler orderDataBaseHandler = new OrderDataBaseHandler(activity);
+                orderDataBaseHandler.updateTable(MainActivity.tables.get(chosenTableNo), chosenTableNo);
                 Toast.makeText(activity, "已上菜", Toast.LENGTH_SHORT).show();
             }
             dismiss();

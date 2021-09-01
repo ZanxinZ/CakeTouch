@@ -112,7 +112,9 @@ public class OrderDataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.query("ordered", null, null, null,null,null,null);
         Log.d("加载所有Table", String.valueOf(cursor.getCount()));
-
+        if(cursor.getCount() == 0){
+            Toast.makeText(context, "当前桌子为空", Toast.LENGTH_SHORT).show();
+        }
         ArrayList<Table> tables = new ArrayList<>();
         while(cursor.moveToNext()){
             int index = cursor.getColumnIndex("tableObj");

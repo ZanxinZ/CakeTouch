@@ -19,7 +19,9 @@ import com.example.caketouch.MainActivity;
 import com.example.caketouch.R;
 import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.TableOrdered;
+import com.example.caketouch.model.OrderDataBaseHandler;
 import com.example.caketouch.table.Stuff;
+import com.example.caketouch.table.Table;
 
 import java.util.Map;
 
@@ -100,9 +102,12 @@ public class TableDetailDialogFragment extends DialogFragment {
                                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        MainActivity.tables.get(tableNo).getOrder().ordered.get(stuffEntry.getValue().getID()).setServed(true);
+                                        Table table = MainActivity.tables.get(tableNo);
+                                        table.getOrder().ordered.get(stuffEntry.getValue().getID()).setServed(true);
                                         AllOrdered.foodOrderedMap.get(stuffEntry.getValue().getDishNo()).removeTableFromFood(tableNo);
                                         stuffEntry.getValue().setServed(true);//remove food from table.
+                                        OrderDataBaseHandler orderDataBaseHandler = new OrderDataBaseHandler(activity);
+                                        orderDataBaseHandler.updateTable(table, tableNo);
                                         constructSmallStuffs(linearLayout, linearLayoutServed);
                                         Toast.makeText(activity, "已上菜", Toast.LENGTH_SHORT).show();
                                     }
