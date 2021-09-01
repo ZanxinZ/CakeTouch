@@ -22,6 +22,7 @@ import java.util.Set;
 public class AddTableDialogFragment extends DialogFragment {
     public int tableNo = -1;
     public Set<Integer> tableNos;
+    public int peopleCount = -1;
     public AddTableDialogFragment(Set<Integer> tableNos){
         this.tableNos = tableNos;
     }
@@ -62,6 +63,12 @@ public class AddTableDialogFragment extends DialogFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 String tableNoStr = table_no_edit_text.getText().toString();
                 if (!tableNoStr.equals("")){
                     tableNo = Integer.parseInt(tableNoStr);
@@ -73,15 +80,36 @@ public class AddTableDialogFragment extends DialogFragment {
                     return;
                 }
                 tableNo = -1;
+            }
+        });
+
+        EditText table_people = view.findViewById(R.id.editTextPeopleCount);
+        table_people.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                String text = table_people.getText().toString();
+                if (!text.equals("")){
+                    int people = Integer.parseInt(text);
+                    if (people < 0 || people > 99){
+                        Toast.makeText(getActivity(), "人数只能是 0--99！", Toast.LENGTH_SHORT).show();
+                        peopleCount = -1;
+                        return;
+                    }
+                    peopleCount = people;
+                }
 
             }
         });
-
         builder
                 .setPositiveButton("确认", (dialog, id) -> {
                         // Send the positive button event back to the host activity

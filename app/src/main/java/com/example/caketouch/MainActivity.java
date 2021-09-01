@@ -206,33 +206,42 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
     @Override
     public void onDialogPositiveClick(AddTableDialogFragment dialog) {
 
-        if (dialog.tableNo == -1)return;//has done nothing
-        if (dialog.tableNo != 0){
-            // User clicked OK button
-            Button button = new Button(MainActivity.this);
-            button.setId(dialog.tableNo);
-            button.setText(button.getId() + " 号位");
-            button.setGravity(Gravity.CENTER);
-            button.setTextSize(autoDp(8));
-            button.setBackgroundColor(Color.parseColor(light_blue));
-            tables_layout.addView(button);
-            tableCount++;
-
-            //新增桌子
-            Table table = new Table();
-            table.setButton(button);
-            tables.put(dialog.tableNo, table);
-            bindTableBtn(dialog.tableNo);
-            dialog.tableNo = 0;
-            ScrollView scrollView = findViewById(R.id.tableScroll);
-            scrollToBottom(scrollView, tables_layout);
-            Log.d("添加桌位", "成功!");
-            Toast.makeText(getApplicationContext(), "添加桌位：成功！< " + button.getText() + " >" , Toast.LENGTH_LONG).show();
-            return ;
+        if (dialog.tableNo == 0){
+            Log.d("添加桌位", "失败");
+            Toast.makeText(getApplicationContext(), "桌位号不能是0", Toast.LENGTH_LONG).show();
+            return;
         }
+        if (dialog.tableNo != -1 && dialog.peopleCount == -1){
+            Toast.makeText(getApplicationContext(), "人数未填。", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (dialog.tableNo == -1)return;//has done nothing
 
-        Log.d("添加桌位", "失败");
-        Toast.makeText(getApplicationContext(), "新增桌位失败", Toast.LENGTH_LONG).show();
+
+
+        // User clicked OK button
+        Button button = new Button(MainActivity.this);
+        button.setId(dialog.tableNo);
+        button.setText(button.getId() + " 号位");
+        button.setGravity(Gravity.CENTER);
+        button.setTextSize(autoDp(8));
+        button.setBackgroundColor(Color.parseColor(light_blue));
+        tables_layout.addView(button);
+        tableCount++;
+
+        //新增桌子
+        Table table = new Table();
+        table.setButton(button);
+        table.setPeople(dialog.peopleCount);
+        tables.put(dialog.tableNo, table);
+        bindTableBtn(dialog.tableNo);
+        dialog.tableNo = 0;
+        ScrollView scrollView = findViewById(R.id.tableScroll);
+        scrollToBottom(scrollView, tables_layout);
+        Log.d("添加桌位", "成功!");
+        Toast.makeText(getApplicationContext(), "添加桌位：成功！< " + button.getText() + " >" , Toast.LENGTH_LONG).show();
+        return ;
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -343,11 +352,10 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     @Override
     public void onDialogPositiveClick(Dish dish, boolean isNormal, int count, int tableNo) {
-        Toast.makeText(this, String.valueOf(count), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, String.valueOf(count), Toast.LENGTH_SHORT).show();
         Table table = tables.get(tableNo);
         table.orderStuff(dish, isNormal, count);
         //tables.put(tableNo,table);
-
     }
 
     public void tableLossFocus(){
