@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.caketouch.food_for_serve.DrinkOrdered;
@@ -19,9 +18,7 @@ import java.util.Set;
 public class DrinkCheckActivity extends Activity {
     int drinkBlockCount = 0;
     LinearLayout curRow;
-    int rowCount;
-    LinearLayout linearLayoutDrinkSmall;
-    LinearLayout linearLayoutDrinkBlock;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
