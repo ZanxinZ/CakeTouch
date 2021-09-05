@@ -32,3 +32,25 @@ The technology include:
 
 - SQLite  操作。
 - DialogFragment 继承。
+
+快照:
+
+![主页面](./pic/main.png)
+
+![](./pic/newTable.png)
+
+![新增菜品](./pic/newDish.png)
+
+![菜品详细信息](./pic/dishDetail.png)
+
+![修改菜品](./pic/changeDish.png)
+
+
+
+ ![桌位选择菜](./pic/choose.png)![查看已点](./pic/ordered.png)
+
+![桌子详情](./pic/table.png)
+
+![选择桌号上菜](./pic/serve.png)
+
+![查看已点饮料](./pic/drink.png)
