@@ -11,6 +11,11 @@ Features:
   - Add a new dish.
   - Check the existing dish.
 
+The technology include:
+
+- SQLite operation.
+- DialogFragment Extends.
+
 一款为了提高点餐与上菜的效率的应用。
 
 特征：
@@ -22,3 +27,8 @@ Features:
 - 设置
   - 添加新菜品。
   - 查看已存在的菜品。
+
+包含的技术：
+
+- SQLite  操作。
+- DialogFragment 继承。
