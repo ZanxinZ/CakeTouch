@@ -30,8 +30,9 @@ The technology include:
 
 包含的技术：
 
-- SQLite  操作。
+- SQLite 操作。
 - DialogFragment 继承。
+- Android xml 编写。
 
 快照:
 
