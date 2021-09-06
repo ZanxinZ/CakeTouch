@@ -15,6 +15,7 @@ The technology include:
 
 - SQLite operation.
 - DialogFragment Extends.
+- Android xml edit.
 
 一款为了提高点餐与上菜的效率的应用。
 
