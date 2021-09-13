@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SettingActivity">
+        <activity android:name=".SettingActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="com.example.caketouch.SettingActivity"/>
                 <category android:name="android.intent.category.DEFAULT" />
