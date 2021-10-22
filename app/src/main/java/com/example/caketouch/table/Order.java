@@ -94,6 +94,10 @@ public class Order implements Serializable {
 //    }
 
 
+    public void subtractTotal(float money) {
+        this.total = total - money;
+    }
+
     public float getTotal() {
         return total;
     }

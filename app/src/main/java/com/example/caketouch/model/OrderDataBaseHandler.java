@@ -59,9 +59,11 @@ public class OrderDataBaseHandler extends SQLiteOpenHelper {
 
             long checkIfQueryRun = sqLiteDatabase.insert("ordered",null, contentValues);
             if (checkIfQueryRun != 0){
-                Toast.makeText(context, "订单已保存！", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "订单已保存！", Toast.LENGTH_SHORT).show();
+                Log.d("数据库", "订单已保存！");
             }
             else{
+                Log.d("数据库", "订单保存失败。");
                 Toast.makeText(context, "订单保存失败。", Toast.LENGTH_SHORT).show();
             }
         }catch (Exception e){

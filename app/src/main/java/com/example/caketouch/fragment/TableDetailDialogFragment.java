@@ -32,6 +32,7 @@ public class TableDetailDialogFragment extends DialogFragment {
     private int tableNo;
     Activity activity;
     Bundle bundle;
+    private View view;
     public interface NoticeDialogListener {
         void onFoodServed();
     }
@@ -58,9 +59,8 @@ public class TableDetailDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState){
         bundle = savedInstanceState;
         LayoutInflater inflater = LayoutInflater.from(activity);
-        View view = inflater.inflate(R.layout.dialog_table_check,null);
-        TextView title = view.findViewById(R.id.textViewTableCheckTitle);
-        title.setText(tableNo + " " + title.getText());
+        view = inflater.inflate(R.layout.dialog_table_check,null);
+        showTitle(view);
         ImageView close = view.findViewById(R.id.imageViewTableCheckClose);
         close.setOnClickListener(v->{
             dismiss();
@@ -73,6 +73,11 @@ public class TableDetailDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(view);
         return builder.create();
+    }
+    @SuppressLint("SetTextI18n")
+    private void showTitle(View view){
+        TextView title = view.findViewById(R.id.textViewTableCheckTitle);
+        title.setText(tableNo + "号 已点￥" + MainActivity.tables.get(tableNo).getOrder().getTotal());
     }
 
     @SuppressLint("SetTextI18n")
@@ -112,10 +117,12 @@ public class TableDetailDialogFragment extends DialogFragment {
                                         table.getOrder().ordered.remove(stuffEntry.getValue().getID());//Ordered remove chosenStuff
                                         AllOrdered.foodOrderedMap.get(stuffEntry.getValue().getDishNo()).removeTableFromFood(tableNo);
                                         tableOrdered.removeStuffFromTable(stuffEntry.getKey());        //remove stuff for show
+                                        table.getOrder().subtractTotal(stuffEntry.getValue().getPrice());
                                         //stuffEntry.getValue().setServed(true);//remove food from table.
                                         OrderDataBaseHandler orderDataBaseHandler = new OrderDataBaseHandler(activity);
                                         orderDataBaseHandler.updateTable(table, tableNo);
                                         constructSmallStuffs(linearLayout, linearLayoutServed);
+                                        showTitle(view);
                                         Toast.makeText(activity, "已删除", Toast.LENGTH_SHORT).show();
                                     }
                                 })

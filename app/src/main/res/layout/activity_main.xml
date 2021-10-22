@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="保存并打印" />
+                android:text="打印单据" />
 
         </LinearLayout>
 

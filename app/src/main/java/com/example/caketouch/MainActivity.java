@@ -36,6 +36,8 @@ import android.widget.Toast;
 import com.example.caketouch.fragment.AddStuffDialogFragment;
 import com.example.caketouch.fragment.AddTableDialogFragment;
 import com.example.caketouch.menu.Dish;
+import com.example.caketouch.menu.DishType;
+import com.example.caketouch.menu.DishUnit;
 import com.example.caketouch.model.DishDatabaseHandler;
 import com.example.caketouch.model.OrderDataBaseHandler;
 import com.example.caketouch.table.Table;
@@ -412,6 +414,10 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         //Toast.makeText(this, String.valueOf(count), Toast.LENGTH_SHORT).show();
         Table table = tables.get(tableNo);
         table.orderStuff(dish, isNormal, count);
+
+        OrderDataBaseHandler orderDataBaseHandler = new OrderDataBaseHandler(MainActivity.this);
+        orderDataBaseHandler.updateTable(table, tableNo);
+        Toast.makeText(this, "添加"+ count + DishUnit.getUnitStr(dish.getUnit()) + "[" + dish.getName() + "]", Toast.LENGTH_SHORT).show();
         //tables.put(tableNo,table);
     }
 

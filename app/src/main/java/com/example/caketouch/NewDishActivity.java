@@ -108,7 +108,7 @@ public class NewDishActivity extends Activity {
 
         if (String.valueOf(editTextDishName.getText()).isEmpty() ||
                 String.valueOf(editTextDishPrice.getText()).isEmpty() ||
-                String.valueOf(editTextDishLowPrice.getText()).isEmpty()){
+                String.valueOf(editTextDishLowPrice.getText()).isEmpty() && DishType.getDishType(spinnerType.getSelectedItem().toString()) != DishType.drink){
             Toast.makeText(this, "信息未填好", Toast.LENGTH_SHORT).show();
             return false;
         }

@@ -170,7 +170,7 @@ public class DishDetailFragment extends DialogFragment {
 
                 if (String.valueOf(dishNameUpdate.getText()).isEmpty() ||
                         String.valueOf(dishPriceUpdate.getText()).isEmpty() ||
-                        String.valueOf(dishLowPriceUpdate.getText()).isEmpty()){
+                        String.valueOf(dishLowPriceUpdate.getText()).isEmpty() && DishType.getDishType(dishTypeUpdate.getSelectedItem().toString()) != DishType.drink){
                     Toast.makeText(activity, "信息未填好", Toast.LENGTH_SHORT).show();
                     return ;
                 }
