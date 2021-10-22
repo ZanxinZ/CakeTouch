@@ -20,10 +20,14 @@ import com.example.caketouch.R;
 import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.FoodOrdered;
 import com.example.caketouch.model.OrderDataBaseHandler;
+import com.example.caketouch.table.StuffSize;
 
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * to show which table ordered food
+ */
 @SuppressLint("ValidFragment")
 public class ServeFoodDialogFragment extends DialogFragment {
     private FoodOrdered foodOrdered;
@@ -34,7 +38,7 @@ public class ServeFoodDialogFragment extends DialogFragment {
     private int smallTableCount = 0;
 
     public interface NoticeDialogListener{
-        void onFoodServed();
+        void onFoodServed();//refresh parent UI
     }
     ServeFoodDialogFragment.NoticeDialogListener noticeDialogListener;
     @Override
@@ -67,9 +71,9 @@ public class ServeFoodDialogFragment extends DialogFragment {
         
         LinearLayout linearLayout = view.findViewById(R.id.table_small_blocks);
 
-        for (Map.Entry<Long, Integer> tableFoodMap:
+        for (Map.Entry<Long, Integer> tablesHaveFood:
              foodOrdered.getTablesOrdered().entrySet()) {
-            addSmallTable(linearLayout,tableFoodMap.getValue());
+            addSmallTable(linearLayout, tablesHaveFood.getValue(), Objects.requireNonNull(MainActivity.tables.get(tablesHaveFood.getValue()).getOrder().ordered.get(tablesHaveFood.getKey())).getStuffSize());
         }
         Button confirm = view.findViewById(R.id.buttonServeFoodConfirm);
         confirm.setOnClickListener(v->{
@@ -95,7 +99,7 @@ public class ServeFoodDialogFragment extends DialogFragment {
         return builder.create();
     }
     @SuppressLint("SetTextI18n")
-    public void addSmallTable(LinearLayout linearLayout, int tableNo){
+    public void addSmallTable(LinearLayout linearLayout, int tableNo, StuffSize stuffSize){
         if (smallTableCount % 4 == 0){
             curRow = new LinearLayout(activity);
             linearLayout.addView(curRow);
@@ -103,7 +107,12 @@ public class ServeFoodDialogFragment extends DialogFragment {
         LayoutInflater inflater = LayoutInflater.from(activity);
         View table_small_block = inflater.inflate(R.layout.table_small_block, null);
         TextView textView = table_small_block.findViewById(R.id.textViewTableSmallBlockTableNo);
-        textView.setText(String.valueOf(tableNo)+ " "+ textView.getText());
+        if (stuffSize == StuffSize.normal){
+            textView.setText(tableNo +""+ textView.getText());
+        }else if(stuffSize == StuffSize.small){
+            textView.setText(tableNo +""+ textView.getText() + "(小份)");
+        }
+
         textView.setOnClickListener(v->{
             if (chosenTableNo == -1){
                 // the first one be click

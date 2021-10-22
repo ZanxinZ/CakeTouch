@@ -1,5 +1,7 @@
 package com.example.caketouch.table;
 
+import com.example.caketouch.menu.DishType;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,24 +12,22 @@ public abstract class Stuff implements Serializable {
     protected String name;      //名称
     protected String unitName;  //单位名称
     protected float price;      //价格
-    protected Long ID;        //点菜时间
+    protected StuffSize stuffSize;
+    protected Long ID;          //点菜时间
     protected boolean served;   //是否已交付
     protected Long dishNo;      //菜色编号
     //protected int tableNo;      //桌号
-    public Stuff(String name, String unitName, float price, Long ID,  Long dishNo, boolean served) {
+    protected DishType dishType;
+    public Stuff(String name, String unitName, float price, Long ID,  Long dishNo, DishType dishType, StuffSize stuffSize,boolean served) {
         this.name = name;
         this.unitName = unitName;
         this.price = price;
+        this.stuffSize = stuffSize;
         this.ID = ID;
         this.dishNo = dishNo;
         //this.tableNo = tableNo;
         this.served = served;
-    }
-
-    public Stuff(){
-        this.ID = new Date().getTime();
-        this.price = -1;
-        this.name = "空";
+        this.dishType = dishType;
     }
 
     public String getName() {
@@ -69,4 +69,16 @@ public abstract class Stuff implements Serializable {
 //    public abstract boolean serve(Stuff stuff);
 //
 //    public abstract boolean order(Dish dish, int count, int tableNo);
+
+    public DishType getDishType() {
+        return dishType;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public StuffSize getStuffSize() {
+        return stuffSize;
+    }
 }

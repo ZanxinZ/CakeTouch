@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.caketouch.R;
 import com.example.caketouch.menu.Dish;
+import com.example.caketouch.menu.DishType;
 
 @SuppressLint("ValidFragment")
 public class AddStuffDialogFragment extends DialogFragment {
@@ -129,6 +130,12 @@ public class AddStuffDialogFragment extends DialogFragment {
             priceChoose = dish.getSmallPrice();
             stuffChoosePrice.setText(String.valueOf(priceChoose));
         });
+
+        //only has one price or is drink.
+        if (dish.getPrice() == dish.getSmallPrice() || dish.getDishType() == DishType.drink){
+            smallChoose.setVisibility(View.GONE);
+            normalChoose.setVisibility(View.GONE);
+        }
 
 
         Button cancel = view.findViewById(R.id.buttonOrderStuffCancel);

@@ -150,6 +150,7 @@ public class OrderedShowActivity extends Activity implements TableDetailDialogFr
             assert foodOrdered != null;
             foodOrdered.attachTableToFood(tableNo, stuff.getID());
         }else{
+            //food card should be newly add.
             FoodOrdered foodOrdered = new FoodOrdered(stuff.getName(), stuff.getDishNo());
             foodOrdered.attachTableToFood(tableNo,stuff.getID());
             AllOrdered.foodOrderedMap.put(stuff.getDishNo(),foodOrdered);

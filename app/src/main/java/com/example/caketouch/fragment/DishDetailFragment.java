@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -128,13 +129,35 @@ public class DishDetailFragment extends DialogFragment {
             EditText dishNameUpdate = dishUpdateView.findViewById(R.id.textView_dish_name_update);
             dishNameUpdate.setText(dish.getName());
             EditText dishPriceUpdate = dishUpdateView.findViewById(R.id.textView_dish_price_update);
-            dishPriceUpdate.setText(String.valueOf(dish.getPrice()));
-            EditText dishLowPriceUpdate = dishUpdateView.findViewById(R.id.textView_dish_low_price_update);
-            dishLowPriceUpdate.setText(String.valueOf(dish.getSmallPrice()));
+            dishPriceUpdate.setText(String.valueOf((int)dish.getPrice()));
+            EditText dishLowPriceUpdate = dishUpdateView.findViewById(R.id.editText_dish_low_price_update);
+            dishLowPriceUpdate.setText(String.valueOf(((int)dish.getSmallPrice())));
             Spinner dishUnitUpdate = dishUpdateView.findViewById(R.id.spinnerDishUnitUpdate);
             dishUnitUpdate.setSelection(dish.getUnit().code);
             Spinner dishTypeUpdate = dishUpdateView.findViewById(R.id.spinnerDishTypeUpdate);
             dishTypeUpdate.setSelection(dish.getDishType().code);
+
+            dishTypeUpdate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if(DishType.getDishType(dishTypeUpdate.getSelectedItem().toString()) == DishType.drink){
+                        EditText editTextDishLowPrice = dishUpdateView.findViewById(R.id.editText_dish_low_price_update);
+                        editTextDishLowPrice.setVisibility(View.GONE);
+                        TextView textViewDishLowPrice = dishUpdateView.findViewById(R.id.textView_dish_low_price_update);
+                        textViewDishLowPrice.setVisibility(View.GONE);
+                    }else {
+                        EditText editTextDishLowPrice = dishUpdateView.findViewById(R.id.editText_dish_low_price_update);
+                        editTextDishLowPrice.setVisibility(View.VISIBLE);
+                        TextView textViewDishLowPrice = dishUpdateView.findViewById(R.id.textView_dish_low_price_update);
+                        textViewDishLowPrice.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
 
             AlertDialog updateDialog = updateDishDialogBuilder.show();
 
@@ -145,13 +168,33 @@ public class DishDetailFragment extends DialogFragment {
             Button updateConfirm = dishUpdateView.findViewById(R.id.buttonConfirmDishUpdate);
             updateConfirm.setOnClickListener(action -> {
 
-                Dish dishForUpdate = new Dish(dishNameUpdate.getText().toString(),
-                        DishUnit.getDishUnit(dishUnitUpdate.getSelectedItem().toString()),
-                        ((BitmapDrawable)(imageView.getDrawable())).getBitmap(),
-                        Float.parseFloat(dishPriceUpdate.getText().toString()),
-                        Float.parseFloat(dishLowPriceUpdate.getText().toString()),
-                        DishType.getDishType(dishTypeUpdate.getSelectedItem().toString()),
-                        dish.getDishNo());
+                if (String.valueOf(dishNameUpdate.getText()).isEmpty() ||
+                        String.valueOf(dishPriceUpdate.getText()).isEmpty() ||
+                        String.valueOf(dishLowPriceUpdate.getText()).isEmpty()){
+                    Toast.makeText(activity, "信息未填好", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+
+                Dish dishForUpdate;
+                if (DishType.getDishType(dishTypeUpdate.getSelectedItem().toString()) == DishType.drink){
+                    dishForUpdate = new Dish(dishNameUpdate.getText().toString(),
+                            DishUnit.getDishUnit(dishUnitUpdate.getSelectedItem().toString()),
+                            ((BitmapDrawable)(imageView.getDrawable())).getBitmap(),
+                            Float.parseFloat(dishPriceUpdate.getText().toString()),
+                            Float.parseFloat(dishPriceUpdate.getText().toString()),
+                            DishType.getDishType(dishTypeUpdate.getSelectedItem().toString()),
+                            dish.getDishNo());
+                }else{
+                    dishForUpdate = new Dish(dishNameUpdate.getText().toString(),
+                            DishUnit.getDishUnit(dishUnitUpdate.getSelectedItem().toString()),
+                            ((BitmapDrawable)(imageView.getDrawable())).getBitmap(),
+                            Float.parseFloat(dishPriceUpdate.getText().toString()),
+                            Float.parseFloat(dishLowPriceUpdate.getText().toString()),
+                            DishType.getDishType(dishTypeUpdate.getSelectedItem().toString()),
+                            dish.getDishNo());
+                }
+
+
                 if (databaseHandler.updateDish(dishForUpdate)){
                     updateDialog.dismiss();
                     Toast.makeText(activity, "菜品已更新！", Toast.LENGTH_SHORT).show();

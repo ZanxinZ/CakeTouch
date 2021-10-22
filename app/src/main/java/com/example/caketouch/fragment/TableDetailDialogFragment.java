@@ -21,6 +21,7 @@ import com.example.caketouch.food_for_serve.AllOrdered;
 import com.example.caketouch.food_for_serve.TableOrdered;
 import com.example.caketouch.model.OrderDataBaseHandler;
 import com.example.caketouch.table.Stuff;
+import com.example.caketouch.table.StuffSize;
 import com.example.caketouch.table.Table;
 
 import java.util.Map;
@@ -83,7 +84,11 @@ public class TableDetailDialogFragment extends DialogFragment {
             LayoutInflater inflater = LayoutInflater.from(activity);
             View stuffView = inflater.inflate(R.layout.stuff_small_block, null);
             TextView textView = stuffView.findViewById(R.id.textViewStuffSmallName);
-            textView.setText(stuffEntry.getValue().getName());
+            if (stuffEntry.getValue().getStuffSize() == StuffSize.normal){
+                textView.setText(stuffEntry.getValue().getName() );
+            }else if(stuffEntry.getValue().getStuffSize() == StuffSize.small){
+                textView.setText(stuffEntry.getValue().getName() + "(小份)");
+            }
             TextView stuffSmallBlockPrice = stuffView.findViewById(R.id.textViewStuffSmallPrice);
             stuffSmallBlockPrice.setText(stuffEntry.getValue().getPrice() + "元");
             if (stuffEntry.getValue().isServed()){
@@ -98,18 +103,20 @@ public class TableDetailDialogFragment extends DialogFragment {
                         AlertDialog.Builder serveFoodDialog = new AlertDialog.Builder(activity);
                         //dismiss();
                         serveFoodDialog.setTitle("提示")
-                                .setMessage("确认要上菜【" + stuffEntry.getValue().getName() + "】吗？")
+                                .setMessage("确认删除【" + stuffEntry.getValue().getName() + "】吗？")
                                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Table table = MainActivity.tables.get(tableNo);
-                                        table.getOrder().ordered.get(stuffEntry.getValue().getID()).setServed(true);
+                                        //table.getOrder().ordered.get(stuffEntry.getValue().getID()).setServed(true);
+                                        table.getOrder().ordered.remove(stuffEntry.getValue().getID());//Ordered remove chosenStuff
                                         AllOrdered.foodOrderedMap.get(stuffEntry.getValue().getDishNo()).removeTableFromFood(tableNo);
-                                        stuffEntry.getValue().setServed(true);//remove food from table.
+                                        tableOrdered.removeStuffFromTable(stuffEntry.getKey());        //remove stuff for show
+                                        //stuffEntry.getValue().setServed(true);//remove food from table.
                                         OrderDataBaseHandler orderDataBaseHandler = new OrderDataBaseHandler(activity);
                                         orderDataBaseHandler.updateTable(table, tableNo);
                                         constructSmallStuffs(linearLayout, linearLayoutServed);
-                                        Toast.makeText(activity, "已上菜", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(activity, "已删除", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {

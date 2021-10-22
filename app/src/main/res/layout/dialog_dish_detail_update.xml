@@ -83,13 +83,13 @@
                 android:layout_gravity="center">
 
                 <TextView
-                    android:id="@+id/textView26"
+                    android:id="@+id/textView_dish_low_price_update"
                     style="@style/dish_detail_list"
                     android:layout_height="wrap_content"
                     android:text="@string/dish_low_price" />
 
                 <EditText
-                    android:id="@+id/textView_dish_low_price_update"
+                    android:id="@+id/editText_dish_low_price_update"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"

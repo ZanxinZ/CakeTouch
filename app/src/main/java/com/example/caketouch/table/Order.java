@@ -17,10 +17,10 @@ import java.util.TreeMap;
  */
 public class Order implements Serializable {
     //记录点的每个物品
-    public TreeMap<Long, Stuff> ordered = new TreeMap<>();   // stuffId, stuff
+    public TreeMap<Long, Stuff> ordered = new TreeMap<>();   // stuffId, stuff //foods
     public TreeMap<Long, DrinkOrdered> drinkOrderedMap = new TreeMap<>(); // DishNo, drinkOrdered
     private static Long orderTime;//点餐时间
-    private static float total;   //总价
+    private float total = 0;      //总价
     public Order() {
         Order.orderTime = new Date().getTime();
     }
@@ -35,31 +35,26 @@ public class Order implements Serializable {
             if (drinkOrderedMap.containsKey(dish.getDishNo())){
                 drinkOrdered = drinkOrderedMap.get(dish.getDishNo());
             }else{
-                if (isNormal){
-                    drinkOrdered = new DrinkOrdered(dish.getDishNo(), 0, dish.getName(),DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getPrice());
-
-                }else {
-                    drinkOrdered = new DrinkOrdered(dish.getDishNo(), 0, dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getSmallPrice());
-                }
+                drinkOrdered = new DrinkOrdered(dish.getDishNo(), 0, dish.getName(),DishUnit.getUnitStr(dish.getUnit()),
+                        dish.getPrice());
             }
             assert drinkOrdered != null;
             drinkOrdered.setCount(drinkOrdered.getCount() + count);
             drinkOrderedMap.put(drinkOrdered.getDishNo(), drinkOrdered);
-
+            total += drinkOrdered.getMoney() * count;
             //drink type will return a null stuff.
         }
         else{
             for (int i = 0; i < count; i++) {
                 if (isNormal){
                     stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getPrice(), DateGet.Time(), dish.getDishNo());
+                            dish.getPrice(), DateGet.Time(), dish.getDishNo(), dish.getDishType(), StuffSize.normal);
                 }else {
                     stuff = new Food(dish.getName(), DishUnit.getUnitStr(dish.getUnit()),
-                            dish.getSmallPrice(), DateGet.Time(), dish.getDishNo());
+                            dish.getSmallPrice(), DateGet.Time(), dish.getDishNo(),dish.getDishType(),StuffSize.small);
                 }
                 ordered.put(stuff.getID(), stuff);
+                total += stuff.getPrice();
                 // Because use the mills as the ID, it can't be duplicate.
                 // if continuously put to hashmap, it's so fast that the mills time number will be the same, so wait for 1 millisecond
                 try {
@@ -99,5 +94,7 @@ public class Order implements Serializable {
 //    }
 
 
-
+    public float getTotal() {
+        return total;
+    }
 }

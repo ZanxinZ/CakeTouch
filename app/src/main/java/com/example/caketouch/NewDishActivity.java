@@ -9,12 +9,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.caketouch.menu.Dish;
@@ -28,6 +31,7 @@ import java.util.Date;
 public class NewDishActivity extends Activity {
 
     private DishDatabaseHandler databaseHandler;
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -54,6 +58,30 @@ public class NewDishActivity extends Activity {
             startActivityForResult(intent, RequestCode.PHOTO);
         });
 
+        Spinner spinnerType = findViewById(R.id.spinnerDishType);
+        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(DishType.getDishType(spinnerType.getSelectedItem().toString()) == DishType.drink){
+                    EditText editTextDishLowPrice = findViewById(R.id.editTextDishLowPrice);
+                    editTextDishLowPrice.setVisibility(View.GONE);
+                    TextView textViewDishLowPrice = findViewById(R.id.textViewDishLowPrice);
+                    textViewDishLowPrice.setVisibility(View.GONE);
+                }else {
+                    EditText editTextDishLowPrice = findViewById(R.id.editTextDishLowPrice);
+                    editTextDishLowPrice.setVisibility(View.VISIBLE);
+                    TextView textViewDishLowPrice = findViewById(R.id.textViewDishLowPrice);
+                    textViewDishLowPrice.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         Button buttonCancel = findViewById(R.id.buttonCancelAddDish);
         buttonCancel.setOnClickListener(v->{
             finish();
@@ -79,19 +107,39 @@ public class NewDishActivity extends Activity {
         Spinner spinnerType = findViewById(R.id.spinnerDishType);
 
         if (String.valueOf(editTextDishName.getText()).isEmpty() ||
-                String.valueOf(editTextDishPrice.getText()).isEmpty()){
-            Toast.makeText(this, "信息未填完", Toast.LENGTH_SHORT).show();
+                String.valueOf(editTextDishPrice.getText()).isEmpty() ||
+                String.valueOf(editTextDishLowPrice.getText()).isEmpty()){
+            Toast.makeText(this, "信息未填好", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        Dish dish = new Dish(String.valueOf(editTextDishName.getText()),
-                DishUnit.getDishUnit(spinnerUnit.getSelectedItem().toString()),
-                dishBitmap,
-                Float.parseFloat(String.valueOf(editTextDishPrice.getText())),
-                Float.parseFloat(String.valueOf(editTextDishLowPrice.getText())),
-                DishType.getDishType(spinnerType.getSelectedItem().toString()),
-                new Date().getTime()
-                );
+        Dish dish;
+        if (DishType.getDishType(spinnerType.getSelectedItem().toString()) == DishType.drink){
+            //drink has only one price
+            dish = new Dish(String.valueOf(editTextDishName.getText()),
+                    DishUnit.getDishUnit(spinnerUnit.getSelectedItem().toString()),
+                    dishBitmap,
+                    Float.parseFloat(String.valueOf(editTextDishPrice.getText())),
+                    Float.parseFloat(String.valueOf(editTextDishPrice.getText())),
+                    DishType.getDishType(spinnerType.getSelectedItem().toString()),
+                    new Date().getTime()
+            );
+
+        }else{
+            if (Float.parseFloat(String.valueOf(editTextDishPrice.getText())) < Float.parseFloat(String.valueOf(editTextDishLowPrice.getText()))){
+                Toast.makeText(this, "小份价格不能大于普通价格", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            dish = new Dish(String.valueOf(editTextDishName.getText()),
+                    DishUnit.getDishUnit(spinnerUnit.getSelectedItem().toString()),
+                    dishBitmap,
+                    Float.parseFloat(String.valueOf(editTextDishPrice.getText())),
+                    Float.parseFloat(String.valueOf(editTextDishLowPrice.getText())),
+                    DishType.getDishType(spinnerType.getSelectedItem().toString()),
+                    new Date().getTime()
+            );
+        }
+
         if (databaseHandler.isExist(dish.getName())){
             Toast.makeText(this, "菜品名字已存在！", Toast.LENGTH_SHORT).show();
             return false;

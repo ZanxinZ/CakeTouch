@@ -6,6 +6,8 @@ import android.app.Activity;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -37,6 +39,8 @@ import com.example.caketouch.menu.Dish;
 import com.example.caketouch.model.DishDatabaseHandler;
 import com.example.caketouch.model.OrderDataBaseHandler;
 import com.example.caketouch.table.Table;
+import com.example.caketouch.util.BluetoothUtil;
+import com.example.caketouch.util.PrinterUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,6 +49,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -62,11 +67,13 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     public Button chooseTableBtn = null;
 
+
     File tmpDir = new File(Environment.getExternalStorageDirectory() + "/mealPic" );
 
     private DishDatabaseHandler dishDatabaseHandler;
     private OrderDataBaseHandler orderDataBaseHandler;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -75,6 +82,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         sContextReference = new WeakReference<>(this);
         initData();
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initData(){
 
         Button addTableBtn = findViewById(R.id.buttonAddTable);
@@ -89,6 +97,8 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         dishDatabaseHandler = new DishDatabaseHandler(this);
         orderDataBaseHandler= new OrderDataBaseHandler(this);
         dishDatabaseHandler.loadAllDish();
+
+
 
         if (!tmpDir.exists()){
             Log.d("新建文件",tmpDir.getAbsolutePath());
@@ -127,8 +137,32 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             int tableNo = chooseTableBtn.getId();
             Table table = tables.get(tableNo);
             orderDataBaseHandler.updateTable(table, tableNo);
+
+            List<BluetoothDevice> devices = BluetoothUtil.getPairedDevices();
+            if (devices.size() != 0){
+                try{
+                    BluetoothSocket socket = BluetoothUtil.connectDevice(devices.get(0));
+                    PrinterUtil.printOrder(socket, BitmapFactory.decodeResource(this.getResources(), R.drawable.logo),table);
+                    Toast.makeText(MainActivity.this, "打印好了！", Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    e.printStackTrace();
+                    builder.setTitle("提示")
+                            .setMessage("连接失败，请打开蓝牙打印机~")
+                            .setPositiveButton("好的", (dialog, id) -> {
+                        // User clicked OK button
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }else{
+                Toast.makeText(MainActivity.this, "找不到设备，请打开蓝牙并与打印机连接。", Toast.LENGTH_LONG).show();
+            }
+
+
         });
         loadData();
+        BluetoothUtil.init(this);
     }
 
 
@@ -235,9 +269,10 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         // User clicked OK button
         Button button = new Button(MainActivity.this);
         button.setId(dialog.tableNo);
-        button.setText(button.getId() + " 号位");
+
+        button.setText(button.getId() + " 号位" + dialog.peopleCount + "人");
         button.setGravity(Gravity.CENTER);
-        button.setTextSize(autoDp(8));
+        button.setTextSize(autoDp(6));
         button.setBackgroundColor(Color.parseColor(light_blue));
         tables_layout.addView(button);
         tableCount++;
@@ -251,6 +286,9 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         dialog.tableNo = 0;
         ScrollView scrollView = findViewById(R.id.tableScroll);
         scrollToBottom(scrollView, tables_layout);
+
+
+
         Log.d("添加桌位", "成功!");
         Toast.makeText(MainActivity.this, "添加桌位：成功！< " + button.getText() + " >" , Toast.LENGTH_LONG).show();
         return ;
@@ -280,7 +318,6 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             addOneTableBtnToView(tableEntry.getKey());
         }
 
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -288,9 +325,10 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         Button button = new Button(this);
         //((ViewGroup)button.getParent()).removeView(button);
         button.setId(tableNo);
-        button.setText(button.getId() + " 号位");
+        int tableNum = button.getId();
+        button.setText(button.getId() + " 号位" + tables.get(tableNum).getPeople() + "人");
         button.setGravity(Gravity.CENTER);
-        button.setTextSize(autoDp(8));
+        button.setTextSize(autoDp(6));
         button.setBackgroundColor(Color.parseColor(light_blue));
         tables_layout.addView(button);
         bindTableBtn(button, tableNo);
@@ -305,11 +343,11 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             if (chooseTableBtn != null){
                 chooseTableBtn.setBackgroundColor(Color.parseColor(light_blue));
                 chooseTableBtn.setGravity(Gravity.CENTER);
-                chooseTableBtn.setTextSize(autoDp(8));
+                chooseTableBtn.setTextSize(autoDp(6));
             }
             button.setBackgroundColor(Color.parseColor(blue));
             //button.setGravity(Gravity.RIGHT);
-            button.setTextSize(autoDp(12));
+            button.setTextSize(autoDp(8));
             chooseTableBtn = button;
 
             //button.setGravity(Gravity.CENTER);
@@ -381,7 +419,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         if (chooseTableBtn != null){
             chooseTableBtn.setBackgroundColor(Color.parseColor(light_blue));
             chooseTableBtn.setGravity(Gravity.CENTER);
-            chooseTableBtn.setTextSize(autoDp(8));
+            chooseTableBtn.setTextSize(autoDp(6));
             chooseTableBtn = null;
         }
         LinearLayout linearLayout = findViewById(R.id.view_dishes_for_order);

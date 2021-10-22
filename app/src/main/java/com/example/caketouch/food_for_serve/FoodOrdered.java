@@ -1,12 +1,14 @@
 package com.example.caketouch.food_for_serve;
 
 
+import com.example.caketouch.table.StuffSize;
+
 import java.util.Map;
 import java.util.TreeMap;
 
 public class FoodOrdered {
     private String foodName = null;
-    private TreeMap<Long, Integer> tablesOrdered = new TreeMap<>(); // who has ordered current food
+    private TreeMap<Long, Integer> tablesOrdered = new TreeMap<>(); // stuffID tableNo// who has ordered current food
     //private Long stuffID;
     private Long dishNo;
     public FoodOrdered(String foodName, Long dishNo) {
