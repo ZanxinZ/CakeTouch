@@ -140,11 +140,12 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             Table table = tables.get(tableNo);
             orderDataBaseHandler.updateTable(table, tableNo);
 
-            List<BluetoothDevice> devices = BluetoothUtil.getPairedDevices();
+            List<BluetoothDevice> devices = BluetoothUtil.getPairedPrinterDevices();//Find all printer.
+            //choose the first one
             if (devices.size() != 0){
                 try{
                     BluetoothSocket socket = BluetoothUtil.connectDevice(devices.get(0));
-                    PrinterUtil.printOrder(socket, BitmapFactory.decodeResource(this.getResources(), R.drawable.logo),table);
+                    PrinterUtil.printOrder(socket, BitmapFactory.decodeResource(this.getResources(), R.drawable.alipay),BitmapFactory.decodeResource(this.getResources(), R.drawable.wechat), table);
                     Toast.makeText(MainActivity.this, "打印好了！", Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);

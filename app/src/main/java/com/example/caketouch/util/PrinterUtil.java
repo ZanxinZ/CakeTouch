@@ -19,7 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 
@@ -29,7 +28,7 @@ public class PrinterUtil {
     private OutputStream mOutputStream = null;
 
     public final static int WIDTH_PIXEL = 384;
-    public final static int IMAGE_SIZE = 320;
+    public final static int IMAGE_SIZE = 240;
 
     /**
      * 初始化Pos实例
@@ -283,6 +282,7 @@ public class PrinterUtil {
 
         byte[] result = new byte[k];
         System.arraycopy(tmp, 0, result, 0, k);
+
         return result;
     }
 
@@ -339,8 +339,29 @@ public class PrinterUtil {
         return targetBmp;
     }
 
+    private void printQRCode(String text) throws IOException {
+
+//        mWriter.write(0x1b);
+//        mWriter.write(0x61);
+//        mWriter.write(0x01);
+
+        char[] code = {0x1D, 0x28, 0x6B, 0x03, 0x00, 0x31, 0x51, 0x30};
+        mWriter.write(code);
+        mWriter.flush();
+        char[] s = {0xE4,0xBD,0xA0,0xE5,0xA5,0xBD,0xEF ,0xBC ,0x8C ,0x57 ,0x65,0x6C,0x63,0x6F ,0x6D,0x65};
+        //E4 BD A0 E5 A5 ,0xBD ,0xEF ,0xBC ,0x8C ,0x57 ,0x65,0x6C,0x63,0x6F ,0x6D,0x65
+        for (int i = 0; i < s.length; i++) {
+            mWriter.write(s[i]);
+        }
+
+
+        mWriter.flush();
+    }
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void printOrder(BluetoothSocket bluetoothSocket, Bitmap bitmap, Table table) {
+    public static void printOrder(BluetoothSocket bluetoothSocket, Bitmap alipay, Bitmap wechat, Table table) {
 
         try {
             PrinterUtil pUtil = new PrinterUtil(bluetoothSocket.getOutputStream(), "GBK");
@@ -421,7 +442,19 @@ public class PrinterUtil {
 
             pUtil.printDashLine();
 
-            pUtil.printBitmap(bitmap);
+            pUtil.printAlignment(1);
+            pUtil.printText("支付宝支付");
+            pUtil.printLine();
+            pUtil.printBitmap(alipay);
+
+            pUtil.printLine();
+
+            pUtil.printAlignment(1);
+            pUtil.printText("微信支付");
+            pUtil.printLine();
+            pUtil.printBitmap(wechat);
+
+
 
             pUtil.printLine(4);
 
