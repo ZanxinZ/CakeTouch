@@ -35,7 +35,11 @@ The technology include:
 
 - SQLite 操作。
 - DialogFragment 继承。
-- Android xml 编写。
+- Android XML 编写。
+
+应用框架：
+
+![应用框架](./pic/CakeTouchFrame.jpg)
 
 快照:
 
