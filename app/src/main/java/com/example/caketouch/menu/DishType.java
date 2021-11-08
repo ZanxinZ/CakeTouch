@@ -43,7 +43,7 @@ public enum  DishType {
                         case fry:
                                 return"炸";
                         case drink:
-                                return"饮料";
+                                return"饮品";
                 }
                 return "空";
         }

@@ -22,7 +22,11 @@ import android.widget.Toast;
 import com.example.caketouch.R;
 import com.example.caketouch.menu.Dish;
 import com.example.caketouch.menu.DishType;
+import com.example.caketouch.menu.DishUnit;
 
+/**
+ * The fragment to order new food and add to a table.
+ */
 @SuppressLint("ValidFragment")
 public class AddStuffDialogFragment extends DialogFragment {
     Dish dish;
@@ -115,20 +119,20 @@ public class AddStuffDialogFragment extends DialogFragment {
         TextView stuffChoosePrice = view.findViewById(R.id.textViewStuffChosenPrice);
         normalChoose.setBackground(getResources().getDrawable(R.drawable.chosen_btn));
         priceChoose = dish.getPrice();//default
-        stuffChoosePrice.setText(String.valueOf(priceChoose));
+        stuffChoosePrice.setText(priceChoose + "/" +DishUnit.getUnitStr(dish.getUnit()));
 
         normalChoose.setOnClickListener(v -> {
             smallChoose.setBackground(getResources().getDrawable(R.drawable.choose_btn));
             normalChoose.setBackground(getResources().getDrawable(R.drawable.chosen_btn));
             priceChoose = dish.getPrice();
-            stuffChoosePrice.setText(String.valueOf(priceChoose));
+            stuffChoosePrice.setText(priceChoose + "/" +DishUnit.getUnitStr(dish.getUnit()));
         });
 
         smallChoose.setOnClickListener(v->{
             smallChoose.setBackground(getResources().getDrawable(R.drawable.chosen_btn));
             normalChoose.setBackground(getResources().getDrawable(R.drawable.choose_btn));
             priceChoose = dish.getSmallPrice();
-            stuffChoosePrice.setText(String.valueOf(priceChoose));
+            stuffChoosePrice.setText(priceChoose + "/" +DishUnit.getUnitStr(dish.getUnit()));
         });
 
         //only has one price or is drink.

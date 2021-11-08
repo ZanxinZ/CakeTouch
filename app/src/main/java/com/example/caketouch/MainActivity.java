@@ -133,7 +133,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         saveOrderBtn.setOnClickListener(v->{
 
             if (chooseTableBtn == null){
-                Toast.makeText(MainActivity.this, "选择桌子之后再保存。", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "选择桌子之后再打印。", Toast.LENGTH_SHORT).show();
                 return;
             }
             int tableNo = chooseTableBtn.getId();
