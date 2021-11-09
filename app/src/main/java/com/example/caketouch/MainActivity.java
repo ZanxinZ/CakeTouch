@@ -58,8 +58,10 @@ import java.util.TreeMap;
 
 public class MainActivity extends Activity implements AddTableDialogFragment.NoticeDialogListener, AddStuffDialogFragment.NoticeDialogListener{
     private int tableCount = 0;
-    private static String blue = "#47A5EC";
+    private static String blue = "#4795EC";
     private static String light_blue = "#D3ECFA";
+    private static String table_text_color = "#FF000000";
+    private static String table_text_color_chosen = "#FFFFFFFF";
     private LinearLayout tables_layout = null;
 
     public static WeakReference<Context> sContextReference;
@@ -276,6 +278,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         button.setText(button.getId() + " 号位" + dialog.peopleCount + "人");
         button.setGravity(Gravity.CENTER);
         button.setTextSize(autoDp(6));
+        button.setTextColor(Color.parseColor(table_text_color));
         button.setBackgroundColor(Color.parseColor(light_blue));
         tables_layout.addView(button);
         tableCount++;
@@ -290,7 +293,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         ScrollView scrollView = findViewById(R.id.tableScroll);
         scrollToBottom(scrollView, tables_layout);
 
-
+        orderDataBaseHandler.storeTable(table,table.getTableNo());
 
         Log.d("添加桌位", "成功!");
         Toast.makeText(MainActivity.this, "添加桌位：成功！< " + button.getText() + " >" , Toast.LENGTH_LONG).show();
@@ -332,6 +335,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         button.setText(button.getId() + " 号位" + tables.get(tableNum).getPeople() + "人");
         button.setGravity(Gravity.CENTER);
         button.setTextSize(autoDp(6));
+        button.setTextColor(Color.parseColor(table_text_color));
         button.setBackgroundColor(Color.parseColor(light_blue));
         tables_layout.addView(button);
         bindTableBtn(button, tableNo);
@@ -347,10 +351,12 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
                 chooseTableBtn.setBackgroundColor(Color.parseColor(light_blue));
                 chooseTableBtn.setGravity(Gravity.CENTER);
                 chooseTableBtn.setTextSize(autoDp(6));
+                chooseTableBtn.setTextColor(Color.parseColor(table_text_color));
             }
             button.setBackgroundColor(Color.parseColor(blue));
             //button.setGravity(Gravity.RIGHT);
             button.setTextSize(autoDp(8));
+            button.setTextColor(Color.parseColor(table_text_color_chosen));
             chooseTableBtn = button;
 
             //button.setGravity(Gravity.CENTER);
@@ -427,6 +433,7 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             chooseTableBtn.setBackgroundColor(Color.parseColor(light_blue));
             chooseTableBtn.setGravity(Gravity.CENTER);
             chooseTableBtn.setTextSize(autoDp(6));
+            chooseTableBtn.setTextColor(Color.parseColor(table_text_color));
             chooseTableBtn = null;
         }
         LinearLayout linearLayout = findViewById(R.id.view_dishes_for_order);

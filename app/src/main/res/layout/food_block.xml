@@ -54,6 +54,7 @@
             android:layout_height="24dp"
             android:layout_weight="1"
             android:text="@string/serve_food"
+            android:textColor="#F3EDF8"
             android:background="@drawable/button_background"
             android:layout_gravity="center"/>
 
