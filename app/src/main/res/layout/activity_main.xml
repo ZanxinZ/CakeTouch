@@ -11,64 +11,70 @@
         android:background="@color/white">
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:orientation="vertical"
-            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/touchAddTable"
+            android:background="@drawable/main_touch_bar_background"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Hello">
-
-            </TextView>
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/table_icon"
+                android:layout_gravity="center">
+            </ImageView>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/touchCheckOrder"
+            android:background="@drawable/main_touch_bar_background"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Hello">
-
-            </TextView>
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/menu_icon"
+                android:layout_gravity="center">
+            </ImageView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/touchCheckDrink"
+            android:background="@drawable/main_touch_bar_background"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Hello">
-
-            </TextView>
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/drink_icon"
+                android:layout_gravity="center">
+            </ImageView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:orientation="vertical"
-            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/touchSetting"
+            android:background="@drawable/main_touch_bar_background"
+            
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/setting_icon"
                 android:layout_gravity="center"
-                android:text="Hello">
-
-            </TextView>
+                >
+            </ImageView>
         </LinearLayout>
     </LinearLayout>
 
