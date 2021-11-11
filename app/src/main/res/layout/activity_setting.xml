@@ -42,8 +42,13 @@
             android:layout_margin="20dp"
             android:layout_weight="1"
             android:background="@drawable/button_background"
+            android:shadowColor="#616160"
+            android:shadowDx="2"
+            android:shadowRadius="2"
             android:text="@string/add_new_dish"
+            android:textColor="@color/white"
             android:textSize="25sp" />
+
         <Button
             android:id="@+id/buttonShowDish"
             android:layout_width="220dp"
@@ -51,7 +56,11 @@
             android:layout_margin="20dp"
             android:layout_weight="1"
             android:background="@drawable/button_background"
+            android:shadowColor="#616060"
+            android:shadowDx="2"
+            android:shadowRadius="2"
             android:text="@string/show_dish"
+            android:textColor="@color/white"
             android:textSize="25sp" />
 
     </LinearLayout>

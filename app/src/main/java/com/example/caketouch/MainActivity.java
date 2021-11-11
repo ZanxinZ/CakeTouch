@@ -102,8 +102,6 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         dishDatabaseHandler.loadAllDish();
 
 
-
-
         ImageView touchAddTable = findViewById(R.id.touchAddTable);
         touchAddTable.setOnClickListener((v) -> {
             Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.main_bar_background_touch);
@@ -140,10 +138,10 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
             Intent intent = new Intent("com.example.caketouch.SettingActivity");
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, touchSetting, "Setting").toBundle());
         });
-
-        Button saveOrderBtn = findViewById(R.id.buttonSaveOrder);
-        saveOrderBtn.setOnClickListener(v->{
-
+        ImageView printerImageView = findViewById(R.id.imageViewPrinter);
+        printerImageView.setOnClickListener(v->{
+            Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.printer_touch);
+            printerImageView.startAnimation(animation);
             if (chooseTableBtn == null){
                 Toast.makeText(MainActivity.this, "选择桌子之后再打印。", Toast.LENGTH_SHORT).show();
                 return;
