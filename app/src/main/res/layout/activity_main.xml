@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <!--菜单区-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -15,10 +17,12 @@
             android:layout_weight="0.5"
             android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/touchAddTable"
-            android:background="@drawable/main_touch_bar_background"
+
+            android:background="@drawable/main_bar_background"
+            android:animateLayoutChanges="true"
             >
             <ImageView
+                android:id="@+id/touchAddTable"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/table_icon"
@@ -32,10 +36,11 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/touchCheckOrder"
-            android:background="@drawable/main_touch_bar_background"
+            android:background="@drawable/main_bar_background"
             >
             <ImageView
+                android:id="@+id/touchCheckOrder"
+                android:transitionName="OrderedShow"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/menu_icon"
@@ -48,10 +53,11 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/touchCheckDrink"
-            android:background="@drawable/main_touch_bar_background"
+            android:background="@drawable/main_bar_background"
             >
             <ImageView
+                android:id="@+id/touchCheckDrink"
+                android:transitionName="DrinkShow"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/drink_icon"
@@ -64,11 +70,11 @@
             android:layout_weight="0.5"
             android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/touchSetting"
-            android:background="@drawable/main_touch_bar_background"
-            
+            android:background="@drawable/main_bar_background"
             >
             <ImageView
+                android:id="@+id/touchSetting"
+                android:transitionName = "Setting"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/setting_icon"
@@ -85,55 +91,9 @@
         android:background="@color/deep_gray">
 
     </LinearLayout>
-<!--菜单区-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/buttonAddTable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="0.5"
-            android:background="@drawable/button_background"
-            android:layout_gravity="center"
-            android:text="@string/new_table" />
 
-        <Button
-            android:id="@+id/buttonCheckOrder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:layout_gravity="center"
-            android:text="@string/check_ordered" />
-
-        <Button
-            android:id="@+id/buttonServeFood"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:layout_gravity="center"
-            android:text="@string/check_drink" />
-
-        <Button
-            android:id="@+id/buttonSetting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="0.2"
-            android:background="@drawable/button_background"
-            android:layout_gravity="center"
-            android:text="@string/setting" />
-
-    </LinearLayout>
-<!--显示区-->
+    <!--显示区-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

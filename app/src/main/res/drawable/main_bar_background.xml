@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true">
+    <item android:state_hovered="true">
         <shape>
             <gradient
                 android:startColor="#6AE4AA"
@@ -11,14 +11,6 @@
 
     </item>
 
-    <item android:state_focused="true">
-        <shape>
-            <gradient android:startColor="#D04E95ED"
-                android:endColor="#47A5EC"
-                android:angle="90" />
-        </shape>
-    </item>
-
     <item>
         <shape>
             <gradient android:startColor="#FFFFFF"
@@ -27,5 +19,6 @@
             <corners android:radius="0dp"/>
 
         </shape>
+
     </item>
 </selector>

@@ -7,6 +7,7 @@
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/button_print_ticket.xml" value="0.2658333333333333" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/dish_card_background.xml" value="0.17222222222222222" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/food_block_background.xml" value="0.17222222222222222" />
+        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/main_bar_background_touch.xml" value="0.26979166666666665" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/main_touch_bar_background.xml" value="0.234375" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/panel_background.xml" value="0.24666666666666667" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/stuff_small_block_background.xml" value="0.24666666666666667" />
@@ -18,7 +19,7 @@
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/drawable/table_small_block_select.xml" value="0.23916666666666667" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/activity_check_drink.xml" value="0.18423202614379086" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/activity_dish_show.xml" value="0.264" />
-        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/activity_main.xml" value="0.500485908649174" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/activity_new_dish.xml" value="0.264" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/activity_ordered_show.xml" value="0.2" />
         <entry key="..\:/codeData/android/CakeTouch/app/src/main/res/layout/activity_serve_stuff.xml" value="0.19852941176470587" />

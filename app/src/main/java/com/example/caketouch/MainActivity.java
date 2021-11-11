@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.bluetooth.BluetoothDevice;
@@ -14,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,9 +28,13 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -86,17 +92,10 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
         sContextReference = new WeakReference<>(this);
         initData();
     }
+    @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initData(){
 
-        Button addTableBtn = findViewById(R.id.buttonAddTable);
-
-        addTableBtn.setOnClickListener(v -> {
-            tableLossFocus();
-            DialogFragment dialogFragment = new AddTableDialogFragment(tables.keySet());
-            dialogFragment.show(getFragmentManager(),"AddTableDialogFragment");
-
-        });
 
         dishDatabaseHandler = new DishDatabaseHandler(this);
         orderDataBaseHandler= new OrderDataBaseHandler(this);
@@ -104,33 +103,44 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
 
 
-        if (!tmpDir.exists()){
-            Log.d("新建文件",tmpDir.getAbsolutePath());
-            Log.d("文件：",String.valueOf(tmpDir.mkdir()));;
-        }else{
-            Log.d("文件","已存在");
-        }
 
-        Button checkFoodBtn = findViewById(R.id.buttonCheckOrder);
-        checkFoodBtn.setOnClickListener(v -> {
+        ImageView touchAddTable = findViewById(R.id.touchAddTable);
+        touchAddTable.setOnClickListener((v) -> {
+            Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.main_bar_background_touch);
+            touchAddTable.startAnimation(animation);
+            tableLossFocus();
+            DialogFragment dialogFragment = new AddTableDialogFragment(tables.keySet());
+            dialogFragment.show(getFragmentManager(),"AddTableDialogFragment");
+        });
+
+        ImageView touchCheckOrder = findViewById(R.id.touchCheckOrder);
+        touchCheckOrder.setOnClickListener(v->{
+            Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.main_bar_background_touch);
+            touchCheckOrder.startAnimation(animation);
             tableLossFocus();
             Intent intent = new Intent("com.example.caketouch.OrderedShowActivity");
-            startActivity(intent);
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, touchCheckOrder, "OrderedShow").toBundle());
+//            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_in_left);
         });
 
-        Button serveFoodBtn = findViewById(R.id.buttonServeFood);
-        serveFoodBtn.setOnClickListener(v -> {
+        ImageView touchCheckDrink = findViewById(R.id.touchCheckDrink);
+        touchCheckDrink.setOnClickListener(v->{
+            Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.main_bar_background_touch);
+            touchCheckDrink.startAnimation(animation);
             tableLossFocus();
-            Intent intent = new Intent("com.example.caketouch.StuffServeActivity");
-            startActivity(intent);
+            Intent intent = new Intent("com.example.caketouch.DrinkCheckActivity");
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, touchCheckDrink,"DrinkShow").toBundle());
         });
 
-        Button settingBtn = findViewById(R.id.buttonSetting);
-        settingBtn.setOnClickListener((v)->{
+        ImageView touchSetting = findViewById(R.id.touchSetting);
+        touchSetting.setOnClickListener(v->{
+            Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.main_bar_setting_touch);
+            touchSetting.startAnimation(animation);
             tableLossFocus();
             Intent intent = new Intent("com.example.caketouch.SettingActivity");
-            startActivity(intent);
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, touchSetting, "Setting").toBundle());
         });
+
         Button saveOrderBtn = findViewById(R.id.buttonSaveOrder);
         saveOrderBtn.setOnClickListener(v->{
 
