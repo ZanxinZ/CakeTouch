@@ -77,7 +77,6 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
 
     public Button chooseTableBtn = null;
 
-
     File tmpDir = new File(Environment.getExternalStorageDirectory() + "/mealPic" );
 
     private DishDatabaseHandler dishDatabaseHandler;
@@ -95,12 +94,9 @@ public class MainActivity extends Activity implements AddTableDialogFragment.Not
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initData(){
-
-
         dishDatabaseHandler = new DishDatabaseHandler(this);
         orderDataBaseHandler= new OrderDataBaseHandler(this);
-        dishDatabaseHandler.loadAllDish();
-
+        dishDatabaseHandler.reloadAllDish();
 
         ImageView touchAddTable = findViewById(R.id.touchAddTable);
         touchAddTable.setOnClickListener((v) -> {

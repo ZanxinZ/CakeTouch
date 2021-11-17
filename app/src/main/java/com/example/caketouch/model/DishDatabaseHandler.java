@@ -69,6 +69,7 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return null;
     }
+
     public void storeDish(Dish dish){
         try{
             SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -115,15 +116,12 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
             return null;
         }
 
-//        int nameColumnIndex = cursor.getColumnIndex("imageName");
-//        String strImageName = cursor.getString(nameColumnIndex);
-
+        //int nameColumnIndex = cursor.getColumnIndex("imageName");
+        //String strImageName = cursor.getString(nameColumnIndex);
         //int imageColumnIndex = cursor.getColumnIndex("image");
         //ByteArrayInputStream imageStream = new ByteArrayInputStream();
         //byte[] imageInByte = cursor.getBlob(imageColumnIndex);
         //Bitmap image = BitmapFactory.decodeByteArray(imageInByte, 0 ,imageInByte.length);
-
-
 
         Dish dish = null;
         if (cursor.moveToNext()){
@@ -151,7 +149,7 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<Dish> loadAllDish(){
+    public ArrayList<Dish> reloadAllDish(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.query("menus", null, null, null,null,null,null);
         Log.d("加载所有Dish", String.valueOf(cursor.getCount()));
@@ -169,6 +167,7 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
         return dishes;
     }
 
+    // Global Menu cache
     private void addDishToMenu(Dish dish){
         switch (dish.getDishType()){
             case other:
@@ -213,7 +212,7 @@ public class DishDatabaseHandler extends SQLiteOpenHelper {
         Menu.drink.clear();
     }
 
-    public Dish byteToDish(byte[] data) {
+    public Dish byteToDish(byte[] data){
         try {
             ByteArrayInputStream bais = new ByteArrayInputStream(data);
             ObjectInputStream ois = new ObjectInputStream(bais);

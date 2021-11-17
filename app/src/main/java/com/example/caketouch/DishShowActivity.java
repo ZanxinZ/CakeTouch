@@ -1,5 +1,6 @@
 package com.example.caketouch;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.caketouch.fragment.DishDetailFragment;
 import com.example.caketouch.menu.Dish;
+import com.example.caketouch.menu.DishUnit;
 import com.example.caketouch.menu.Menu;
 import com.example.caketouch.model.DishDatabaseHandler;
 
@@ -24,15 +26,12 @@ import java.util.TreeMap;
 
 public class DishShowActivity extends Activity implements DishDetailFragment.NoticeDialogListener{
     //public static WeakReference<Context> context;
-    DishDatabaseHandler databaseHandler;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstateState){
         super.onCreate(savedInstateState);
-        databaseHandler = new DishDatabaseHandler(this.getBaseContext());
         //context = new WeakReference<Context>(this);
-        databaseHandler.loadAllDish();
         this.setContentView(R.layout.activity_dish_show);
 
         loadOther();
@@ -86,6 +85,7 @@ public class DishShowActivity extends Activity implements DishDetailFragment.Not
         constructView(Menu.drink,linearLayout);
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void constructView(TreeMap<Long,Dish> dishMap, LinearLayout linearLayout){
         int size = dishMap.size();
@@ -118,7 +118,7 @@ public class DishShowActivity extends Activity implements DishDetailFragment.Not
             cardView.addView(imageView);
 
             TextView textView = new TextView(this);
-            textView.setText(dish.getName());
+            textView.setText(dish.getName() + " " + (int)(dish.getPrice()) + "元/" + DishUnit.getUnitStr(dish.getUnit()));
             textView.setGravity(Gravity.CENTER);
 
             linearLayoutCard.addView(cardView);

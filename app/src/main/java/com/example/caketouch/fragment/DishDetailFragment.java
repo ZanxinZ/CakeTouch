@@ -98,6 +98,7 @@ public class DishDetailFragment extends DialogFragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             databaseHandler.deleteDish(dish.getDishNo());
+                            databaseHandler.reloadAllDish();
                             noticeDialogListener.onDialogPositiveClick(DishDetailFragment.this);
                         }
                     })
@@ -196,6 +197,7 @@ public class DishDetailFragment extends DialogFragment {
 
 
                 if (databaseHandler.updateDish(dishForUpdate)){
+                    this.databaseHandler.reloadAllDish();
                     updateDialog.dismiss();
                     Toast.makeText(activity, "菜品已更新！", Toast.LENGTH_SHORT).show();
                     activity.finish();
@@ -213,8 +215,6 @@ public class DishDetailFragment extends DialogFragment {
                 //curEditText.clearFocus();
                 return true;
             });
-
-
         });
 
         

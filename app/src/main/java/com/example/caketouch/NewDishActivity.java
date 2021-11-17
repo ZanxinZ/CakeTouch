@@ -145,6 +145,7 @@ public class NewDishActivity extends Activity {
             return false;
         }
         this.databaseHandler.storeDish(dish);
+        this.databaseHandler.reloadAllDish();
         return true;
 
     }
