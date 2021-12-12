@@ -141,7 +141,6 @@ public class DishShowActivity extends Activity implements DishDetailFragment.Not
     @Override
     public void onDialogPositiveClick(DishDetailFragment dialog) {
         Toast.makeText(this, "更新", Toast.LENGTH_SHORT).show();
-        //this.recreate();
         finish();
     }
 
